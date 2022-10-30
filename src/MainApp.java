@@ -23,7 +23,7 @@ public class MainApp {
             switch(choice){
                 case 1:
                     // Customer app
-                    System.out.println("CUstomer app");
+                    System.out.println("Customer app");
                     break;
                 case 2:
                     // Staff app
