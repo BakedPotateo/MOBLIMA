@@ -22,7 +22,7 @@ public class MovieController {
         return new ArrayList<Movie>();
     }
 
-    public void createNewMovie(String title, String movieType, String synopsis, int rating, String director, ArrayList<String> cast, double duration, LocalDate releaseDate, LocalDate endDate){
+    public void createNewMovie(String title, String movieType, String synopsis, String rating, String director, ArrayList<String> cast, double duration, LocalDate releaseDate, LocalDate endDate){
         Movie movie = new Movie(title, movieType, synopsis, rating, director, cast, duration, releaseDate, endDate);
         ArrayList<Movie> data = new ArrayList<Movie>();
         File myFile = new File(FILE);
