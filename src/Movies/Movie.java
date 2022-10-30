@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public class Movie implements Serializable{
+    private int id;
     private String title;
     private String showingStatus;
     private String movieType;
@@ -18,7 +19,8 @@ public class Movie implements Serializable{
     private LocalDate releaseDate;
     private LocalDate endDate;
 
-    public Movie(String title, String movieType, String synopsis, String rating, String director, ArrayList<String> cast, double duration, LocalDate releaseDate, LocalDate endDate) {
+    public Movie(int id, String title, String movieType, String synopsis, String rating, String director, ArrayList<String> cast, double duration, LocalDate releaseDate, LocalDate endDate) {
+        this.id = id;
         this.title = title;
         this.movieType = movieType;
         this.synopsis = synopsis;
@@ -29,6 +31,14 @@ public class Movie implements Serializable{
         this.releaseDate = releaseDate;
         this.endDate = endDate;
         this.reviews = new ArrayList<Review>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -141,7 +151,8 @@ public class Movie implements Serializable{
         if (reviews == "") reviews = "N/A";
 
         String movieDetails = "";
-        movieDetails += "Title: " + getTitle() + "\n"
+        movieDetails += "ID: " + getId() + "\n"
+                     +"Title: " + getTitle() + "\n"
                      + "Type: " + getMovieType() + "\n"
                      + "Status: " + getShowingStatus() + "\n"
                      + "Synopsis: " + getSynopsis() + "\n"
