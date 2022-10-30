@@ -21,8 +21,8 @@ public class MovieTest {
         // Movie movie = new Movie("A", "BlockBuster", "About your mother", 5, "Your Mother", myCast, 2.5, today, endDate);
         // movie.setReviews(myReviews);
         // System.out.println(movie.makeString());
-        Movies.MovieController movieController = new Movies.MovieController();
-        ArrayList<Movies.Movie> movieList = new ArrayList<Movies.Movie>();
+        MovieController movieController = new MovieController();
+        ArrayList<Movie> movieList = new ArrayList<Movie>();
         LocalDate today = LocalDate.now();
         Random random = new Random();
         LocalDate someOtherDay = today.plusDays(random.nextInt(30));
@@ -38,7 +38,7 @@ public class MovieTest {
         movieController.createNewMovie("Movie2", "BlockBuster", "This assignment very hard", 0, "Aloy", cast, 2.5, today, someOtherDay); 
         
         movieList = movieController.read();
-        for (Movies.Movie movie : movieList) {
+        for (Movie movie : movieList) {
             System.out.println(movie.makeString());
         }
     }
