@@ -77,6 +77,45 @@ public class StaffApp {
     // Private methods
 
     private void displayStaffLoggedIn(){
+        int choice = 0;
+        while(choice != 4){
+            System.out.println("----- MOBLIMA STAFF APP -----\n");
+            System.out.println(  " 1. Display top 5 movies\n" +
+                                 " 2. Configure movies\n" +
+                                 " 3. Configure system settings\n" +
+                                 " 4. Exit");
+            System.out.println("-----------------------------\n");
 
+            System.out.println(" Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+
+            switch(choice){
+                case 1:
+                    // Display top 5 movies
+                    System.out.println("Top 5 movies");
+                    break;
+                case 2:
+                    System.out.println("COnfigure movies (add movie etc.)");
+                    break;
+                case 3:
+                    System.out.println("COnfigure system settings (ticket prices etc.)");
+                    break;
+                case 4:
+                    System.out.println("Returning to main page...\n");
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-4.");
+                    break;
+            }
+        }
     }
 }
