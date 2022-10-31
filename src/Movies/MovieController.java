@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import utils.ProjectRootPathFinder;
+
 public class MovieController {
 
-    public final static String FILE = "C:/Users/User/SC2002 Project/SC2002-Project-MOBLIMA/Database/movies.txt";
-
-
-
+    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/SC2002-Project-MOBLIMA/Database/movies.txt";
 
     @SuppressWarnings("unchecked")
     public ArrayList<Movie> read() {
