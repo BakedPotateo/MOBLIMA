@@ -1,7 +1,6 @@
 package Staff;
 
 import java.util.Scanner;
-
 public class StaffApp {
     private Scanner sc = new Scanner(System.in);
 
@@ -104,10 +103,10 @@ public class StaffApp {
                     System.out.println("Top 5 movies");
                     break;
                 case 2:
-                    System.out.println("COnfigure movies (add movie etc.)");
+                    System.out.println("Configure movies (add movie etc.)");
                     break;
                 case 3:
-                    System.out.println("COnfigure system settings (ticket prices etc.)");
+                    System.out.println("Configure system settings (ticket prices etc.)");
                     break;
                 case 4:
                     System.out.println("Returning to main page...\n");
