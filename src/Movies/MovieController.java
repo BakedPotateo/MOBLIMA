@@ -73,7 +73,7 @@ public class MovieController {
         data = read();
         for (int i=0; i<data.size(); i++) {
             if (data.get(i).getId() == id) {
-                Movie m = data.get(i);
+                // Movie m = data.get(i);
                 data.remove(i);
                 // System.out.println("MOVIE REMOVED: " + m.getTitle() + " (ID: " + m.getId() + ")"); 
                 break;
