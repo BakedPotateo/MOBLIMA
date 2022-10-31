@@ -18,6 +18,7 @@ public class Movie implements Serializable{
     private double duration;
     private LocalDate releaseDate;
     private LocalDate endDate;
+    private int sales = 0;
 
     public Movie(int id, String title, String movieType, String synopsis, String rating, String director, ArrayList<String> cast, double duration, LocalDate releaseDate, LocalDate endDate) {
         this.id = id;
@@ -134,6 +135,14 @@ public class Movie implements Serializable{
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
     }
 
     public String makeString() {
