@@ -138,5 +138,21 @@ public class MovieController {
         
         // System.out.println("Review added!");
     }
+
+    public double getAverageStarRating(int id) {
+        double averageStarRating = 0;
+        double size = 0;
+        Movie movie = searchById(id);
+        if (movie.getReviews() != null) {
+            ArrayList<Review> reviews = new ArrayList<Review>();
+            reviews = movie.getReviews();
+            for (Review review : reviews) {
+                averageStarRating += review.getNumberOfStars();
+                size++;
+            }
+        }
+        averageStarRating /= size;
+        return averageStarRating;
+    }
 }
 
