@@ -121,11 +121,9 @@ public class MovieController {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
         Movie movie = searchById(id);
-        ArrayList<Review> currentReviews = movie.getReviews();
+        data.remove(movie);
         Review newReview = new Review(username, noOfStars, comments);
-        currentReviews.add(newReview);
-        movie.setReviews(currentReviews);
-        removeMovieById(id);
+        movie.addReview(newReview);
 
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
@@ -134,10 +132,22 @@ public class MovieController {
             output.flush();
             output.close();
         } catch (IOException e) {}
-        
-        
-        // System.out.println("Review added!");
     }
+
+    // public void readReviewMovieUsingId(int id) {
+    //     Movie movie = searchById(id);
+    //     ArrayList<Review> currentReviews = movie.getReviews();
+    //     System.out.println("Reviews for " + movie.getTitle() + ":");
+
+    //     if (currentReviews.size() == 0) 
+    //         System.out.println("NA");
+    //     else {
+    //         for (Review review : currentReviews) {
+    //             review.makeString();
+    //             System.out.println();
+    //         }
+    //     }
+    // }
 
     public double getAverageStarRating(int id) {
         double averageStarRating = 0;
