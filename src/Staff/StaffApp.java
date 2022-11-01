@@ -1,6 +1,7 @@
 package Staff;
 
 import java.util.Scanner;
+import Managers.StaffManager;
 public class StaffApp {
     private Scanner sc = new Scanner(System.in);
 
@@ -58,9 +59,30 @@ public class StaffApp {
                     /*
                      * Fill in code for user credentials here
                      */
-                    System.out.println("Login");
+
+                    System.out.println("Enter Username: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String username = sc.nextLine();
+                    System.out.println("Enter Password: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String password = sc.nextLine();
                     displayStaffLoggedIn();
-                    LoggedIn = true;
+                    boolean auth = StaffManager.getInstance().login(username, password);
+
+                    if(auth){
+                        LoggedIn = true;
+                        this.displayStaffLoggedIn();
+                        exit = true;
+                    }
+                    else {
+                        System.out.println("Invalid Username or Password, please try again.");
+                    }
                     break;
                 case 2:
                     System.out.println("Returning to main page...\n");
