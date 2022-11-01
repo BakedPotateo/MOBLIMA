@@ -77,9 +77,6 @@ public class StaffApp {
                     }
                     String password = sc.nextLine();
 
-                    System.out.println("Username: " + username);
-                    System.out.println("Password: " + password);
-
                     boolean auth = StaffManager.getInstance().login(username, password);
 
                     if(auth){
