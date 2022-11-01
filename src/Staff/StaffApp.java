@@ -41,7 +41,7 @@ public class StaffApp {
             System.out.println(" 1. Login\n 2. Exit\n");
             System.out.println("-------------------------\n");
 
-            System.out.println(" Please enter your choice:");
+            System.out.println("Please enter your choice:");
 
             /*
              * Check if input is an integer
@@ -52,6 +52,8 @@ public class StaffApp {
             }
 
             choice = sc.nextInt();
+            sc.nextLine();
+
             switch(choice){
                 case 1:
                     // Login
@@ -61,18 +63,23 @@ public class StaffApp {
                      */
 
                     System.out.println("Enter Username: ");
+                    
                     while (!sc.hasNext()) {
                         System.out.println("Invalid input type. Please try again!");
                         sc.next(); // Remove newline character
                     }
                     String username = sc.nextLine();
                     System.out.println("Enter Password: ");
+
                     while (!sc.hasNext()) {
                         System.out.println("Invalid input type. Please try again!");
                         sc.next(); // Remove newline character
                     }
                     String password = sc.nextLine();
-                    displayStaffLoggedIn();
+
+                    System.out.println("Username: " + username);
+                    System.out.println("Password: " + password);
+
                     boolean auth = StaffManager.getInstance().login(username, password);
 
                     if(auth){
@@ -107,7 +114,7 @@ public class StaffApp {
                                  " 4. Exit");
             System.out.println("-----------------------------\n");
 
-            System.out.println(" Please enter your choice:");
+            System.out.println("Please enter your choice:");
 
             /*
              * Check if input is an integer

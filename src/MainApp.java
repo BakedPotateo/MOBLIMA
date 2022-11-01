@@ -1,5 +1,5 @@
 import java.util.*;
-
+import Staff.StaffApp;
 public class MainApp {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -28,6 +28,7 @@ public class MainApp {
                 case 2:
                     // Staff app
                     System.out.println("Staff app");
+                    StaffApp.getInstance().displayStaffLogin();
                     break;
                 case 3:
                     System.out.println("Thank you for using MOBLIMA!");

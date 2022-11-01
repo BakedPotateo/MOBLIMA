@@ -40,12 +40,12 @@ public class StaffManager {
 
     public boolean login(String username, String password){
         try{
-            String filepath = ProjectRootPathFinder.findProjectRootPath() + "/Database/Staff/StaffAccounts.csv";
+            String filepath = ProjectRootPathFinder.findProjectRootPath() + "/SC2002-Project-MOBLIMA/Database/Staff/StaffAccounts.csv";
             BufferedReader br = new BufferedReader(new FileReader(filepath));
             String StaffAccountLine;
             while((StaffAccountLine = br.readLine()) != null){
                 String[] lineValues = StaffAccountLine.split(",");
-                if(lineValues[0] == username && lineValues[1] == password){
+                if(lineValues[0].equals(username) && lineValues[1].equals(password)){
                     br.close();
                     return true;
                 }
@@ -58,7 +58,7 @@ public class StaffManager {
 			System.exit( 0 );
 		} 
         
-        catch ( IOException e ) {
+        catch (IOException e) {
 			System.out.println( "IO Error!" + e.getMessage() );
 			e.printStackTrace();
 			System.exit( 0 );
