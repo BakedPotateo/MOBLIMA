@@ -12,7 +12,7 @@ import utils.ProjectRootPathFinder;
 
 public class MovieController {
 
-    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/SC2002-Project-MOBLIMA/Database/Movies/movies.txt";
+    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Movies/movies.txt";
 
     @SuppressWarnings("unchecked")
     public ArrayList<Movie> read() {
