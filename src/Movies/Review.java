@@ -38,9 +38,9 @@ public class Review implements Serializable{
 
     public String makeString() {
         String myString = "";
-        myString += "\t-Username: " + getUsername() + "\n" 
-        + "\t Star Rating: " + String.valueOf(getNumberOfStars()) + "\n"
-        + "\t Comments: " + getComments();
+        myString += "\tUsername: " + getUsername() + "\n" 
+        + "\tStar Rating: " + String.valueOf(getNumberOfStars()) + "\n"
+        + "\tComments: " + getComments();
         return myString;
     }
 }

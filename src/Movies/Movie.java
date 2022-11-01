@@ -96,6 +96,10 @@ public class Movie implements Serializable{
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
     }
+    
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
 
     public String getDirector() {
         return director;

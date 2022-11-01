@@ -39,6 +39,7 @@ public class MovieController {
             output.flush();
             output.close();
         } catch (IOException e) {}
+        // gotta make sure conflicting IDs don't happen TODO
     }
 
     public Movie searchById(int id) {
@@ -121,11 +122,9 @@ public class MovieController {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
         Movie movie = searchById(id);
-        ArrayList<Review> currentReviews = movie.getReviews();
+        data.remove(movie);
         Review newReview = new Review(username, noOfStars, comments);
-        currentReviews.add(newReview);
-        movie.setReviews(currentReviews);
-        removeMovieById(id);
+        movie.addReview(newReview);
 
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
@@ -134,9 +133,39 @@ public class MovieController {
             output.flush();
             output.close();
         } catch (IOException e) {}
-        
-        
-        // System.out.println("Review added!");
+        removeMovieById(id);
+    }
+
+    public double getAverageStarRating(int id) {
+        double averageStarRating = 0;
+        double size = 0;
+        Movie movie = searchById(id);
+        if (movie.getReviews() != null) {
+            ArrayList<Review> reviews = new ArrayList<Review>();
+            reviews = movie.getReviews();
+            for (Review review : reviews) {
+                averageStarRating += review.getNumberOfStars();
+                size++;
+            }
+        }
+        averageStarRating /= size;
+        return averageStarRating;
+    }
+
+    public ArrayList<Movie> searchByMovieType(String movieType) {
+        ArrayList<Movie> data = new ArrayList<Movie>();
+        data = read();
+        ArrayList<Movie> typeList = new ArrayList<Movie>();
+
+        for (int i=0; i<data.size(); i++) {
+            Movie m = data.get(i);
+            if (m.getMovieType().equalsIgnoreCase(movieType))
+                typeList.add(m);
+        }
+        if (typeList.size() == 0) 
+            System.out.println("Movies of this type does not exist");
+        return typeList;
+
     }
 }
 

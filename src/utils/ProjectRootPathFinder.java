@@ -13,7 +13,6 @@ public class ProjectRootPathFinder {
 			// Access root folder
 			String rootFolderName = "Project";			
 			File file = new File(".");
-			
 			if (file.getCanonicalFile().getName().equals(rootFolderName) == true) {
 				return file.getCanonicalPath();
 			} else {
