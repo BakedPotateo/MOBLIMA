@@ -35,8 +35,7 @@ public class MovieTest {
         // cast.add("Cast4Person2");
         // movieController.createNewMovie(4, "People in Paris", "Hood Classic", "Some people of color visiting Paris", "NC16", "Kanye East", cast, 3.0, somePastDay.minusDays(10), somePastDay);
         
-        movieController.addReviewMovieUsingId(4, "Kanye North", 5, "TesttestTest");
-        movieController.removeMovieById(4);
+        movieController.addReviewMovieUsingId(4, "Kanye South", 5, "TesttestTestTest");
         movieList = movieController.read();
         for (Movie movie : movieList) {
             System.out.println(movie.makeString());

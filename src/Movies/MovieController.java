@@ -132,6 +132,7 @@ public class MovieController {
             output.flush();
             output.close();
         } catch (IOException e) {}
+        removeMovieById(id);
     }
 
     // public void readReviewMovieUsingId(int id) {
