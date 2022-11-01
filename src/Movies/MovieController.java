@@ -39,6 +39,7 @@ public class MovieController {
             output.flush();
             output.close();
         } catch (IOException e) {}
+        // gotta make sure conflicting IDs don't happen TODO
     }
 
     public Movie searchById(int id) {
@@ -135,21 +136,6 @@ public class MovieController {
         removeMovieById(id);
     }
 
-    // public void readReviewMovieUsingId(int id) {
-    //     Movie movie = searchById(id);
-    //     ArrayList<Review> currentReviews = movie.getReviews();
-    //     System.out.println("Reviews for " + movie.getTitle() + ":");
-
-    //     if (currentReviews.size() == 0) 
-    //         System.out.println("NA");
-    //     else {
-    //         for (Review review : currentReviews) {
-    //             review.makeString();
-    //             System.out.println();
-    //         }
-    //     }
-    // }
-
     public double getAverageStarRating(int id) {
         double averageStarRating = 0;
         double size = 0;
@@ -164,6 +150,22 @@ public class MovieController {
         }
         averageStarRating /= size;
         return averageStarRating;
+    }
+
+    public ArrayList<Movie> searchByMovieType(String movieType) {
+        ArrayList<Movie> data = new ArrayList<Movie>();
+        data = read();
+        ArrayList<Movie> typeList = new ArrayList<Movie>();
+
+        for (int i=0; i<data.size(); i++) {
+            Movie m = data.get(i);
+            if (m.getMovieType().equalsIgnoreCase(movieType))
+                typeList.add(m);
+        }
+        if (typeList.size() == 0) 
+            System.out.println("Movies of this type does not exist");
+        return typeList;
+
     }
 }
 

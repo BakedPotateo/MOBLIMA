@@ -35,11 +35,25 @@ public class MovieTest {
         // cast.add("Cast4Person2");
         // movieController.createNewMovie(4, "People in Paris", "Hood Classic", "Some people of color visiting Paris", "NC16", "Kanye East", cast, 3.0, somePastDay.minusDays(10), somePastDay);
         
-        movieController.addReviewMovieUsingId(4, "Kanye South", 5, "TesttestTestTest");
+        // movieController.addReviewMovieUsingId(4, "Aloy", 3, "blahblahblah");
+
+        // cast.add("Cast5Person1");
+        // cast.add("Cast5Person2");
+        // movieController.createNewMovie(1, "Movie5", "3D", "Beefing with Liang Tian", "R21", "Clement Liang Tian", cast, 1, today, someOtherDay);
+
         movieList = movieController.read();
         for (Movie movie : movieList) {
             System.out.println(movie.makeString());
         }
+
+        // System.out.println("===========================Searching for 3D movies==========================");
+
+        // ArrayList<Movie> typeList = movieController.searchByMovieType("3D");
+        // for (Movie movie : typeList) {
+        //     System.out.println(movie.makeString());
+        // }
+
+        // System.out.println(movieController.getAverageStarRating(4));
 
         // movieController.readReviewMovieUsingId(4);
 
