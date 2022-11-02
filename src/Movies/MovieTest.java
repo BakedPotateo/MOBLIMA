@@ -11,9 +11,9 @@ public class MovieTest {
         ArrayList<Movie> movieList = new ArrayList<Movie>();
         LocalDate today = LocalDate.now();
         Random random = new Random();
-        LocalDate someOtherDay = today.plusDays(random.nextInt(30));
-        LocalDate somePastDay = today.minusDays(random.nextInt(30));
-        ArrayList<String> cast = new ArrayList<String>();
+        // LocalDate someOtherDay = today.plusDays(random.nextInt(30));
+        // LocalDate somePastDay = today.minusDays(random.nextInt(30));
+        // ArrayList<String> cast = new ArrayList<String>();
         // cast.add("Cast1Person1");
         // cast.add("Cast1Person2");
         // MovieManager.getInstance().createNewMovie(1, "Movie1", "3D", "How to drop out of NTU", "R21", "Clement Liang Tian", cast, 6.9, today, someOtherDay);
