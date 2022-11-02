@@ -41,6 +41,7 @@ public class StaffManager {
     public boolean login(String username, String password){
         try{
             String filepath = ProjectRootPathFinder.findProjectRootPath() + "/Database/Staff/StaffAccounts.csv";
+            // System.out.println(filepath);
             BufferedReader br = new BufferedReader(new FileReader(filepath));
             String StaffAccountLine;
             while((StaffAccountLine = br.readLine()) != null){
