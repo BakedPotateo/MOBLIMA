@@ -1,18 +1,48 @@
-package Movies;
+package Managers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import Movies.Movie;
+import Movies.Review;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import utils.ProjectRootPathFinder;
 
-public class MovieController {
+public class MovieManager {
+
+     // Attributes
+
+    /*
+     * instance checks whether MovieManager has been instantiated before. Static variable is the same between objects of the same class.
+     */
+    public static MovieManager instance = null;
+
+    /*
+     * Empty class constructor
+     */
+    private MovieManager(){}
 
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Movies/movies.txt";
+    
+    // Public methods
+
+    /*
+     * getInstance checks if MovieManager has been instantiated before. 
+     * If no previous instance was created, it creates a new one, 
+     * else it will use the original instance.
+     */
+    public static MovieManager getInstance()
+    {
+        if (instance == null)
+            instance = new MovieManager(); // instance is a static variable
+        return instance;
+    }
 
     @SuppressWarnings("unchecked")
     public ArrayList<Movie> read() {

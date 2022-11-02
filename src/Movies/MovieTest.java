@@ -3,10 +3,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Managers.MovieManager;
+
 
 public class MovieTest {
     public static void main(String[] args) {
-        MovieController movieController = new MovieController();
         ArrayList<Movie> movieList = new ArrayList<Movie>();
         LocalDate today = LocalDate.now();
         Random random = new Random();
@@ -41,7 +42,7 @@ public class MovieTest {
         // cast.add("Cast5Person2");
         // movieController.createNewMovie(1, "Movie5", "3D", "Beefing with Liang Tian", "R21", "Clement Liang Tian", cast, 1, today, someOtherDay);
 
-        movieList = movieController.read();
+        movieList = MovieManager.getInstance().read();
         for (Movie movie : movieList) {
             System.out.println(movie.makeString());
         }
