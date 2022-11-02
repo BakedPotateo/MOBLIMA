@@ -62,6 +62,12 @@ public class MovieManager {
         if (myFile.exists()) 
             data = read();
 
+        Movie temp = searchById(id);
+        if (temp != null) {
+            System.out.println("Movie with conflicting ID already exists...");
+            return;
+        }
+
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
             data.add(movie);
@@ -69,7 +75,6 @@ public class MovieManager {
             output.flush();
             output.close();
         } catch (IOException e) {}
-        // gotta make sure conflicting IDs don't happen TODO
     }
 
     public Movie searchById(int id) {
@@ -81,7 +86,7 @@ public class MovieManager {
             if (m.getId() == id)
                 return m;
         }
-        System.out.println("Movie ID entered does not exist...\n");
+        // System.out.println("Movie ID entered does not exist...\n");
         return null;
     }
 

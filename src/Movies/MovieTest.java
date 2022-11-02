@@ -16,73 +16,36 @@ public class MovieTest {
         ArrayList<String> cast = new ArrayList<String>();
         // cast.add("Cast1Person1");
         // cast.add("Cast1Person2");
-        // movieController.createNewMovie(1, "Movie1", "3D", "How to drop out of NTU", "R21", "Clement Liang Tian", cast, 6.9, today, someOtherDay);
+        // MovieManager.getInstance().createNewMovie(1, "Movie1", "3D", "How to drop out of NTU", "R21", "Clement Liang Tian", cast, 6.9, today, someOtherDay);
         
         // someOtherDay = someOtherDay.plusDays(random.nextInt(30));
         // cast.clear();
         // cast.add("Cast2Person1");
         // cast.add("Cast2Person2");   
-        // movieController.createNewMovie(2, "Movie2", "BlockBuster", "This assignment very hard", "PG13", "Aloy", cast, 2.5, today, someOtherDay); 
+        // MovieManager.getInstance().createNewMovie(2, "Movie2", "BlockBuster", "This assignment very hard", "PG13", "Aloy", cast, 2.5, today, someOtherDay); 
         
         
         // someOtherDay = someOtherDay.plusDays(random.nextInt(30));
         // cast.clear();
         // cast.add("Cast3Person1");
         // cast.add("Cast3Person2");   
-        // movieController.createNewMovie(3, "Movie3", "Horror", "Life in NTU", "NC16", "Aloy", cast, 4, today, someOtherDay);
+        // MovieManager.getInstance().createNewMovie(3, "Movie3", "Horror", "Life in NTU", "NC16", "Aloy", cast, 4, today, someOtherDay);
         
         // cast.clear();
         // cast.add("Cast4Person1");
         // cast.add("Cast4Person2");
-        // movieController.createNewMovie(4, "People in Paris", "Hood Classic", "Some people of color visiting Paris", "NC16", "Kanye East", cast, 3.0, somePastDay.minusDays(10), somePastDay);
-        
-        // movieController.addReviewMovieUsingId(4, "Aloy", 3, "blahblahblah");
+        // MovieManager.getInstance().createNewMovie(4, "People in Paris", "Hood Classic", "Some people of color visiting Paris", "NC16", "Kanye East", cast, 3.0, somePastDay.minusDays(10), somePastDay);
 
-        // cast.add("Cast5Person1");
-        // cast.add("Cast5Person2");
-        // movieController.createNewMovie(1, "Movie5", "3D", "Beefing with Liang Tian", "R21", "Clement Liang Tian", cast, 1, today, someOtherDay);
+        // cast.add("Cast6Person1");
+        // cast.add("Cast6Person2");
+        // MovieManager.getInstance().createNewMovie(4, "SCSE", "Comedy", "", "R21", "Clement Liang Tian", cast, 1, today, someOtherDay);
 
+        // MovieManager.getInstance().addReviewMovieUsingId(4, "Kanye East", 5, "People In Paris Part 2");
         movieList = MovieManager.getInstance().read();
         for (Movie movie : movieList) {
             System.out.println(movie.makeString());
         }
 
-        // System.out.println("===========================Searching for 3D movies==========================");
-
-        // ArrayList<Movie> typeList = movieController.searchByMovieType("3D");
-        // for (Movie movie : typeList) {
-        //     System.out.println(movie.makeString());
-        // }
-
-        // System.out.println(movieController.getAverageStarRating(4));
-
-        // movieController.readReviewMovieUsingId(4);
-
-        // System.out.println("\n\n =======================Searching for People in Paris=======================");
-        // ArrayList<Movie> titleSearching = movieController.searchByTitle("people in paris");
-        // for (Movie movie : titleSearching) {
-        //     System.out.println(movie.makeString());
-        // }
-
-
-        // System.out.println("\n\n=================Searching for NC16 movies===============");
-
-        // ArrayList<Movie> nc16Movies = movieController.searchByRating("nc16");
-        // for (Movie movie : nc16Movies) {
-        //     System.out.println(movie.makeString());
-        // }
-
-
-        // ArrayList<Movie> availableMovies = movieController.getAvailableMovies();
-        // for (Movie movie : availableMovies) {
-        //     System.out.println(movie.makeString());
-        // }
-        // System.out.println("TESTING REMOVING MOVIE2");
-        // movieController.removeMovieById(2);
-        // movieList = movieController.read();
-        // for (Movie movie : movieList) {
-        //     System.out.println(movie.makeString());
-        // }
     }
 }
 
