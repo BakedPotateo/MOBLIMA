@@ -248,6 +248,9 @@ public class MovieManager {
                     break;
                 case 5:
                     break;
+                default:
+                    System.out.println("Please enter an integer between 1-5");
+                    break;
             }
         }
 
@@ -334,8 +337,137 @@ public class MovieManager {
                     break;
                 case 6:
                     break;
+                default:
+                    System.out.println("Please enter an integer between 1-6");
+                    break;
             }
         }
     }
+
+    public void editMovie(){
+        int choice = 0;
+        while(choice != 3){
+            System.out.println("----- EDIT MOVIE -----\n");
+            System.out.println(  " 1. Search by title\n" +
+                                 " 2. Search by ID\n" +
+                                 " 3. Exit\n");
+            System.out.println("-----------------------------\n");
+
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+
+            switch(choice){
+                case 1:
+                    this.editByTitle();
+                    break;
+                case 2:
+                    this.editByID();
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-3");
+                    break;
+            }
+        }
+    }
+
+    private void editByID() {
+        System.out.println("Please enter the movie ID:");
+
+        /*
+        * Check if input is an integer
+        */
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please enter an integer value.");
+            sc.next(); // remove newline
+        }
+        int ID = sc.nextInt();
+        Movie m = this.searchById(ID);
+
+        int choice = 0;
+        while(choice != 13){
+            System.out.println("--------- EDIT MOVIE ---------\n");
+            System.out.println(  "1.  Title\n"
+                                +"2.  Type\n"
+                                +"3.  Status\n"
+                                +"4.  Synopsis\n"
+                                +"5.  Rating\n"
+                                +"6.  Director\n"
+                                +"7.  Cast\n"
+                                +"8.  Duration\n"
+                                +"9.  Release Date\n"
+                                +"10. End Date\n"
+                                +"11. Reviews\n"
+                                +"12. Preview movie\n"
+                                +"13. Exit");
+            System.out.println("----------------------------\n");
+
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+
+            switch(choice){
+                case 1:
+                    System.out.println("Please enter the new title");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String newTitle = sc.nextLine();
+                    m.setTitle(newTitle);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-13");
+                    break;
+            }
+        }
+    }
+
+    private void editByTitle() {
+        
+    }
+
 }
 
