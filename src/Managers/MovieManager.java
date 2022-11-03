@@ -12,7 +12,6 @@ import Movies.Review;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.Identity;
 
 import utils.ProjectRootPathFinder;
 
@@ -113,7 +112,7 @@ public class MovieManager {
             if (data.get(i).getId() == id) {
                 // Movie m = data.get(i);
                 data.remove(i);
-                // System.out.println("MOVIE REMOVED: " + m.getTitle() + " (ID: " + m.getId() + ")"); 
+                // System.out.println("MOVIE REMOVED: " + m.getTitle() + " (ID: " + m.getId() + ")");
                 break;
             }
         }
@@ -213,7 +212,8 @@ public class MovieManager {
             System.out.println(  " 1. View movies\n" +
                                  " 2. Add movie\n" +
                                  " 3. Delete movie\n" +
-                                 " 4. Exit");
+                                 " 4. Edit movie\n" +
+                                 " 5. Exit");
             System.out.println("-----------------------------\n");
 
             System.out.println("Please enter your choice:");
@@ -233,20 +233,20 @@ public class MovieManager {
                     this.viewMovies();
                     break;
                 case 2:
+                    break;
+                case 3:
                     int movieID;
                     System.out.println("Please enter movie ID of movie to be deleted:");
-
                     while (!sc.hasNextInt()) {
                         System.out.println("Invalid input type. Please enter an integer value.");
                         sc.next(); // remove newline
                     }
                     movieID = sc.nextInt();
-                    sc.nextLine();
                     this.removeMovieById(movieID);
                     break;
-                case 3:
-                    break;
                 case 4:
+                    break;
+                case 5:
                     break;
             }
         }
