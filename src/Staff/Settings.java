@@ -1,6 +1,7 @@
 package Staff;
 
-public class Settings {
+
+public class Settings{
     // Attributes
 
     /*
@@ -26,6 +27,11 @@ public class Settings {
             instance = new Settings(); // instance is a static variable
         return instance;
     }
+
+    public void configTicketPrices(){}
+
+    public void configHolidays(){}
+
 
     
 }

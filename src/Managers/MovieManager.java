@@ -5,19 +5,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Movies.Movie;
 import Movies.Review;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.security.Identity;
 
 import utils.ProjectRootPathFinder;
 
 public class MovieManager {
 
-     // Attributes
+    // Attributes
 
+    private Scanner sc = new Scanner(System.in);
     /*
      * instance checks whether MovieManager has been instantiated before. Static variable is the same between objects of the same class.
      */
@@ -201,6 +204,138 @@ public class MovieManager {
             System.out.println("Movies of this type does not exist");
         return typeList;
 
+    }
+
+    public void MovieMenuStaff(){
+        int choice = 0;
+        while(choice != 4){
+            System.out.println("----- MOBLIMA STAFF APP -----\n");
+            System.out.println(  " 1. View movies\n" +
+                                 " 2. Add movie\n" +
+                                 " 3. Delete movie\n" +
+                                 " 4. Exit");
+            System.out.println("-----------------------------\n");
+
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+
+            switch(choice){
+                case 1:
+                    this.viewMovies();
+                    break;
+                case 2:
+                    int movieID;
+                    System.out.println("Please enter movie ID of movie to be deleted:");
+
+                    while (!sc.hasNextInt()) {
+                        System.out.println("Invalid input type. Please enter an integer value.");
+                        sc.next(); // remove newline
+                    }
+                    movieID = sc.nextInt();
+                    sc.nextLine();
+                    this.removeMovieById(movieID);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+        }
+
+    }
+
+    public void viewMovies(){
+        int choice = 0;
+        ArrayList<Movie> movieList = new ArrayList<Movie>();
+        while(choice != 6){
+            System.out.println("----- View Movies -----\n");
+            System.out.println(  " 1. View all movies\n" +
+                                 " 2. View movies by rating\n" +
+                                 " 3. View movies by type\n" +
+                                 " 4. Search by title\n" +
+                                 " 5. Search by ID\n" + 
+                                 " 6. Exit");
+            System.out.println("-----------------------------\n");
+
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice){
+                case 1:
+                    movieList = this.read();
+                    for (Movie movie : movieList) {
+                        System.out.println(movie.makeString());
+                    }
+                    break;
+                case 2:
+                    System.out.println("Please enter the rating:");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String rating = sc.nextLine();
+                    movieList = this.searchByRating(rating);
+                    for (Movie movie : movieList) {
+                        System.out.println(movie.makeString());
+                    }
+                    break;
+                case 3:
+                    System.out.println("Please enter the type:");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String type = sc.nextLine();
+                    movieList = this.searchByMovieType(type);
+                    for (Movie movie : movieList) {
+                        System.out.println(movie.makeString());
+                    }
+                    break;
+                case 4:
+                    System.out.println("Please enter the title:");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String titleString = sc.nextLine();;
+                    movieList = this.searchByTitle(titleString);
+                    for (Movie movie : movieList) {
+                        System.out.println(movie.makeString());
+                    }
+                    break;
+                case 5:
+                    System.out.println("Please enter the movie ID:");
+                    while (!sc.hasNextInt()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    int ID = sc.nextInt();
+                    Movie movie = this.searchById(ID);
+                    System.out.println(movie.makeString());
+                    break;
+                case 6:
+                    break;
+            }
+        }
     }
 }
 

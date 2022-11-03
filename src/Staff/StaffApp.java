@@ -1,6 +1,8 @@
 package Staff;
 
 import java.util.Scanner;
+
+import Managers.MovieManager;
 import Managers.StaffManager;
 public class StaffApp {
     private Scanner sc = new Scanner(System.in);
@@ -56,27 +58,20 @@ public class StaffApp {
 
             switch(choice){
                 case 1:
-                    // Login
-
-                    /*
-                     * Fill in code for user credentials here
-                     */
-
                     System.out.println("Enter Username: ");
-                    
                     while (!sc.hasNext()) {
                         System.out.println("Invalid input type. Please try again!");
                         sc.next(); // Remove newline character
                     }
                     String username = sc.nextLine();
-                    System.out.println("Enter Password: ");
 
+                    System.out.println("Enter Password: ");
                     while (!sc.hasNext()) {
                         System.out.println("Invalid input type. Please try again!");
                         sc.next(); // Remove newline character
                     }
                     String password = sc.nextLine();
-
+                    
                     boolean auth = StaffManager.getInstance().login(username, password);
 
                     if(auth){
@@ -130,6 +125,7 @@ public class StaffApp {
                     break;
                 case 2:
                     System.out.println("Configure movies (add movie etc.)");
+                    MovieManager.getInstance().MovieMenuStaff();
                     break;
                 case 3:
                     System.out.println("Configure system settings (ticket prices etc.)");
