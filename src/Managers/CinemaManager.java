@@ -5,9 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 import Cinema.*;
 import utils.ProjectRootPathFinder;
 
@@ -84,5 +82,34 @@ public class CinemaManager {
         cineplex.setName(newName);
         deleteCineplexByName(oldName);
         createCineplex(cineplex.getName(), cineplex.getCinemas());
+    }
+
+    public void createCinema(String cineplexName, String id, String classOfCinema, SeatingLayout layout) {
+        Cinema cinema = new Cinema(id, classOfCinema, layout);
+        ArrayList<Cineplex> data = read();
+        for (int i=0; i<data.size(); i++) {
+            Cineplex cineplex = data.get(i);
+            data.remove(i);
+            if (cineplex.getName().equalsIgnoreCase(cineplexName)) {
+                ArrayList<Cinema> cinemas = cineplex.getCinemas();
+                cinemas.add(cinema);
+                cineplex.setCinemas(cinemas);
+                createCineplex(cineplexName, cineplex.getCinemas());
+                break;
+            }
+        }
+        deleteCineplexByName(cineplexName);
+    }
+
+    public ArrayList<Cinema> readCinemas() {
+        ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
+        ArrayList<Cineplex> cineplexes = read();
+        
+        for (int i=0; i<cineplexes.size(); i++) {
+            Cineplex cineplex = cineplexes.get(i);
+            for (Cinema cinema : cineplex.getCinemas())
+                cinemas.add(cinema);
+        }
+        return cinemas;
     }
 }
