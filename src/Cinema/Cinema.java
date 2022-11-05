@@ -1,39 +1,44 @@
 package Cinema;
 
 public class Cinema {
+    private String id;
     private String classOfCinema;
-    private int numberOfRows;
-    private int numberOfColumns;
-    private int[][] occupiedSeats;
+    private SeatingLayout layout;
 
-    public Cinema(String classOfCinema, int numberOfRows, int numberOfColumns, int[][] occupiedSeats) {
+    public Cinema(String id, String classOfCinema, SeatingLayout layout) {
+        this.id = id;
         this.classOfCinema = classOfCinema;
-        this.numberOfRows = numberOfRows;
-        this.numberOfColumns = numberOfColumns;
-        this.occupiedSeats = occupiedSeats;
+        this.layout = layout;
     }
+    
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public SeatingLayout getLayout() {
+        return layout;
+    }
+
+    public void setLayout(SeatingLayout layout) {
+        this.layout = layout;
+    }
+
     public String getClassOfCinema() {
         return classOfCinema;
     }
     public void setClassOfCinema(String classOfCinema) {
         this.classOfCinema = classOfCinema;
     }
-    public int getNumberOfRows() {
-        return numberOfRows;
+
+    public String makeString() {
+        String cinemaDetails = "";
+        cinemaDetails += "Cinema ID: " + getId() + "\n"
+                 + "Cinema Type: " + getClassOfCinema() + "\n";
+        return cinemaDetails;
     }
-    public void setNumberOfRows(int numberOfRows) {
-        this.numberOfRows = numberOfRows;
-    }
-    public int getNumberOfColumns() {
-        return numberOfColumns;
-    }
-    public void setNumberOfColumns(int numberOfColumns) {
-        this.numberOfColumns = numberOfColumns;
-    }
-    public int[][] getOccupiedSeats() {
-        return occupiedSeats;
-    }
-    public void setOccupiedSeats(int[][] occupiedSeats) {
-        this.occupiedSeats = occupiedSeats;
-    }
+   
 }
