@@ -511,9 +511,26 @@ public class MovieManager {
                 // end date
                     break;
                 case 10:
-                    ArrayList<Review> newReviews = new ArrayList<Review>();
-                    // reviews
-                    m.setReviews(newReviews);
+                    System.out.println("Enter the username:");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String username = sc.nextLine();
+                    System.out.println("Enter the number of stars:");
+                    while (!sc.hasNextDouble()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    Double numberofstars = sc.nextDouble();
+                    System.out.println("Enter the comments:");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String comments = sc.nextLine();
+                    Review newReview = new Review(username, numberofstars, comments);
+                    m.addReview(newReview);
                     break;
                 case 11:
                     System.out.println(m.makeString());
@@ -544,7 +561,7 @@ public class MovieManager {
         ArrayList<Movie> movieList = this.searchByTitle(title);
         Movie m;
         if(movieList.size() > 1){
-            System.out.println("Please choose which movie to edit:");
+            System.out.println("Multiple titles detected. Please choose which movie to edit:");
             int i = 1;
             for(Movie movie : movieList){
                 System.out.println(i + ". " + movie.getTitle());
@@ -669,9 +686,26 @@ public class MovieManager {
                 // end date
                     break;
                 case 10:
-                    ArrayList<Review> newReviews = new ArrayList<Review>();
-                    // reviews
-                    m.setReviews(newReviews);
+                    System.out.println("Enter the username:");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String username = sc.nextLine();
+                    System.out.println("Enter the number of stars:");
+                    while (!sc.hasNextDouble()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    Double numberofstars = sc.nextDouble();
+                    System.out.println("Enter the comments:");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String comments = sc.nextLine();
+                    Review newReview = new Review(username, numberofstars, comments);
+                    m.addReview(newReview);
                     break;
                 case 11:
                     System.out.println(m.makeString());
