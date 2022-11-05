@@ -180,6 +180,5 @@ public class Movie implements Serializable{
         return movieDetails;
     }
 
-    
 }
 

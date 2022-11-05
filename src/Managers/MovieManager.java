@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,8 @@ import Movies.Review;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import utils.ProjectRootPathFinder;
 
@@ -230,13 +233,13 @@ public class MovieManager {
     public void MovieMenuStaff(){
         int choice = 0;
         while(choice != 4){
-            System.out.println("----- MOBLIMA STAFF APP -----\n");
-            System.out.println(  " 1. View movies\n" +
-                                 " 2. Add movie\n" +
-                                 " 3. Delete movie\n" +
-                                 " 4. Edit movie\n" +
-                                 " 5. Exit");
-            System.out.println("-----------------------------\n");
+            System.out.println("----- MOBLIMA STAFF APP -----\n"
+                              +" 1. View movies\n"
+                              +" 2. Add movie\n"
+                              +" 3. Delete movie\n"
+                              +" 4. Edit movie\n"
+                              +" 5. Exit\n"
+                              +"-----------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -267,6 +270,7 @@ public class MovieManager {
                     this.removeMovieById(movieID);
                     break;
                 case 4:
+                this.editMovie();
                     break;
                 case 5:
                     break;
@@ -282,14 +286,14 @@ public class MovieManager {
         int choice = 0;
         ArrayList<Movie> movieList = new ArrayList<Movie>();
         while(choice != 6){
-            System.out.println("----- View Movies -----\n");
-            System.out.println(  " 1. View all movies\n" +
-                                 " 2. View movies by rating\n" +
-                                 " 3. View movies by type\n" +
-                                 " 4. Search by title\n" +
-                                 " 5. Search by ID\n" + 
-                                 " 6. Exit");
-            System.out.println("-----------------------------\n");
+            System.out.println("-------- View Movies --------\n"
+                              +" 1. View all movies\n"
+                              +" 2. View movies by rating\n"
+                              +" 3. View movies by type\n"
+                              +" 4. Search by title\n"
+                              +" 5. Search by ID\n" 
+                              +" 6. Exit\n"
+                              +"-----------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -369,11 +373,11 @@ public class MovieManager {
     public void editMovie(){
         int choice = 0;
         while(choice != 3){
-            System.out.println("----- EDIT MOVIE -----\n");
-            System.out.println(  " 1. Search by title\n" +
-                                 " 2. Search by ID\n" +
-                                 " 3. Exit\n");
-            System.out.println("-----------------------------\n");
+            System.out.println("----- EDIT MOVIE -----\n"
+                              +" 1. Search by title\n"
+                              +" 2. Search by ID\n"
+                              +" 3. Exit\n"
+                              +"-----------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -415,23 +419,23 @@ public class MovieManager {
         }
         int ID = sc.nextInt();
         Movie m = this.searchById(ID);
-
+        System.out.println(m.makeString());
         int choice = 0;
         while(choice != 12){
-            System.out.println("--------- EDIT MOVIE ---------\n");
-            System.out.println(  "1.  Title\n"
-                                +"2.  Type\n"
-                                +"3.  Synopsis\n"
-                                +"4.  Rating\n"
-                                +"5.  Director\n"
-                                +"6.  Cast\n"
-                                +"7.  Duration\n"
-                                +"8.  Release Date\n"
-                                +"9.  End Date\n"
-                                +"10. Reviews\n"
-                                +"11. Preview movie\n"
-                                +"12. Save and exit");
-            System.out.println("----------------------------\n");
+            System.out.println("-------- EDIT MOVIE --------\n"
+                              +"1.  Edit Title\n"
+                              +"2.  Edit Type\n"
+                              +"3.  Edit Synopsis\n"
+                              +"4.  Edit Rating\n"
+                              +"5.  Edit Director\n"
+                              +"6.  Edit Cast\n"
+                              +"7.  Edit Duration\n"
+                              +"8.  Edit Release Date\n"
+                              +"9.  Edit End Date\n"
+                              +"10. Edit Reviews\n"
+                              +"11. Preview movie\n"
+                              +"12. Save and exit\n"
+                              +"----------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -493,7 +497,7 @@ public class MovieManager {
                     m.setDirector(newDirector);;
                     break;
                 case 6:
-                // cast
+                    m.setCast(this.editCast(m));
                     break;
                 case 7:
                     System.out.println("Please enter the new duration");
@@ -505,10 +509,38 @@ public class MovieManager {
                     m.setDuration(newDuration);
                     break;
                 case 8:
-                // release date
+                    String newReleaseDateString;
+                    while(true){
+                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
+                        while (!sc.hasNext()) {
+                            System.out.println("Invalid input type. Please try again!");
+                            sc.next(); // Remove newline character
+                        }
+                        newReleaseDateString = sc.nextLine();
+                        if(isValidDate(newReleaseDateString))
+                            break;
+                        else
+                            System.out.println("Invalid date format!");
+                    }
+                    LocalDate newReleaseDate = LocalDate.parse(newReleaseDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    m.setReleaseDate(newReleaseDate);
                     break;
                 case 9:
-                // end date
+                    String newEndDateString;
+                    while(true){
+                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
+                        while (!sc.hasNext()) {
+                            System.out.println("Invalid input type. Please try again!");
+                            sc.next(); // Remove newline character
+                        }
+                        newEndDateString = sc.nextLine();
+                        if(isValidDate(newEndDateString))
+                            break;
+                        else
+                            System.out.println("Invalid date format!");
+                    }
+                    LocalDate newEndDate = LocalDate.parse(newEndDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    m.setReleaseDate(newEndDate);
                     break;
                 case 10:
                     System.out.println("Enter the username:");
@@ -548,17 +580,25 @@ public class MovieManager {
     }
 
     private void editByTitle() {
-        System.out.println("Please enter the movie title:");
-
-        /*
-        * Check if input is an integer
-        */
-        while (!sc.hasNextInt()) {
-            System.out.println("Invalid input type. Please enter an integer value.");
-            sc.next(); // remove newline
+        ArrayList<Movie> movieList;
+        sc.nextLine();
+        while(true){
+            System.out.println("Please enter the movie title:");
+            /*
+            * Check if input is a string
+            */
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // remove newline
+            }
+            String title = sc.nextLine();
+            
+            movieList = this.searchByTitle(title);
+            if(movieList.size() != 0)
+                break;
+            else
+                continue;
         }
-        String title = sc.nextLine();
-        ArrayList<Movie> movieList = this.searchByTitle(title);
         Movie m;
         if(movieList.size() > 1){
             System.out.println("Multiple titles detected. Please choose which movie to edit:");
@@ -591,22 +631,24 @@ public class MovieManager {
         }
         else
             m = movieList.get(0);
+
+        System.out.println(m.makeString());
         int choice = 0;
         while(choice != 12){
-            System.out.println("--------- EDIT MOVIE ---------\n");
-            System.out.println(  "1.  Title\n"
-                                +"2.  Type\n"
-                                +"3.  Synopsis\n"
-                                +"4.  Rating\n"
-                                +"5.  Director\n"
-                                +"6.  Cast\n"
-                                +"7.  Duration\n"
-                                +"8.  Release Date\n"
-                                +"9.  End Date\n"
-                                +"10. Reviews\n"
-                                +"11. Preview movie\n"
-                                +"12. Save and exit");
-            System.out.println("----------------------------\n");
+            System.out.println("-------- EDIT MOVIE --------\n"
+                              +"1.  Edit Title\n"
+                              +"2.  Edit Type\n"
+                              +"3.  Edit Synopsis\n"
+                              +"4.  Edit Rating\n"
+                              +"5.  Edit Director\n"
+                              +"6.  Edit Cast\n"
+                              +"7.  Edit Duration\n"
+                              +"8.  Edit Release Date\n"
+                              +"9.  Edit End Date\n"
+                              +"10. Edit Reviews\n"
+                              +"11. Preview movie\n"
+                              +"12. Save and exit\n"
+                              +"----------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -668,11 +710,11 @@ public class MovieManager {
                     m.setDirector(newDirector);;
                     break;
                 case 6:
-                // cast
+                    m.setCast(this.editCast(m));
                     break;
                 case 7:
                     System.out.println("Please enter the new duration");
-                    while (!sc.hasNext()) {
+                    while (!sc.hasNextDouble()) {
                         System.out.println("Invalid input type. Please try again!");
                         sc.next(); // Remove newline character
                     }
@@ -680,10 +722,38 @@ public class MovieManager {
                     m.setDuration(newDuration);
                     break;
                 case 8:
-                // release date
+                    String newReleaseDateString;
+                    while(true){
+                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
+                        while (!sc.hasNext()) {
+                            System.out.println("Invalid input type. Please try again!");
+                            sc.next(); // Remove newline character
+                        }
+                        newReleaseDateString = sc.nextLine();
+                        if(isValidDate(newReleaseDateString))
+                            break;
+                        else
+                            System.out.println("Invalid date format!");
+                    }
+                    LocalDate newReleaseDate = LocalDate.parse(newReleaseDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    m.setReleaseDate(newReleaseDate);
                     break;
                 case 9:
-                // end date
+                    String newEndDateString;
+                    while(true){
+                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
+                        while (!sc.hasNext()) {
+                            System.out.println("Invalid input type. Please try again!");
+                            sc.next(); // Remove newline character
+                        }
+                        newEndDateString = sc.nextLine();
+                        if(isValidDate(newEndDateString))
+                            break;
+                        else
+                            System.out.println("Invalid date format!");
+                    }
+                    LocalDate newEndDate = LocalDate.parse(newEndDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    m.setReleaseDate(newEndDate);
                     break;
                 case 10:
                     System.out.println("Enter the username:");
@@ -722,5 +792,78 @@ public class MovieManager {
         this.createNewMovie(m);
     }
 
+    public boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<String> editCast(Movie movie){
+        ArrayList<String> Cast = movie.getCast();
+        System.out.println("--------- EDIT CAST ---------\n"
+                              +"1.  Add cast member\n"
+                              +"2.  Delete cast member\n"
+                              +"3.  Save\n"
+                              +"----------------------------");
+        System.out.println("Please enter your choice:");
+
+        /*
+        * Check if input is an integer
+        */
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please enter an integer value.");
+            sc.next(); // remove newline
+        }
+
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch(choice){
+            case 1:
+                System.out.println("Please enter the new cast member");
+                while (!sc.hasNext()) {
+                    System.out.println("Invalid input type. Please try again!");
+                    sc.next(); // Remove newline character
+                }
+                String newCastString = sc.nextLine();
+                Cast.add(newCastString);
+                movie.setCast(Cast);
+                break;
+            case 2:
+                boolean loop = true;
+                while(loop){
+                    System.out.println("Please enter the cast member to delete");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // Remove newline character
+                    }
+                    String castToDel = sc.nextLine();
+                    int i = 0;
+                    for(String cast : Cast){
+                        if(cast.equals(castToDel))
+                            break;
+                        else i++;
+                    }
+                    if (i < Cast.size()){
+                        Cast.remove(i);
+                        loop = false;
+                    }
+                    else
+                        System.out.println("Cast member not found");
+                }
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Please enter an integer between 1-3.");
+                break;
+        }
+        return Cast;
+    }
 }
 
