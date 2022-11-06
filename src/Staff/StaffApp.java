@@ -122,6 +122,7 @@ public class StaffApp {
                 case 1:
                     // Display top 5 movies
                     System.out.println("Top 5 movies");
+                    MovieManager.getInstance().showTop5();
                     break;
                 case 2:
                     System.out.println("Configure movies (add movie etc.)");

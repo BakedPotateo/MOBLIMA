@@ -865,5 +865,16 @@ public class MovieManager {
         }
         return Cast;
     }
+
+    public void showTop5(){
+        ArrayList<Movie> m = this.read();
+        m.sort((m1, m2) -> Double.compare(this.getAverageStarRating(m1.getId()),(this.getAverageStarRating(m2.getId()))));
+        int i = 0;
+        for(Movie movie : m){
+            if (i < 5)
+                System.out.println(movie.makeString());
+            i++;
+        }
+    }
 }
 
