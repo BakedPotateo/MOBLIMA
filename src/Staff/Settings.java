@@ -28,6 +28,9 @@ public class Settings{
         return instance;
     }
 
+    public void displaySettingsMenu(){
+        
+    }
     public void configTicketPrices(){}
 
     public void configHolidays(){}

@@ -409,7 +409,6 @@ public class MovieManager {
 
     private void editByID() {
         System.out.println("Please enter the movie ID:");
-
         /*
         * Check if input is an integer
         */
@@ -419,7 +418,10 @@ public class MovieManager {
         }
         int ID = sc.nextInt();
         Movie m = this.searchById(ID);
+        System.out.println("Selected movie:\n");
         System.out.println(m.makeString());
+        System.out.println();
+
         int choice = 0;
         while(choice != 12){
             System.out.println("-------- EDIT MOVIE --------\n"
@@ -452,117 +454,34 @@ public class MovieManager {
 
             switch(choice){
                 case 1:
-                    System.out.println("Please enter the new title");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newTitle = sc.nextLine();
-                    m.setTitle(newTitle);
+                    m.setTitle(this.editTitle());
                     break;
                 case 2:
-                    System.out.println("Please enter the new type");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newType = sc.nextLine();
-                    m.setMovieType(newType);
+                    m.setMovieType(this.editType());
                     break;
                 case 3:
-                    System.out.println("Please enter the new synopsis");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newSynopsis = sc.nextLine();
-                    m.setSynopsis(newSynopsis);
+                    m.setSynopsis(this.editSynopsis());
                     break;
                 case 4:
-                    System.out.println("Please enter the new rating");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newRating = sc.nextLine();
-                    m.setRating(newRating);
+                    m.setRating(this.editRating());
                     break;
                 case 5:
-                    System.out.println("Please enter the new director");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newDirector = sc.nextLine();
-                    m.setDirector(newDirector);;
+                    m.setDirector(this.editDirector());;
                     break;
                 case 6:
                     m.setCast(this.editCast(m));
                     break;
                 case 7:
-                    System.out.println("Please enter the new duration");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    double newDuration = sc.nextDouble();
-                    m.setDuration(newDuration);
+                    m.setDuration(editDuration());
                     break;
                 case 8:
-                    String newReleaseDateString;
-                    while(true){
-                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
-                        while (!sc.hasNext()) {
-                            System.out.println("Invalid input type. Please try again!");
-                            sc.next(); // Remove newline character
-                        }
-                        newReleaseDateString = sc.nextLine();
-                        if(isValidDate(newReleaseDateString))
-                            break;
-                        else
-                            System.out.println("Invalid date format!");
-                    }
-                    LocalDate newReleaseDate = LocalDate.parse(newReleaseDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    m.setReleaseDate(newReleaseDate);
+                    m.setReleaseDate(this.editReleaseDate());
                     break;
                 case 9:
-                    String newEndDateString;
-                    while(true){
-                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
-                        while (!sc.hasNext()) {
-                            System.out.println("Invalid input type. Please try again!");
-                            sc.next(); // Remove newline character
-                        }
-                        newEndDateString = sc.nextLine();
-                        if(isValidDate(newEndDateString))
-                            break;
-                        else
-                            System.out.println("Invalid date format!");
-                    }
-                    LocalDate newEndDate = LocalDate.parse(newEndDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    m.setReleaseDate(newEndDate);
+                    m.setEndDate(this.editEndDate());
                     break;
                 case 10:
-                    System.out.println("Enter the username:");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String username = sc.nextLine();
-                    System.out.println("Enter the number of stars:");
-                    while (!sc.hasNextDouble()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    Double numberofstars = sc.nextDouble();
-                    System.out.println("Enter the comments:");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String comments = sc.nextLine();
-                    Review newReview = new Review(username, numberofstars, comments);
-                    m.addReview(newReview);
+                    m.addReview(this.editReviews());
                     break;
                 case 11:
                     System.out.println(m.makeString());
@@ -571,7 +490,7 @@ public class MovieManager {
                     System.out.println("Movie details updated!");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-13");
+                    System.out.println("Please enter an integer between 1-12");
                     break;
             }
         }
@@ -632,7 +551,9 @@ public class MovieManager {
         else
             m = movieList.get(0);
 
+        System.out.println("Selected movie:\n");
         System.out.println(m.makeString());
+        System.out.println();
         int choice = 0;
         while(choice != 12){
             System.out.println("-------- EDIT MOVIE --------\n"
@@ -665,117 +586,34 @@ public class MovieManager {
 
             switch(choice){
                 case 1:
-                    System.out.println("Please enter the new title");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newTitle = sc.nextLine();
-                    m.setTitle(newTitle);
+                    m.setTitle(this.editTitle());
                     break;
                 case 2:
-                    System.out.println("Please enter the new type");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newType = sc.nextLine();
-                    m.setMovieType(newType);
+                    m.setMovieType(this.editType());
                     break;
                 case 3:
-                    System.out.println("Please enter the new synopsis");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newSynopsis = sc.nextLine();
-                    m.setSynopsis(newSynopsis);
+                    m.setSynopsis(this.editSynopsis());
                     break;
                 case 4:
-                    System.out.println("Please enter the new rating");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newRating = sc.nextLine();
-                    m.setRating(newRating);
+                    m.setRating(this.editRating());
                     break;
                 case 5:
-                    System.out.println("Please enter the new director");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String newDirector = sc.nextLine();
-                    m.setDirector(newDirector);;
+                    m.setDirector(this.editDirector());;
                     break;
                 case 6:
                     m.setCast(this.editCast(m));
                     break;
                 case 7:
-                    System.out.println("Please enter the new duration");
-                    while (!sc.hasNextDouble()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    double newDuration = sc.nextDouble();
-                    m.setDuration(newDuration);
+                    m.setDuration(editDuration());
                     break;
                 case 8:
-                    String newReleaseDateString;
-                    while(true){
-                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
-                        while (!sc.hasNext()) {
-                            System.out.println("Invalid input type. Please try again!");
-                            sc.next(); // Remove newline character
-                        }
-                        newReleaseDateString = sc.nextLine();
-                        if(isValidDate(newReleaseDateString))
-                            break;
-                        else
-                            System.out.println("Invalid date format!");
-                    }
-                    LocalDate newReleaseDate = LocalDate.parse(newReleaseDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    m.setReleaseDate(newReleaseDate);
+                    m.setReleaseDate(this.editReleaseDate());
                     break;
                 case 9:
-                    String newEndDateString;
-                    while(true){
-                        System.out.println("Enter the new release date in the format yyyy-mm-dd:");
-                        while (!sc.hasNext()) {
-                            System.out.println("Invalid input type. Please try again!");
-                            sc.next(); // Remove newline character
-                        }
-                        newEndDateString = sc.nextLine();
-                        if(isValidDate(newEndDateString))
-                            break;
-                        else
-                            System.out.println("Invalid date format!");
-                    }
-                    LocalDate newEndDate = LocalDate.parse(newEndDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    m.setReleaseDate(newEndDate);
+                    m.setEndDate(this.editEndDate());
                     break;
                 case 10:
-                    System.out.println("Enter the username:");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String username = sc.nextLine();
-                    System.out.println("Enter the number of stars:");
-                    while (!sc.hasNextDouble()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    Double numberofstars = sc.nextDouble();
-                    System.out.println("Enter the comments:");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String comments = sc.nextLine();
-                    Review newReview = new Review(username, numberofstars, comments);
-                    m.addReview(newReview);
+                    m.addReview(this.editReviews());
                     break;
                 case 11:
                     System.out.println(m.makeString());
@@ -784,7 +622,7 @@ public class MovieManager {
                     System.out.println("Movie details updated!");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-13");
+                    System.out.println("Please enter an integer between 1-12");
                     break;
             }
         }
@@ -792,24 +630,72 @@ public class MovieManager {
         this.createNewMovie(m);
     }
 
-    public boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        dateFormat.setLenient(false);
-        try {
-            dateFormat.parse(inDate.trim());
-        } catch (ParseException pe) {
-            return false;
+    /*
+     * Functions to edit movies
+     */
+
+    private String editTitle(){
+        System.out.println("Please enter the new title");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
         }
-        return true;
+        String newTitle = sc.nextLine();
+        return newTitle;
     }
 
-    public ArrayList<String> editCast(Movie movie){
+    private String editType(){
+        System.out.println("Please enter the new type");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String newType = sc.nextLine();
+        return newType;
+    }
+
+    private String editSynopsis(){
+        System.out.println("Please enter the new synopsis");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String newSynopsis = sc.nextLine();
+        return newSynopsis;
+    }
+
+    private String editRating(){
+        System.out.println("Please enter the new rating");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String newRating = sc.nextLine();
+        return newRating;
+    }
+
+    private String editDirector(){
+        System.out.println("Please enter the new director");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String newDirector = sc.nextLine();
+        return newDirector;
+    }
+
+    private ArrayList<String> editCast(Movie movie){
         ArrayList<String> Cast = movie.getCast();
+        System.out.println("Current cast members:");
+        for(String c : Cast)
+            System.out.println(c);
+        
+        System.out.println();
         System.out.println("--------- EDIT CAST ---------\n"
-                              +"1.  Add cast member\n"
-                              +"2.  Delete cast member\n"
-                              +"3.  Save\n"
-                              +"----------------------------");
+                          +"1.  Add cast member\n"
+                          +"2.  Delete cast member\n"
+                          +"3.  Save\n"
+                          +"----------------------------");
         System.out.println("Please enter your choice:");
 
         /*
@@ -864,6 +750,94 @@ public class MovieManager {
                 break;
         }
         return Cast;
+    }
+
+    private Double editDuration(){
+        System.out.println("Please enter the new duration");
+        while (!sc.hasNextDouble()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        double newDuration = sc.nextDouble();
+        return newDuration;
+    }
+
+    private LocalDate editReleaseDate(){
+        String newReleaseDateString;
+        while(true){
+            System.out.println("Enter the new release date in the format yyyy-mm-dd:");
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // Remove newline character
+            }
+            newReleaseDateString = sc.nextLine();
+            if(isValidDate(newReleaseDateString))
+                break;
+            else
+                System.out.println("Invalid date format!");
+        }
+        LocalDate newReleaseDate = LocalDate.parse(newReleaseDateString);
+        return newReleaseDate;
+    }
+
+    private LocalDate editEndDate(){
+        String newEndDateString;
+        while(true){
+            System.out.println("Enter the new release date in the format yyyy-mm-dd:");
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // Remove newline character
+            }
+            newEndDateString = sc.nextLine();
+            if(isValidDate(newEndDateString))
+                break;
+            else
+                System.out.println("Invalid date format!");
+        }
+        LocalDate newEndDate = LocalDate.parse(newEndDateString);
+        return newEndDate;
+    }
+
+    private Review editReviews(){
+        System.out.println("Enter the username:");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String username = sc.nextLine();
+        System.out.println("Enter the number of stars:");
+        while (!sc.hasNextDouble()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        Double numberofstars = sc.nextDouble();
+        System.out.println("Enter the comments:");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String comments = sc.nextLine();
+        Review newReview = new Review(username, numberofstars, comments);
+        return newReview;
+    }
+
+    /*
+     * End of movie editing functions
+     */
+
+    
+    /*
+     * Helper tool to check if inputted date is in the correct format
+     */
+    public boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
     }
 
     public void showTop5(){
