@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -69,7 +68,7 @@ public class MovieManager {
 
         Movie temp = searchById(id);
         if (temp != null) {
-            System.out.println("Movie with conflicting ID already exists...");
+            System.out.println("Movie with conflicting ID already exists.");
             return;
         }
 
@@ -91,7 +90,7 @@ public class MovieManager {
 
         Movie temp = searchById(id);
         if (temp != null) {
-            System.out.println("Movie with conflicting ID already exists...");
+            System.out.println("Movie with conflicting ID already exists.");
             return;
         }
 
@@ -161,7 +160,7 @@ public class MovieManager {
                 ratingList.add(m);
         }
         if (ratingList.size() == 0) 
-            System.out.println("Movies with such a rating does not exist");
+            System.out.println("Movies with such a rating do not exist.");
         return ratingList;
     }
 
@@ -176,7 +175,7 @@ public class MovieManager {
                 titleList.add(m);
         }
         if (titleList.size() == 0) 
-            System.out.println("Movies with this title do not exist");
+            System.out.println("Movies with this title do not exist.");
         return titleList;
     }
 
@@ -225,7 +224,7 @@ public class MovieManager {
                 typeList.add(m);
         }
         if (typeList.size() == 0) 
-            System.out.println("Movies of this type does not exist");
+            System.out.println("Movies of this type do not exist.");
         return typeList;
 
     }
@@ -273,9 +272,10 @@ public class MovieManager {
                 this.editMovie();
                     break;
                 case 5:
+                    System.out.println("Exiting...");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-5");
+                    System.out.println("Please enter an integer between 1-5.");
                     break;
             }
         }
@@ -362,9 +362,10 @@ public class MovieManager {
                     System.out.println(movie.makeString());
                     break;
                 case 6:
+                    System.out.println("Exiting...");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-6");
+                    System.out.println("Please enter an integer between 1-6.");
                     break;
             }
         }
@@ -399,9 +400,10 @@ public class MovieManager {
                     this.editByID();
                     break;
                 case 3:
+                    System.out.println("Exiting...");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-3");
+                    System.out.println("Please enter an integer between 1-3.");
                     break;
             }
         }
@@ -490,7 +492,7 @@ public class MovieManager {
                     System.out.println("Movie details updated!");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-12");
+                    System.out.println("Please enter an integer between 1-12.");
                     break;
             }
         }
@@ -638,7 +640,7 @@ public class MovieManager {
      */
 
     private String editTitle(){
-        System.out.println("Please enter the new title");
+        System.out.println("Please enter the new title:");
         while (!sc.hasNext()) {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
@@ -648,7 +650,7 @@ public class MovieManager {
     }
 
     private String editType(){
-        System.out.println("Please enter the new type");
+        System.out.println("Please enter the new type:");
         while (!sc.hasNext()) {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
@@ -658,7 +660,7 @@ public class MovieManager {
     }
 
     private String editSynopsis(){
-        System.out.println("Please enter the new synopsis");
+        System.out.println("Please enter the new synopsis:");
         while (!sc.hasNext()) {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
@@ -668,7 +670,7 @@ public class MovieManager {
     }
 
     private String editRating(){
-        System.out.println("Please enter the new rating");
+        System.out.println("Please enter the new rating:");
         while (!sc.hasNext()) {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
@@ -678,7 +680,7 @@ public class MovieManager {
     }
 
     private String editDirector(){
-        System.out.println("Please enter the new director");
+        System.out.println("Please enter the new director:");
         while (!sc.hasNext()) {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
@@ -714,7 +716,7 @@ public class MovieManager {
 
         switch(choice){
             case 1:
-                System.out.println("Please enter the new cast member");
+                System.out.println("Please enter the new cast member:");
                 while (!sc.hasNext()) {
                     System.out.println("Invalid input type. Please try again!");
                     sc.next(); // Remove newline character
@@ -726,7 +728,7 @@ public class MovieManager {
             case 2:
                 boolean loop = true;
                 while(loop){
-                    System.out.println("Please enter the cast member to delete");
+                    System.out.println("Please enter the cast member to delete:");
                     while (!sc.hasNext()) {
                         System.out.println("Invalid input type. Please try again!");
                         sc.next(); // Remove newline character
@@ -743,10 +745,11 @@ public class MovieManager {
                         loop = false;
                     }
                     else
-                        System.out.println("Cast member not found");
+                        System.out.println("Cast member not found.");
                 }
                 break;
             case 3:
+                System.out.println("Saved successfully.");
                 break;
             default:
                 System.out.println("Please enter an integer between 1-3.");
@@ -756,7 +759,7 @@ public class MovieManager {
     }
 
     private Double editDuration(){
-        System.out.println("Please enter the new duration");
+        System.out.println("Please enter the new duration:");
         while (!sc.hasNextDouble()) {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
@@ -868,7 +871,7 @@ public class MovieManager {
                     System.out.println("Exiting...");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-3");
+                    System.out.println("Please enter an integer between 1-3.");
                     break;
             }
         }

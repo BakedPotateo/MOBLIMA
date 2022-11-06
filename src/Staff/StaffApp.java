@@ -39,9 +39,10 @@ public class StaffApp {
         boolean exit = false;
 
         while(!LoggedIn && !exit){
-            System.out.println("--- MOBLIMA STAFF APP ---\n");
-            System.out.println(" 1. Login\n 2. Exit\n");
-            System.out.println("-------------------------\n");
+            System.out.println("--- MOBLIMA STAFF APP ---\n"
+                              +" 1. Login\n"
+                              +" 2. Exit\n"
+                              +"-------------------------\n");
 
             System.out.println("Please enter your choice:");
 
