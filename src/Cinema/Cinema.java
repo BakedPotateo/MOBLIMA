@@ -1,6 +1,8 @@
 package Cinema;
 
-public class Cinema {
+import java.io.Serializable;
+
+public class Cinema implements Serializable{
     private String id;
     private String classOfCinema;
     private SeatingLayout layout;

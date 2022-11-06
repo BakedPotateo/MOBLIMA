@@ -13,7 +13,7 @@ public class CinemaManager {
     public static CinemaManager instance = null;
     private CinemaManager(){}
     
-    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Cinema/cineplexes.txt";
+    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Cineplex/cineplexes.txt";
 
     public static CinemaManager getInstance()
     {

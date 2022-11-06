@@ -32,8 +32,8 @@ public class Cineplex implements Serializable {
         String cinemaString = "";
         for (int i=0; i<getCinemas().size(); i++) {
             cinemaString += getCinemas().get(i).getId() + ",\n";
-        cinemaString = cinemaString.substring(0, cinemaString.length()-2);
         }
+        cinemaString = cinemaString.substring(0, cinemaString.length()-2);
 
         String details = "";
         details += "Name: " + getName() + "\nCinemas:\n" + cinemaString;
