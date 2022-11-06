@@ -519,6 +519,9 @@ public class MovieManager {
                 continue;
         }
         Movie m;
+        /*
+         * Check for multiple similar titles (Same title but different movie type)
+         */
         if(movieList.size() > 1){
             System.out.println("Multiple titles detected. Please choose which movie to edit:");
             int i = 1;
@@ -822,11 +825,6 @@ public class MovieManager {
     }
 
     /*
-     * End of movie editing functions
-     */
-
-    
-    /*
      * Helper tool to check if inputted date is in the correct format
      */
     public boolean isValidDate(String inDate) {
@@ -841,6 +839,55 @@ public class MovieManager {
     }
 
     public void showTop5(){
+        int choice = 0;
+        while(choice != 3){
+            System.out.println("------- TOP 5 MOVIES -------\n"
+                              +" 1. Get top 5 by sales\n"
+                              +" 2. Get top 5 by ratings\n"
+                              +" 3. Exit\n"
+                              +"----------------------------\n");
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            switch(choice){
+                case 1:
+                    this.topSales();
+                    break;
+                case 2:
+                    this.topRatings();
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-3");
+                    break;
+            }
+        }
+    }
+
+    private void topSales(){
+        System.out.println("Top 5 movies by sales:");
+        ArrayList<Movie> m = this.read();
+        m.sort((m1, m2) -> Integer.compare(m1.getSales(),m2.getSales()));
+        int i = 0;
+        for(Movie movie : m){
+            if (i < 5)
+                System.out.println(movie.makeString());
+            i++;
+        } 
+    }
+
+    private void topRatings(){
+        System.out.println("Top 5 movies by ratings:");
         ArrayList<Movie> m = this.read();
         m.sort((m1, m2) -> Double.compare(this.getAverageStarRating(m1.getId()),(this.getAverageStarRating(m2.getId()))));
         int i = 0;

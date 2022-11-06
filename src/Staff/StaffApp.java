@@ -99,12 +99,12 @@ public class StaffApp {
     private void displayStaffLoggedIn(){
         int choice = 0;
         while(choice != 4){
-            System.out.println("----- MOBLIMA STAFF APP -----\n");
-            System.out.println(  " 1. Display top 5 movies\n" +
-                                 " 2. Configure movies\n" +
-                                 " 3. Configure system settings\n" +
-                                 " 4. Exit");
-            System.out.println("-----------------------------\n");
+            System.out.println("----- MOBLIMA STAFF APP -----\n"
+                              +" 1. Display top 5 movies\n"
+                              +" 2. Configure movies\n"
+                              +" 3. Configure system settings\n"
+                              +" 4. Exit\n"
+                              +"-----------------------------\n");
 
             System.out.println("Please enter your choice:");
 
