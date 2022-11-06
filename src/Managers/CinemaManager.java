@@ -95,10 +95,10 @@ public class CinemaManager {
                 cinemas.add(cinema);
                 cineplex.setCinemas(cinemas);
                 createCineplex(cineplexName, cineplex.getCinemas());
+                deleteCineplexByName(cineplexName);
                 break;
             }
         }
-        deleteCineplexByName(cineplexName);
     }
 
     public ArrayList<Cinema> readCinemas() {
@@ -111,5 +111,44 @@ public class CinemaManager {
                 cinemas.add(cinema);
         }
         return cinemas;
+    }
+
+    public ArrayList<Cinema> getCinemaByCineplex(String name) {
+        ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
+        ArrayList<Cineplex> cineplexes = read();
+        Cineplex cineplex = null;
+
+        for (int i=0; i<cineplexes.size(); i++) {
+            cineplex = cineplexes.get(i);
+            if (cineplex.getName().equalsIgnoreCase(name)) {
+                for (Cinema cinema : cineplex.getCinemas()) {
+                    cinemas.add(cinema);
+                }
+            }
+        }
+
+        return cinemas;
+    }
+
+    public void deleteCinema(String code) {
+        ArrayList<Cineplex> data = read();
+        for (int i=0; i<data.size(); i++) {
+            Cineplex cineplex = data.get(i);
+
+            if (cineplex.getCinemas().size() > 3) {
+                ArrayList<Cinema> cinemas = cineplex.getCinemas();
+                
+                for (int j=0; j<cinemas.size(); j++) {
+                    Cinema cinema = cinemas.get(j);
+                    if (cinema.getId().equals(code)) {
+                        cinemas.remove(j);
+                        cineplex.setCinemas(cinemas);
+                        createCineplex(cineplex.getName(), cineplex.getCinemas());
+                        deleteCineplexByName(cineplex.getName());
+                        return;
+                    }
+                }
+            }
+        }
     }
 }
