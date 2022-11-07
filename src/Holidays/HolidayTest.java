@@ -40,7 +40,7 @@ public class HolidayTest {
                 break;
         }
 
-        instance.printHolidays();
+
     }
     
 }
