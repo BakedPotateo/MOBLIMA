@@ -16,7 +16,21 @@ public class HolidayManager {
     public static HolidayManager instance = null;
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Settings/holidays.txt";
 
-    private HolidayManager(){}
+    private HolidayManager(){
+        this.createHoliday(LocalDate.parse("2022-12-25"), LocalDate.parse("2022-12-25"), "Christmas Day (2022)");
+        this.createHoliday(LocalDate.parse("2023-01-01"), LocalDate.parse("2023-01-01"), "New Year's Day");
+        this.createHoliday(LocalDate.parse("2023-01-22"), LocalDate.parse("2023-01-22"), "Chinese New Year");
+        this.createHoliday(LocalDate.parse("2023-01-23"), LocalDate.parse("2023-01-24"), "Chinese New Year holiday");
+        this.createHoliday(LocalDate.parse("2023-04-07"), LocalDate.parse("2023-04-07"), "Good Friday");
+        this.createHoliday(LocalDate.parse("2023-04-22"), LocalDate.parse("2023-04-22"), "Hari Raya Puasa");
+        this.createHoliday(LocalDate.parse("2023-05-01"), LocalDate.parse("2023-05-01"), "Labour Day");
+        this.createHoliday(LocalDate.parse("2023-06-02"), LocalDate.parse("2023-06-02"), "Vesak Day");
+        this.createHoliday(LocalDate.parse("2023-06-29"), LocalDate.parse("2023-06-29"), "Hari Raya Haji");
+        this.createHoliday(LocalDate.parse("2023-08-09"), LocalDate.parse("2023-08-09"), "National Day");
+        this.createHoliday(LocalDate.parse("2023-11-12"), LocalDate.parse("2023-11-12"), "Deepavali");
+        this.createHoliday(LocalDate.parse("2023-11-13"), LocalDate.parse("2023-11-13"), "Deepavali holiday");
+        this.createHoliday(LocalDate.parse("2023-12-25"), LocalDate.parse("2023-12-25"), "Christmas Day (2023)");
+    }
 
     public static HolidayManager getInstance() {
         if (instance == null) 
@@ -44,7 +58,7 @@ public class HolidayManager {
         if (!holidayExists(holidays, holidayName)) try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
             holidays.add(newHoliday);
-            output.writeObject(newHoliday);
+            output.writeObject(holidays);
             output.flush();
             output.close();
         } catch (IOException e) {}
@@ -60,14 +74,8 @@ public class HolidayManager {
         return false;
     }
 
-    public void printHolidays(){
-        ArrayList<Holiday> holidays = new ArrayList<Holiday>();
-        holidays = read();
-        for(Holiday holiday : holidays){
-            System.out.println("Name: " + holiday.getHolidayName());
-            System.out.println("Start: " + holiday.getStartDate());
-            System.out.println("End: " + holiday.getEndDate());
-            System.out.println();
-        }
+    public ArrayList<Holiday> printHolidays(){
+        ArrayList<Holiday> holidays = read();
+        return holidays;
     }
 }
