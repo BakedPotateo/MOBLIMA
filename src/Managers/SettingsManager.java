@@ -50,11 +50,46 @@ public class SettingsManager {
         return new ArrayList<String>();
     }
 
+    public void displaySettingsMenu(){
+        int choice = 0;
+        while(choice != 3){
+            System.out.println("--------- SETTINGS MENU ---------\n"
+                              +" 1. Configure ticket prices\n"
+                              +" 2. Configure holidays\n"
+                              +" 3. Exit\n"
+                              +"---------------------------------\n");
+
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            switch(choice){
+                case 1:
+                    this.editTicketsMenu();
+                    break;
+                case 2:
+                    this.editHolidaysMenu();
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                default:
+                    System.out.println("Please enter an integer between 1-3");
+            }
+        }
+    }
+
     public void editTicketsMenu(){}
 
     public void editHolidaysMenu(){
         int choice = 0;
-        while(choice != 3){
+        while(choice != 4){
             System.out.println("--------- HOLIDAYS MENU ---------\n"
                               +" 1. Add holiday\n"
                               +" 2. Delete holiday\n"
@@ -75,14 +110,16 @@ public class SettingsManager {
             choice = sc.nextInt();
             switch(choice){
                 case 1:
-                    // add holiday
+                    HolidayManager.getInstance().addHoliday();
                     break;
                 case 2:
-                    // delete holiday
+                    HolidayManager.getInstance().deleteHoliday();
                     break;
                 case 3:
-                    // show holidays
+                    HolidayManager.getInstance().printHolidays();
                     break;
+                case 4:
+                    System.out.println("Exiting...");
                 default:
                     System.out.println("Please enter an integer between 1-3");
             }

@@ -12,10 +12,9 @@ import Movies.Review;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import utils.ProjectRootPathFinder;
+import utils.ValidDateChecker;
 
 public class MovieManager {
 
@@ -775,7 +774,7 @@ public class MovieManager {
                 sc.next(); // Remove newline character
             }
             newReleaseDateString = sc.nextLine();
-            if(isValidDate(newReleaseDateString))
+            if(ValidDateChecker.isValidDate(newReleaseDateString))
                 break;
             else
                 System.out.println("Invalid date format!");
@@ -793,7 +792,7 @@ public class MovieManager {
                 sc.next(); // Remove newline character
             }
             newEndDateString = sc.nextLine();
-            if(isValidDate(newEndDateString))
+            if(ValidDateChecker.isValidDate(newEndDateString))
                 break;
             else
                 System.out.println("Invalid date format!");
@@ -823,20 +822,6 @@ public class MovieManager {
         String comments = sc.nextLine();
         Review newReview = new Review(username, numberofstars, comments);
         return newReview;
-    }
-
-    /*
-     * Helper tool to check if inputted date is in the correct format
-     */
-    public boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        dateFormat.setLenient(false);
-        try {
-            dateFormat.parse(inDate.trim());
-        } catch (ParseException pe) {
-            return false;
-        }
-        return true;
     }
 
     public void showTop5(){

@@ -3,6 +3,7 @@ package Staff;
 import java.util.Scanner;
 
 import Managers.MovieManager;
+import Managers.SettingsManager;
 import Managers.StaffManager;
 public class StaffApp {
     private Scanner sc = new Scanner(System.in);
@@ -131,6 +132,7 @@ public class StaffApp {
                     break;
                 case 3:
                     System.out.println("Configure system settings (ticket prices etc.)");
+                    SettingsManager.getInstance().displaySettingsMenu();
                     break;
                 case 4:
                     System.out.println("Returning to main page...\n");
