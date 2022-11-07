@@ -1,8 +1,9 @@
 package Customer;
 
-import java.util.Scanner;
+import java.util.Scanner; 
+import Managers.MovieManager;
 
-public class CustomerApp{
+public class CustomerApp {
     private Scanner sc = new Scanner(System.in);
 
     // Attributes
@@ -24,9 +25,10 @@ public class CustomerApp{
      * If no previous instance was created, it creates a new one,
      * else it will use the original instance.
      */
-    public static CustomerApp getInstance(){
+    public static CustomerApp getInstance()
+    {
         if(instance == null)
-            instance = new CustomerApp();
+            instance = new CustomerApp(); //instance is a static variable
         return instance;
     }
     
@@ -42,10 +44,9 @@ public class CustomerApp{
                                " 3. View movie details\n" +
                                " 4. Book and purchase ticket\n" +
                                " 5. View booking history\n" +
-                               " 6. List the Top 5 movies by ticket sales\n" +
-                               " 7. List the Top 5 movies by overall reviewers' ratings\n" +
-                               " 8. Submit a movie review\n" +
-                               " 9. Exit");
+                               " 6. List the Top 5 movies\n" +
+                               " 7. Submit a movie review\n" +
+                               " 8. Exit");
             System.out.println("-------------------------------------------------------\n");            
 
             System.out.println("Please enter your choice:");
@@ -63,14 +64,22 @@ public class CustomerApp{
 
             switch(choice){
                 case 1:
+                    //MovieManager.getInstance().getAvailableMovies();
+                    MovieManager.getInstance().viewMovies();
+                    break;
                 case 2:
+                    break;
                 case 3:
+                    break;
                 case 4:
+                    break;
                 case 5:
+                    break;
                 case 6:
+                    MovieManager.getInstance().showTop5();
+                    break;
                 case 7:
                 case 8:
-                case 9:
                     System.out.println("Returning to the main page...\n");
                     exit = true;
                     break;
@@ -84,6 +93,7 @@ public class CustomerApp{
     }
 
 }
+
 
         
             
