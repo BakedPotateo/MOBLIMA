@@ -521,9 +521,7 @@ public class MovieManager {
                 continue;
         }
         Movie m;
-        /*
-         * Check for multiple similar titles (Same title but different movie type)
-         */
+        // Check for multiple similar titles (Same title but different movie type)
         if(movieList.size() > 1){
             System.out.println("Multiple titles detected. Please choose which movie to edit:");
             int i = 1;
