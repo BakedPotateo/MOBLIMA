@@ -50,11 +50,42 @@ public class SettingsManager {
         return new ArrayList<String>();
     }
 
-    public void editTickets(){
+    public void editTicketsMenu(){}
 
-    }
+    public void editHolidaysMenu(){
+        int choice = 0;
+        while(choice != 3){
+            System.out.println("--------- HOLIDAYS MENU ---------\n"
+                              +" 1. Add holiday\n"
+                              +" 2. Delete holiday\n"
+                              +" 3. Show all holidays\n"
+                              +" 4. Exit\n"
+                              +"---------------------------------\n");
 
-    public void editHolidays(){
-        
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            switch(choice){
+                case 1:
+                    // add holiday
+                    break;
+                case 2:
+                    // delete holiday
+                    break;
+                case 3:
+                    // show holidays
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-3");
+            }
+        }
     }
 }
