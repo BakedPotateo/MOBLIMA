@@ -1,5 +1,6 @@
 import java.util.*;
 import Staff.StaffApp;
+import Customer.CustomerApp;
 public class MainApp {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -24,6 +25,7 @@ public class MainApp {
                 case 1:
                     // Customer app
                     System.out.println("Customer app");
+                    CustomerApp.getInstance().displayCustomerMenu();
                     break;
                 case 2:
                     // Staff app
