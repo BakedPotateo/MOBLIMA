@@ -36,6 +36,17 @@ public class TicketManager {
 
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Tickets/tickets.txt";
 
+    private String[] ticketTypes = {"Senior Citizens (Mon - Fri Before 6pm)",
+                                    "Students (Mon - Fri Before 6pm)",
+                                    "Mon - Wed",
+                                    "Thu",
+                                    "Fri (Before 6pm)",
+                                    "Fri (After 6pm)",
+                                    "Sat & Sun",
+                                    "Public holiday"};
+
+    private double[] ticketPrices = {4.00, 7.00, 8.50, 9.50, 9.50, 11.00, 11.00, 12.00};
+    private double[] ticketPrices3D = {9.00, 9.00, 11.00, 11.00, 15.00, 15.00, 15.00, 16.00};
 
     public static TicketManager getInstance() {
         if (instance == null) 
@@ -55,7 +66,24 @@ public class TicketManager {
     }
 
     public void createTicket(String ticketType, String movieType) {
-        Ticket ticket = new Ticket(ticketType, movieType);
+        double ticketPrice = 0;
+        if(!movieType.equals("3D")){
+            for(int i = 0; i < ticketTypes.length; i++){
+                if(ticketTypes[i].equals(ticketType)){
+                    ticketPrice = ticketPrices[i];
+                    break;
+                }
+            }
+        }
+        else{
+            for(int i = 0; i < ticketTypes.length; i++){
+                if(ticketTypes[i].equals(ticketType)){
+                    ticketPrice = ticketPrices3D[i];
+                    break;
+                }
+            }
+        }
+        Ticket ticket = new Ticket(ticketType, movieType, ticketPrice);
         ArrayList<Ticket> tickets = new ArrayList<Ticket>();
         File myFile = new File(FILE);
         if (myFile.exists()) 
