@@ -18,7 +18,21 @@ import utils.ProjectRootPathFinder;
 
 public class TicketManager {
     public static TicketManager instance = null;
-    private TicketManager(){}
+    private TicketManager(){
+        this.createTicket("Senior Citizens (Mon - Fri Before 6pm)", "3D");
+        this.createTicket("Students (Mon - Fri Before 6pm)", "2D");
+        this.createTicket("Students (Mon - Fri Before 6pm)", "3D");
+        this.createTicket("Mon - Wed", "2D");
+        this.createTicket("Mon - Wed", "3D");
+        this.createTicket("Thu", "2D");
+        this.createTicket("Thu", "3D");
+        this.createTicket("Fri (Before 6pm)", "2D");
+        this.createTicket("Fri (Before 6pm)", "3D");
+        this.createTicket("Sat & Sun", "2D");
+        this.createTicket("Sat & Sun", "3D");
+        this.createTicket("Public holiday", "2D");
+        this.createTicket("Public holiday", "3D");
+    }
 
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Tickets/tickets.txt";
 
@@ -46,7 +60,7 @@ public class TicketManager {
         File myFile = new File(FILE);
         if (myFile.exists()) 
             tickets = read();
-        try {
+        if (!ticketExists(tickets, ticketType, movieType)) try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
             tickets.add(ticket);
             output.writeObject(tickets);
@@ -55,6 +69,16 @@ public class TicketManager {
         } catch (IOException e) {}
     }
 
+    // ticketExists checks if ticket already exists, used to make sure duplicate ticket types are not created
+    
+    private boolean ticketExists(ArrayList<Ticket> tickets, String newTicketType, String newMovieType){
+        for(Ticket ticket : tickets){
+            if(ticket.getTicketType().equals(newTicketType) && ticket.getMovieType().equals(newMovieType)) 
+                return true;
+        }
+        return false;
+    }
+    
     public ArrayList<Ticket> get2DMovies() {
         ArrayList<Ticket> tickets = read();
         ArrayList<Ticket> tickets2D = new ArrayList<Ticket>();

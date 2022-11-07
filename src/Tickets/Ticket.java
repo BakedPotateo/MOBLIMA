@@ -3,9 +3,12 @@ package Tickets;
 import java.io.Serializable;
 import Cinema.Seat;
 import Movies.Movie;
-
+/*
+ * Ticket class holds all the information about different types of tickets
+ */
 
 public class Ticket implements Serializable{
+    // Attributes
     private Seat seat;
     private String ticketType;
     private String movieType;
@@ -15,17 +18,21 @@ public class Ticket implements Serializable{
                                     "Thu",
                                     "Fri (Before 6pm)",
                                     "Fri (After 6pm)",
-                                    "Sat & Sun"};
+                                    "Sat & Sun",
+                                    "Public holiday"};
 
-    private double[] ticketPrices = {4.00, 7.00, 8.50, 9.50, 9.50, 11.00, 11.00};
-    private double[] ticketPrices3D = {9.00, 9.00, 11.00, 11.00, 15.00, 15.00, 15.00};
+    private double[] ticketPrices = {4.00, 7.00, 8.50, 9.50, 9.50, 11.00, 11.00, 12.00};
+    private double[] ticketPrices3D = {9.00, 9.00, 11.00, 11.00, 15.00, 15.00, 15.00, 16.00};
     
+    // Constructors
     public Ticket(){};
+
     public Ticket(String ticketType, String movieType) {
         this.ticketType = ticketType;
         this.movieType = movieType;
     }    
 
+    // Methods
     public double getPrice() {
         if (this.movieType.equals("2D"))
             for (int i=0; i<ticketTypes.length; i++) {

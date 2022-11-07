@@ -49,4 +49,12 @@ public class SettingsManager {
         } catch (ClassNotFoundException | IOException e) {}
         return new ArrayList<String>();
     }
+
+    public void editTickets(){
+
+    }
+
+    public void editHolidays(){
+        
+    }
 }

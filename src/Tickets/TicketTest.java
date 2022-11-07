@@ -18,13 +18,17 @@ public class TicketTest {
         manager.createTicket("Fri (Before 6pm)", "3D");
         manager.createTicket("Sat & Sun", "2D");
         manager.createTicket("Sat & Sun", "3D");
+        manager.createTicket("Public holiday", "2D");
+        manager.createTicket("Public holiday", "3D");
         
         ArrayList<Ticket> tickets2D = manager.get2DMovies();
+        System.out.println();
         for (Ticket ticket : tickets2D) {
            ticket.makeString();
         }
 
         ArrayList<Ticket> tickets3D = manager.get3DMovies();
+        System.out.println();
         for (Ticket ticket : tickets3D) {
             ticket.makeString();
         }
