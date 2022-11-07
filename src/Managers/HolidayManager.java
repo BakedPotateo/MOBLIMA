@@ -8,13 +8,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Holidays.Holiday;
 import utils.ProjectRootPathFinder;
+import utils.ValidDateChecker;
 
 public class HolidayManager {
     public static HolidayManager instance = null;
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Settings/holidays.txt";
+    public Scanner sc = new Scanner(System.in);
 
     private HolidayManager(){
         this.createHoliday(LocalDate.parse("2022-12-25"), LocalDate.parse("2022-12-25"), "Christmas Day (2022)");
@@ -74,8 +77,81 @@ public class HolidayManager {
         return false;
     }
 
-    public ArrayList<Holiday> printHolidays(){
+    public void printHolidays(){
         ArrayList<Holiday> holidays = read();
-        return holidays;
+        for(Holiday holiday : holidays){
+            holiday.makeString();
+            System.out.println();
+        }
+    }
+
+    public void addHoliday(){
+        System.out.println("Enter name of holiday to add: ");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String holidayName = sc.nextLine();
+        String startDate;
+        String endDate;
+        System.out.println("Enter start date (YYYY-MM-DD): ");
+        while(true){
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // Remove newline character
+            }
+            startDate = sc.nextLine();
+            if(ValidDateChecker.isValidDate(startDate)) break;
+        }
+        
+        while(true){
+            System.out.println("Enter end date (YYYY-MM-DD): ");
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // Remove newline character
+            }
+            endDate = sc.nextLine();
+            if(ValidDateChecker.isValidDate(endDate)) break;
+        }
+        
+        ArrayList<Holiday> holidaysArr = new ArrayList<Holiday>();
+        File myFile = new File(FILE);
+        if (myFile.exists()) 
+            holidaysArr = read();
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
+            holidaysArr.add(new Holiday(LocalDate.parse(startDate), LocalDate.parse(endDate), holidayName));
+            output.writeObject(holidaysArr);
+            output.flush();
+            output.close();
+        } catch (IOException e) {}
+    }
+
+    public void deleteHoliday(){
+        System.out.println("Enter name of holiday to delete: ");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String holidayName = sc.nextLine();
+        ArrayList<Holiday> holidaysArr = new ArrayList<Holiday>();
+        File myFile = new File(FILE);
+        if (myFile.exists()) 
+            holidaysArr = read();
+        int i;
+        for(i = 0; i < holidaysArr.size(); i++){
+            if(holidaysArr.get(i).getHolidayName().equals(holidayName)){
+                holidaysArr.remove(i);
+                break;
+            }
+        }
+        if (i == holidaysArr.size())
+            System.out.println("Holiday not found!");
+        else try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
+            output.writeObject(holidaysArr);
+            output.flush();
+            output.close();
+        } catch (IOException e) {}
     }
 }
