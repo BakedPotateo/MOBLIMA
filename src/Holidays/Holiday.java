@@ -32,14 +32,20 @@ public class Holiday implements Serializable{
     }
 
     public String getStartDate(){
-        return this.startDate.format(DateTimeFormatter.ofPattern("EEEE, dd/MM/yyyy"));
+        return this.startDate.format(DateTimeFormatter.ofPattern("EE, dd/MM/yyyy"));
     }
 
     public String getEndDate(){
-        return this.endDate.format(DateTimeFormatter.ofPattern("EEEE, dd/MM/yyyy"));
+        return this.endDate.format(DateTimeFormatter.ofPattern("EE, dd/MM/yyyy"));
     }
 
     public String getHolidayName(){
         return this.holidayName;
+    }
+
+    public void makeString(){
+        System.out.println("Holiday name: " + this.getHolidayName());
+        System.out.println("Start date:   " + this.getStartDate());
+        System.out.println("End date:     " + this.getEndDate());
     }
 }
