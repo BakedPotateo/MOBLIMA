@@ -1,10 +1,12 @@
 package Tickets;
 
 import java.io.Serializable;
-// import Cinema.Cinema;
-// import Movies.Movie;
+import Cinema.Seat;
+import Movies.Movie;
+
 
 public class Ticket implements Serializable{
+    private Seat seat;
     private String ticketType;
     private String movieType;
     private String[] ticketTypes = {"Senior Citizens (Mon - Fri Before 6pm)",
@@ -39,6 +41,15 @@ public class Ticket implements Serializable{
         
         return -1;
     }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+    } 
+
     public String getTicketType() {
         return ticketType;
     }
