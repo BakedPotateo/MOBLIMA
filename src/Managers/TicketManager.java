@@ -40,8 +40,8 @@ public class TicketManager {
         return new ArrayList<Ticket>();
     }
 
-    public void createTicket(Movie movie, double price, Cinema cinema, int[] seatNumber, LocalDate dayOfWeek, LocalTime timeOfMovie) {
-        Ticket ticket = new Ticket(movie, price, cinema, seatNumber, dayOfWeek, timeOfMovie);
+    public void createTicket(String ticketType, String movieType) {
+        Ticket ticket = new Ticket(ticketType, movieType);
         ArrayList<Ticket> tickets = new ArrayList<Ticket>();
         File myFile = new File(FILE);
         if (myFile.exists()) 
@@ -53,6 +53,28 @@ public class TicketManager {
             output.flush();
             output.close();
         } catch (IOException e) {}
+    }
+
+    public ArrayList<Ticket> get2DMovies() {
+        ArrayList<Ticket> tickets = read();
+        ArrayList<Ticket> tickets2D = new ArrayList<Ticket>();
+        for (Ticket ticket : tickets) {
+            if (ticket.getMovieType().equals("2D")) {
+                tickets2D.add(ticket);
+            }
+        }
+        return tickets2D;
+    }
+
+    public ArrayList<Ticket> get3DMovies() {
+        ArrayList<Ticket> tickets = read();
+        ArrayList<Ticket> tickets3D = new ArrayList<Ticket>();
+        for (Ticket ticket : tickets) {
+            if (ticket.getMovieType().equals("3D")) {
+                tickets3D.add(ticket);
+            }
+        }
+        return tickets3D;
     }
 
 
