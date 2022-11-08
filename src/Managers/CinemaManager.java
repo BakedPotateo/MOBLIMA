@@ -113,7 +113,7 @@ public class CinemaManager {
         return cinemas;
     }
 
-    public ArrayList<Cinema> getCinemaByCineplex(String name) {
+    public ArrayList<Cinema> getCinemasByCineplex(String name) {
         ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
         ArrayList<Cineplex> cineplexes = read();
         Cineplex cineplex = null;
@@ -130,6 +130,21 @@ public class CinemaManager {
         return cinemas;
     }
 
+    public Cinema searchCinema(String code) {
+        ArrayList<Cineplex> data = read();
+        for (int i=0; i<data.size(); i++) {
+            Cineplex cineplex = data.get(i);
+            ArrayList<Cinema> cinemas = cineplex.getCinemas();
+            for (int j=0; j<cinemas.size(); j++) {
+                Cinema cinema = cinemas.get(j);
+                if (cinema.getId().equals(code)) {
+                    return cinema;
+                }
+            }
+        }
+        return null;
+    }
+ 
     public void deleteCinema(String code) {
         ArrayList<Cineplex> data = read();
         for (int i=0; i<data.size(); i++) {
@@ -151,4 +166,5 @@ public class CinemaManager {
             }
         }
     }
+
 }

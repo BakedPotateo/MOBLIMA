@@ -43,17 +43,17 @@ public class SeatingLayout implements Serializable {
     }
 
     public void assignSeat(int id) {
-        int i = id/row;
-        layout[i][id - row * i].assign();
+        int i = id/column;
+        layout[i][id % column].assign();
     }
 
     public void unassignSeat(int id) {
-        int i = id/row;
-        layout[i][id - row * i].unassign();
+        int i = id/column;
+        layout[i][id % column].unassign();
     }
 
     public boolean checkSeatStatus(int id) {
-        int i = id/row;
-        return layout[i][id - row * i].getSeatStatus();
+        int i = id/column;
+        return layout[i][id % column].getSeatStatus();
     }
 }
