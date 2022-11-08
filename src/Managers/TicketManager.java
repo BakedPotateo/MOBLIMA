@@ -3,16 +3,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import Tickets.Ticket;
-import Movies.Movie;
-import Cinema.Cinema;
 
 import utils.ProjectRootPathFinder;
 
@@ -20,6 +16,7 @@ import utils.ProjectRootPathFinder;
 public class TicketManager {
     public static TicketManager instance = null;
     private TicketManager(){
+        this.createTicket("Senior Citizens (Mon - Fri Before 6pm)", "2D");
         this.createTicket("Senior Citizens (Mon - Fri Before 6pm)", "3D");
         this.createTicket("Students (Mon - Fri Before 6pm)", "2D");
         this.createTicket("Students (Mon - Fri Before 6pm)", "3D");
@@ -37,7 +34,7 @@ public class TicketManager {
 
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Tickets/tickets.txt";
     Scanner sc = new Scanner(System.in);
-    
+
     private String[] ticketTypes = {"Senior Citizens (Mon - Fri Before 6pm)",
                                     "Students (Mon - Fri Before 6pm)",
                                     "Mon - Wed",
@@ -69,7 +66,7 @@ public class TicketManager {
 
     public void createTicket(String ticketType, String movieType) {
         double ticketPrice = 0;
-        if(!movieType.equals("3D")){
+        if(!movieType.equals("3D")){ // 2D movie
             for(int i = 0; i < ticketTypes.length; i++){
                 if(ticketTypes[i].equals(ticketType)){
                     ticketPrice = ticketPrices[i];
@@ -77,7 +74,7 @@ public class TicketManager {
                 }
             }
         }
-        else{
+        else{ // 3D movie
             for(int i = 0; i < ticketTypes.length; i++){
                 if(ticketTypes[i].equals(ticketType)){
                     ticketPrice = ticketPrices3D[i];
@@ -131,15 +128,41 @@ public class TicketManager {
         return tickets3D;
     }
 
-    public void editTicket(int choice, boolean three_D){
+    public void printAllTickets(){
+        ArrayList<Ticket> tickets2D = this.get2DMovies();
+        System.out.println();
+        for (Ticket ticket : tickets2D) {
+           ticket.makeString();
+        }
+
+        ArrayList<Ticket> tickets3D = this.get3DMovies();
+        System.out.println();
+        for (Ticket ticket : tickets3D) {
+            ticket.makeString();
+        }
+    }
+    public void editTicket(String ticketTypeChoice, boolean three_D){
+        String movieType = (three_D) ? "3D" : "2D";
+        System.out.println("Enter the new price:");
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please enter an integer value.");
+            sc.next(); // remove newline
+        }
+        double newPrice = sc.nextDouble();
         ArrayList<Ticket> tickets = new ArrayList<Ticket>();
         File myFile = new File(FILE);
         if (myFile.exists()) 
             tickets = read();
-        if(three_D) switch(choice){
-            case 1:
-                tickets.get(8).setTicketPrice(sc.nextDouble());
-                break;
+        for(Ticket ticket : tickets){
+            if (ticket.getTicketType().equals(ticketTypeChoice) && ticket.getMovieType().equals(movieType)){
+                ticket.setTicketPrice(newPrice);
+            }
         }
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
+            output.writeObject(tickets);
+            output.flush();
+            output.close();
+        } catch (IOException e) {}
     }
 }
