@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -35,7 +36,8 @@ public class TicketManager {
     }
 
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Tickets/tickets.txt";
-
+    Scanner sc = new Scanner(System.in);
+    
     private String[] ticketTypes = {"Senior Citizens (Mon - Fri Before 6pm)",
                                     "Students (Mon - Fri Before 6pm)",
                                     "Mon - Wed",
@@ -45,7 +47,7 @@ public class TicketManager {
                                     "Sat & Sun",
                                     "Public holiday"};
 
-    private double[] ticketPrices = {4.00, 7.00, 8.50, 9.50, 9.50, 11.00, 11.00, 12.00};
+    private double[] ticketPrices =   {4.00, 7.00,  8.50,  9.50,  9.50, 11.00, 11.00, 12.00};
     private double[] ticketPrices3D = {9.00, 9.00, 11.00, 11.00, 15.00, 15.00, 15.00, 16.00};
 
     public static TicketManager getInstance() {
@@ -129,5 +131,15 @@ public class TicketManager {
         return tickets3D;
     }
 
-
+    public void editTicket(int choice, boolean three_D){
+        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        File myFile = new File(FILE);
+        if (myFile.exists()) 
+            tickets = read();
+        if(three_D) switch(choice){
+            case 1:
+                tickets.get(8).setTicketPrice(sc.nextDouble());
+                break;
+        }
+    }
 }
