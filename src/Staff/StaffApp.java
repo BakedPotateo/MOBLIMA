@@ -90,7 +90,7 @@ public class StaffApp {
                     exit = true;
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-2.");
+                    System.out.println("Please enter an integer between 1-2.\n");
                     break;
             }
         }
@@ -138,7 +138,7 @@ public class StaffApp {
                     System.out.println("Returning to main page...\n");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-4.");
+                    System.out.println("Please enter an integer between 1-4.\n");
                     break;
             }
         }

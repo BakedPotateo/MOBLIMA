@@ -230,7 +230,7 @@ public class MovieManager {
 
     public void MovieMenuStaff(){
         int choice = 0;
-        while(choice != 4){
+        while(choice != 5){
             System.out.println("----- MOBLIMA STAFF APP -----\n"
                               +" 1. View movies\n"
                               +" 2. Add movie\n"
@@ -271,10 +271,10 @@ public class MovieManager {
                 this.editMovie();
                     break;
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting...\n");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-5.");
+                    System.out.println("Please enter an integer between 1-5.\n");
                     break;
             }
         }
@@ -361,10 +361,10 @@ public class MovieManager {
                     System.out.println(movie.makeString());
                     break;
                 case 6:
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting...\n");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-6.");
+                    System.out.println("Please enter an integer between 1-6.\n");
                     break;
             }
         }
@@ -399,10 +399,10 @@ public class MovieManager {
                     this.editByID();
                     break;
                 case 3:
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting...\n");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-3.");
+                    System.out.println("Please enter an integer between 1-3.\n");
                     break;
             }
         }
@@ -851,10 +851,10 @@ public class MovieManager {
                     this.topRatings();
                     break;
                 case 3:
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting...\n");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-3.");
+                    System.out.println("Please enter an integer between 1-3.\n");
                     break;
             }
         }
