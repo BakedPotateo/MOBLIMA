@@ -19,6 +19,7 @@ public class Movie implements Serializable{
     private LocalDate releaseDate;
     private LocalDate endDate;
     private int sales = 0;
+    private ArrayList<Showtime> showtimes;
 
     public Movie(int id, String title, String movieType, String synopsis, 
                  String rating, String director, ArrayList<String> cast, 
@@ -149,6 +150,14 @@ public class Movie implements Serializable{
 
     public void setSales(int sales) {
         this.sales = sales;
+    }
+
+    public ArrayList<Showtime> getShowtimes(){
+        return showtimes;
+    }
+
+    public void setShowtimes(ArrayList<Showtime> showtimes){
+        this.showtimes = showtimes;
     }
 
     public String makeString() {

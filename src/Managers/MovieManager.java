@@ -111,7 +111,7 @@ public class MovieManager {
             if (m.getId() == id)
                 return m;
         }
-        // System.out.println("Movie ID entered does not exist...\n");
+        System.out.println("Movie ID entered does not exist.\n");
         return null;
     }
 
@@ -285,7 +285,7 @@ public class MovieManager {
         int choice = 0;
         ArrayList<Movie> movieList = new ArrayList<Movie>();
         while(choice != 6){
-            System.out.println("-------- View Movies --------\n"
+            System.out.println("-------- VIEW MOVIES --------\n"
                               +" 1. View all movies\n"
                               +" 2. View movies by rating\n"
                               +" 3. View movies by type\n"
@@ -377,7 +377,7 @@ public class MovieManager {
                               +" 1. Search by title\n"
                               +" 2. Search by ID\n"
                               +" 3. Exit\n"
-                              +"-----------------------------");
+                              +"----------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -424,20 +424,21 @@ public class MovieManager {
         System.out.println();
 
         int choice = 0;
-        while(choice != 12){
+        while(choice != 13){
             System.out.println("-------- EDIT MOVIE --------\n"
-                              +"1.  Edit Title\n"
-                              +"2.  Edit Type\n"
-                              +"3.  Edit Synopsis\n"
-                              +"4.  Edit Rating\n"
-                              +"5.  Edit Director\n"
-                              +"6.  Edit Cast\n"
-                              +"7.  Edit Duration\n"
-                              +"8.  Edit Release Date\n"
-                              +"9.  Edit End Date\n"
-                              +"10. Edit Reviews\n"
-                              +"11. Preview movie\n"
-                              +"12. Save and exit\n"
+                              +" 1.  Edit Title\n"
+                              +" 2.  Edit Type\n"
+                              +" 3.  Edit Synopsis\n"
+                              +" 4.  Edit Rating\n"
+                              +" 5.  Edit Director\n"
+                              +" 6.  Edit Cast\n"
+                              +" 7.  Edit Duration\n"
+                              +" 8.  Edit Release Date\n"
+                              +" 9.  Edit End Date\n"
+                              +" 10. Edit Reviews\n"
+                              +" 11. Edit Showtimes\n"
+                              +" 12. Preview movie\n"
+                              +" 13. Save and exit\n"
                               +"----------------------------");
 
             System.out.println("Please enter your choice:");
@@ -485,9 +486,18 @@ public class MovieManager {
                     m.addReview(this.editReviews());
                     break;
                 case 11:
-                    System.out.println(m.makeString());
+                    System.out.println("Please enter movie ID:");
+                    while (!sc.hasNextInt()) {
+                        System.out.println("Invalid input type. Please enter an integer value.");
+                        sc.next(); // remove newline
+                    }
+                    int movieID = sc.nextInt();
+                    ShowtimeManager.getInstance().editShowtimeMenu(movieID);
                     break;
                 case 12:
+                    System.out.println(m.makeString());
+                    break;
+                case 13:
                     System.out.println("Movie details updated!");
                     break;
                 default:
