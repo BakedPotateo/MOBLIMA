@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import Managers.CustomerManager;
 import Managers.MovieManager;
-import Movies.Movie;
 
 public class CustomerApp {
     private Scanner sc = new Scanner(System.in);
