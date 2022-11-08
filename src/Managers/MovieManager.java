@@ -409,16 +409,21 @@ public class MovieManager {
     }
 
     private void editByID() {
-        System.out.println("Please enter the movie ID:");
-        /*
-        * Check if input is an integer
-        */
-        while (!sc.hasNextInt()) {
-            System.out.println("Invalid input type. Please enter an integer value.");
-            sc.next(); // remove newline
+        Movie m = null;
+        int ID;
+        while (m == null){
+            System.out.println("Please enter the movie ID:");
+            /*
+            * Check if input is an integer
+            */
+            while (!sc.hasNextInt()) {
+                System.out.println("Invalid input type. Please enter an integer value.");
+                sc.next(); // remove newline
+            }
+            ID = sc.nextInt();
+            m = this.searchById(ID);
         }
-        int ID = sc.nextInt();
-        Movie m = this.searchById(ID);
+        
         System.out.println("Selected movie:\n");
         System.out.println(m.makeString());
         System.out.println();
@@ -486,13 +491,7 @@ public class MovieManager {
                     m.addReview(this.editReviews());
                     break;
                 case 11:
-                    System.out.println("Please enter movie ID:");
-                    while (!sc.hasNextInt()) {
-                        System.out.println("Invalid input type. Please enter an integer value.");
-                        sc.next(); // remove newline
-                    }
-                    int movieID = sc.nextInt();
-                    ShowtimeManager.getInstance().editShowtimeMenu(movieID);
+                    ShowtimeManager.getInstance().editShowtimeMenu(m.getId());
                     break;
                 case 12:
                     System.out.println(m.makeString());
@@ -505,7 +504,7 @@ public class MovieManager {
                     break;
             }
         }
-        this.removeMovieById(ID);
+        this.removeMovieById(m.getId());
         this.createNewMovie(m);
     }
 
@@ -567,20 +566,21 @@ public class MovieManager {
         System.out.println(m.makeString());
         System.out.println();
         int choice = 0;
-        while(choice != 12){
+        while(choice != 13){
             System.out.println("-------- EDIT MOVIE --------\n"
-                              +"1.  Edit Title\n"
-                              +"2.  Edit Type\n"
-                              +"3.  Edit Synopsis\n"
-                              +"4.  Edit Rating\n"
-                              +"5.  Edit Director\n"
-                              +"6.  Edit Cast\n"
-                              +"7.  Edit Duration\n"
-                              +"8.  Edit Release Date\n"
-                              +"9.  Edit End Date\n"
-                              +"10. Edit Reviews\n"
-                              +"11. Preview movie\n"
-                              +"12. Save and exit\n"
+                              +" 1.  Edit Title\n"
+                              +" 2.  Edit Type\n"
+                              +" 3.  Edit Synopsis\n"
+                              +" 4.  Edit Rating\n"
+                              +" 5.  Edit Director\n"
+                              +" 6.  Edit Cast\n"
+                              +" 7.  Edit Duration\n"
+                              +" 8.  Edit Release Date\n"
+                              +" 9.  Edit End Date\n"
+                              +" 10. Edit Reviews\n"
+                              +" 11. Edit Showtimes\n"
+                              +" 12. Preview movie\n"
+                              +" 13. Save and exit\n"
                               +"----------------------------");
 
             System.out.println("Please enter your choice:");
@@ -628,13 +628,16 @@ public class MovieManager {
                     m.addReview(this.editReviews());
                     break;
                 case 11:
-                    System.out.println(m.makeString());
+                    m.setShowtimes(ShowtimeManager.getInstance().editShowtimeMenu(m.getId()));
                     break;
                 case 12:
+                    System.out.println(m.makeString());
+                    break;
+                case 13:
                     System.out.println("Movie details updated!");
                     break;
                 default:
-                    System.out.println("Please enter an integer between 1-12");
+                    System.out.println("Please enter an integer between 1-12.");
                     break;
             }
         }
@@ -841,7 +844,7 @@ public class MovieManager {
                               +" 1. Get top 5 by sales\n"
                               +" 2. Get top 5 by ratings\n"
                               +" 3. Exit\n"
-                              +"----------------------------\n");
+                              +"----------------------------");
             System.out.println("Please enter your choice:");
 
             /*

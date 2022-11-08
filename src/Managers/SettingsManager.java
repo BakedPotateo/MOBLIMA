@@ -40,7 +40,7 @@ public class SettingsManager {
                               +" 1. Configure ticket prices\n"
                               +" 2. Configure holidays\n"
                               +" 3. Exit\n"
-                              +"---------------------------------\n");
+                              +"---------------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -78,7 +78,7 @@ public class SettingsManager {
                               +" 2. Edit 3D ticket prices\n"
                               +" 3. Show all ticket prices\n"
                               +" 4. Exit\n"
-                              +"--------------------------------\n");
+                              +"--------------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -124,7 +124,7 @@ public class SettingsManager {
                               +" 7. Ticket Type: Public holiday\n"
                               +" 8. Show all 2D tickets\n"
                               +" 9. Exit\n"         
-                              +"----------------------------------\n");
+                              +"----------------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -186,7 +186,7 @@ public class SettingsManager {
                               +" 7. Ticket Type: Public holiday\n"
                               +" 8. Show all 3D tickets\n"
                               +" 9. Exit\n"      
-                              +"----------------------------------\n");
+                              +"----------------------------------");
 
             System.out.println("Please enter your choice:");
 
@@ -243,7 +243,7 @@ public class SettingsManager {
                               +" 2. Delete holiday\n"
                               +" 3. Show all holidays\n"
                               +" 4. Exit\n"
-                              +"---------------------------------\n");
+                              +"---------------------------------");
 
             System.out.println("Please enter your choice:");
 

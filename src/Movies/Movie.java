@@ -35,6 +35,7 @@ public class Movie implements Serializable{
         this.releaseDate = releaseDate;
         this.endDate = endDate;
         this.reviews = new ArrayList<Review>();
+        this.showtimes = new ArrayList<Showtime>();
     }
 
     public int getId() {

@@ -43,7 +43,7 @@ public class StaffApp {
             System.out.println("--- MOBLIMA STAFF APP ---\n"
                               +" 1. Login\n"
                               +" 2. Exit\n"
-                              +"-------------------------\n");
+                              +"-------------------------");
 
             System.out.println("Please enter your choice:");
 

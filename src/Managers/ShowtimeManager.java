@@ -1,8 +1,5 @@
 package Managers;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,7 +15,7 @@ public class ShowtimeManager {
     private static ShowtimeManager instance = null;
 
     public ShowtimeManager(){}
-    
+
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Movies/movies.txt";
     private Scanner sc = new Scanner(System.in);
 
@@ -29,13 +26,14 @@ public class ShowtimeManager {
         return instance;
     }
 
-    public void editShowtimeMenu(int movieID){
+    public ArrayList<Showtime> editShowtimeMenu(int movieID){
         int choice = 0;
+        ArrayList<Showtime> newShowtimes = MovieManager.getInstance().searchById(movieID).getShowtimes();
         while(choice != 4){
             System.out.println("-------- EDIT SHOWTIMES --------\n"
                               +" 1. Add showtime\n"
                               +" 2. Remove showtime\n"
-                              +" 3. Preview showtimes"
+                              +" 3. Preview showtimes\n"
                               +" 4. Exit\n"
                               +"--------------------------------");
 
@@ -54,13 +52,13 @@ public class ShowtimeManager {
 
             switch(choice){
                 case 1:
-                    this.addShowtime(MovieManager.getInstance().searchById(movieID));
+                    newShowtimes = this.addShowtime(MovieManager.getInstance().searchById(movieID));
                     break;
                 case 2:
-                    this.removeShowtime(MovieManager.getInstance().searchById(movieID));
+                    newShowtimes = this.removeShowtime(MovieManager.getInstance().searchById(movieID));
                     break;
                 case 3:
-                    for(Showtime showtime : MovieManager.getInstance().searchById(movieID).getShowtimes())
+                    for(Showtime showtime : newShowtimes)
                         showtime.makeString();
                     break;
                 case 4:
@@ -68,11 +66,13 @@ public class ShowtimeManager {
                     break;
             }
         }
+        return newShowtimes;
     }
 
-    public void addShowtime(Movie movie){
-        ArrayList<Showtime> showtimes = movie.getShowtimes();
-        ArrayList<Movie> data = MovieManager.getInstance().read();
+    public ArrayList<Showtime> addShowtime(Movie movie){
+        ArrayList<Showtime> showtimes = new ArrayList<Showtime>();
+        if (movie.getShowtimes() != null)
+            showtimes = movie.getShowtimes();
 
         System.out.println("Enter the showtime ID:");
         String showtimeID;
@@ -103,7 +103,7 @@ public class ShowtimeManager {
 
         ArrayList<Cineplex> cineplexes = CinemaManager.getInstance().read();
         for(int i = 0; i < cineplexes.size(); i++){
-            System.out.println(i + ". " + cineplexes.get(i).getName());
+            System.out.println((i+1) + ". " + cineplexes.get(i).getName());
         }
 
         System.out.println("Please choose a cineplex:");
@@ -116,7 +116,7 @@ public class ShowtimeManager {
         ArrayList<Cinema> cinemas = cineplexes.get(cineplexChoice).getCinemas();
 
         for(int i = 0; i < cinemas.size(); i++){
-            System.out.println(i + ". " + cinemas.get(i).getId());
+            System.out.println((i+1) + ". " + cinemas.get(i).getId());
         }
 
         System.out.println("Please choose a cinema:");
@@ -128,21 +128,13 @@ public class ShowtimeManager {
 
         Showtime newShowtime = new Showtime(showtimeID, dateTime, movie.getId(), cinemas.get(cinemaChoice), cineplexes.get(cineplexChoice).getName());
         showtimes.add(newShowtime);
-        movie.setShowtimes(showtimes);
-        data.remove(movie.getId());
-        data.add(movie);
-        try {
-            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
-            data.add(movie);
-            output.writeObject(data);
-            output.flush();
-            output.close();
-        } catch (IOException e) {}
+        return showtimes;
     }
 
-    public void removeShowtime(Movie movie){
-        ArrayList<Showtime> showtimes = movie.getShowtimes();
-        ArrayList<Movie> data = MovieManager.getInstance().read();
+    public ArrayList<Showtime> removeShowtime(Movie movie){
+        ArrayList<Showtime> showtimes = new ArrayList<Showtime>();
+        if (movie.getShowtimes() != null)
+            showtimes = movie.getShowtimes();
         System.out.println("Enter the showtime ID:");
         String showtimeID;
         while(true){
@@ -158,19 +150,13 @@ public class ShowtimeManager {
             if(showtimes.get(i).getShowtimeID().equals(showtimeID))
                 showtimes.remove(i);
         
-        movie.setShowtimes(showtimes);
-        data.remove(movie.getId());
-        data.add(movie);
-        try {
-            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
-            output.writeObject(data);
-            output.flush();
-            output.close();
-        } catch (IOException e) {}
+        return showtimes;
     }
 
     private boolean isValidShowtimeID(Movie movie, String newShowtimeID){
         ArrayList<Showtime> showtimes = movie.getShowtimes();
+        if(showtimes == null)
+            return true;
         for(Showtime showtime : showtimes)
             if(showtime.getShowtimeID().equals(newShowtimeID)){
                 System.out.println("Showtime ID already exists.\n");
