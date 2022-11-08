@@ -1,7 +1,10 @@
 package Customer;
 
-import java.util.Scanner; 
+import java.util.Scanner;
+
+import Managers.CustomerManager;
 import Managers.MovieManager;
+import Movies.Movie;
 
 public class CustomerApp {
     private Scanner sc = new Scanner(System.in);
@@ -38,16 +41,16 @@ public class CustomerApp {
         boolean exit = false;
 
         while(!exit){
-            System.out.println("----------------- MOBLIMA CUSTOMER APP -----------------\n");
-            System.out.println(" 1. View current movies\n" +
+            System.out.println("------------- MOBLIMA CUSTOMER APP ------------\n" +
+                               " 1. View current movies\n" +
                                " 2. Search for a movie\n" +
                                " 3. View movie details\n" +
                                " 4. Book and purchase ticket\n" +
                                " 5. View booking history\n" +
                                " 6. List the Top 5 movies\n" +
                                " 7. Submit a movie review\n" +
-                               " 8. Exit");
-            System.out.println("-------------------------------------------------------\n");            
+                               " 8. Exit\n"+
+                               "-----------------------------------------------\n");            
 
             System.out.println("Please enter your choice:");
 
@@ -68,6 +71,7 @@ public class CustomerApp {
                     MovieManager.getInstance().viewMovies();
                     break;
                 case 2:
+                    CustomerManager.getInstance().SearchMovie();
                     break;
                 case 3:
                     break;
@@ -79,6 +83,8 @@ public class CustomerApp {
                     MovieManager.getInstance().showTop5();
                     break;
                 case 7:
+                    CustomerManager.getInstance().addReview();
+                    break;
                 case 8:
                     System.out.println("Returning to the main page...\n");
                     exit = true;
@@ -89,9 +95,9 @@ public class CustomerApp {
             
             }
         }
-
     }
 
+    
 }
 
 
