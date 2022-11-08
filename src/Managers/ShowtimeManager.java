@@ -1,5 +1,181 @@
 package Managers;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import Cinema.Cinema;
+import Cinema.Cineplex;
+import Movies.Movie;
+import Movies.Showtime;
+import utils.ProjectRootPathFinder;
+
 public class ShowtimeManager {
+    private static ShowtimeManager instance = null;
+
+    public ShowtimeManager(){}
     
+    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Movies/movies.txt";
+    private Scanner sc = new Scanner(System.in);
+
+    public static ShowtimeManager getInstance()
+    {
+        if (instance == null)
+            instance = new ShowtimeManager(); // instance is a static variable
+        return instance;
+    }
+
+    public void editShowtimeMenu(int movieID){
+        int choice = 0;
+        while(choice != 4){
+            System.out.println("-------- EDIT SHOWTIMES --------\n"
+                              +" 1. Add showtime\n"
+                              +" 2. Remove showtime\n"
+                              +" 3. Preview showtimes"
+                              +" 4. Exit\n"
+                              +"--------------------------------");
+
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice){
+                case 1:
+                    this.addShowtime(MovieManager.getInstance().searchById(movieID));
+                    break;
+                case 2:
+                    this.removeShowtime(MovieManager.getInstance().searchById(movieID));
+                    break;
+                case 3:
+                    for(Showtime showtime : MovieManager.getInstance().searchById(movieID).getShowtimes())
+                        showtime.makeString();
+                    break;
+                case 4:
+                    System.out.println("Exiting...\n");
+                    break;
+            }
+        }
+    }
+
+    public void addShowtime(Movie movie){
+        ArrayList<Showtime> showtimes = movie.getShowtimes();
+        ArrayList<Movie> data = MovieManager.getInstance().read();
+
+        System.out.println("Enter the showtime ID:");
+        String showtimeID;
+        while(true){
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // Remove newline character
+            }
+            showtimeID = sc.nextLine();
+            if(isValidShowtimeID(movie, showtimeID)) break;
+        }
+        System.out.println("Enter the date in the format yyyy-mm-dd:");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String date = sc.nextLine();
+        System.out.println("Enter the time in the format hh:mm:");
+        while (!sc.hasNext()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        String time = sc.nextLine();
+
+        String dateTimeStr = date + " " + time;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, formatter);
+
+        ArrayList<Cineplex> cineplexes = CinemaManager.getInstance().read();
+        for(int i = 0; i < cineplexes.size(); i++){
+            System.out.println(i + ". " + cineplexes.get(i).getName());
+        }
+
+        System.out.println("Please choose a cineplex:");
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        int cineplexChoice = sc.nextInt();
+
+        ArrayList<Cinema> cinemas = cineplexes.get(cineplexChoice).getCinemas();
+
+        for(int i = 0; i < cinemas.size(); i++){
+            System.out.println(i + ". " + cinemas.get(i).getId());
+        }
+
+        System.out.println("Please choose a cinema:");
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        int cinemaChoice = sc.nextInt();
+
+        Showtime newShowtime = new Showtime(showtimeID, dateTime, movie.getId(), cinemas.get(cinemaChoice), cineplexes.get(cineplexChoice).getName());
+        showtimes.add(newShowtime);
+        movie.setShowtimes(showtimes);
+        data.remove(movie.getId());
+        data.add(movie);
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
+            data.add(movie);
+            output.writeObject(data);
+            output.flush();
+            output.close();
+        } catch (IOException e) {}
+    }
+
+    public void removeShowtime(Movie movie){
+        ArrayList<Showtime> showtimes = movie.getShowtimes();
+        ArrayList<Movie> data = MovieManager.getInstance().read();
+        System.out.println("Enter the showtime ID:");
+        String showtimeID;
+        while(true){
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // Remove newline character
+            }
+            showtimeID = sc.nextLine();
+            if(isValidShowtimeID(movie, showtimeID)) break;
+        }
+
+        for(int i = 0; i < showtimes.size(); i++)
+            if(showtimes.get(i).getShowtimeID().equals(showtimeID))
+                showtimes.remove(i);
+        
+        movie.setShowtimes(showtimes);
+        data.remove(movie.getId());
+        data.add(movie);
+        try {
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
+            output.writeObject(data);
+            output.flush();
+            output.close();
+        } catch (IOException e) {}
+    }
+
+    private boolean isValidShowtimeID(Movie movie, String newShowtimeID){
+        ArrayList<Showtime> showtimes = movie.getShowtimes();
+        for(Showtime showtime : showtimes)
+            if(showtime.getShowtimeID().equals(newShowtimeID)){
+                System.out.println("Showtime ID already exists.\n");
+                return false;
+            }
+        return true;
+    }
 }
