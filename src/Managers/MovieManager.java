@@ -867,9 +867,9 @@ public class MovieManager {
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.println(movie.makeString());
+                System.out.println("Title: " + movie.getTitle() + "\nSales: " + movie.getSales() + "\n");
             i++;
-        } 
+        }
     }
 
     private void topRatings(){
@@ -879,7 +879,7 @@ public class MovieManager {
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.println(movie.makeString());
+                System.out.println("Title: " + movie.getTitle() + "\nSales: " + this.getAverageStarRating(movie.getId()) +"\n");
             i++;
         }
     }
