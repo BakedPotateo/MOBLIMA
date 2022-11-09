@@ -142,8 +142,9 @@ public class CinemaManager {
                 ArrayList<Cinema> cinemas = cineplex.getCinemas();
                 cinemas.add(cinema);
                 cineplex.setCinemas(cinemas);
-                createCineplex(cineplexName, cineplex.getCinemas());
                 deleteCineplexByName(cineplexName);
+                createCineplex(cineplexName, cineplex.getCinemas());
+                // deleteCineplexByName(cineplexName);
                 break;
             }
         }
