@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Cinema.Seat;
 import Movies.Showtime;
 
 import java.io.ObjectInputStream;
@@ -23,23 +22,23 @@ import utils.ProjectRootPathFinder;
 public class TicketManager {
     public static TicketManager instance = null;
     private TicketManager(){
-        this.createTicket("Senior Citizens (Mon - Fri Before 6pm)", "2D");
-        this.createTicket("Senior Citizens (Mon - Fri Before 6pm)", "3D");
-        this.createTicket("Students (Mon - Fri Before 6pm)", "2D");
-        this.createTicket("Students (Mon - Fri Before 6pm)", "3D");
-        this.createTicket("Mon - Fri", "2D");
-        this.createTicket("Mon - Fri", "3D");
-        this.createTicket("Sat & Sun / PH", "2D");
-        this.createTicket("Sat & Sun / PH", "3D");
+        this.createTicket("Senior Citizens", "2D");
+        this.createTicket("Senior Citizens", "3D");
+        this.createTicket("Students", "2D");
+        this.createTicket("Students", "3D");
+        this.createTicket("Standard", "2D");
+        this.createTicket("Standard", "3D");
+        this.createTicket("Weekends & Public holidays", "2D");
+        this.createTicket("Weekends & Public holidays", "3D");
     }
 
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Tickets/tickets.txt";
     Scanner sc = new Scanner(System.in);
 
-    private String[] ticketTypes = {"Senior Citizens (Mon - Fri Before 6pm)",
-                                    "Students (Mon - Fri Before 6pm)",
-                                    "Mon - Fri",
-                                    "Sat & Sun / PH"};
+    private String[] ticketTypes = {"Senior Citizens",
+                                    "Students",
+                                    "Standard",
+                                    "Weekends & Public holidays"};
 
     private double[] ticketPrices =   {4.00, 7.00,  8.50, 11.00};
     private double[] ticketPrices3D = {9.00, 9.00, 11.00, 15.00};
@@ -163,23 +162,52 @@ public class TicketManager {
         } catch (IOException e) {}
     }
 
-    public String chooseTicketType(Showtime showtime, ArrayList<Seat> seats){
-        String ticketType = "";
+    public ArrayList<Ticket> chooseTicketType(Showtime showtime, ArrayList<Ticket> tickets){
         int choice;
         if(!isWeekend(showtime.getDateTime()) && !HolidayManager.getInstance().isPublicHoliday(showtime)){
-            System.out.println("---------- TICKETS MENU ----------\n"
-                              +" 1. Ticket Type: Senior Citizens\n"
-                              +" 2. Ticket Type: Students\n"
-                              +" 3. Ticket Type: Mon - Fri\n"
-                              +" 4. Exit\n"      
-                              +"----------------------------------");
+            for(int i = 0; i < tickets.size(); i++){
+                boolean loop = true;
+                while (loop){
+                    System.out.println("---------- TICKETS MENU ----------\n"
+                                      +" 1. Ticket Type: Senior Citizens\n"
+                                      +" 2. Ticket Type: Students\n"
+                                      +" 3. Ticket Type: Standard\n"     
+                                      +"----------------------------------");
 
-            System.out.println("Please enter your choice:");
+                    System.out.println("Please enter your choice for ticket " + (i+1) +":");
+                    while (!sc.hasNextInt()) {
+                        System.out.println("Invalid input type. Please enter an integer value.");
+                        sc.next(); // remove newline
+                    }
+
+                    choice = sc.nextInt();
+                    switch(choice){
+                        case 1:
+                            tickets.get(i).setTicketType("Senior Citizens");
+                            loop = false;
+                            break;
+                        case 2:
+                            tickets.get(i).setTicketType("Students");
+                            loop = false;
+                            break;
+                        case 3:
+                            tickets.get(i).setTicketType("Standard");
+                            loop = false;
+                            break;
+                        default:
+                            System.out.println("Invalid choice. Please try again.");
+                            break;
+                    }
+                }  
+            }
         }
         else{
-            
+            System.out.println("All tickets set to weekend / public holiday prices.");
+            for(Ticket t : tickets)
+                t.setTicketType("Weekends & Public holidays");
         }
-        return ticketType;
+
+        return tickets;
     }
 
     public static boolean isWeekend(LocalDateTime ld)

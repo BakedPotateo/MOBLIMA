@@ -6,9 +6,11 @@ import java.util.Scanner;
 import Cinema.Cinema;
 import Cinema.Seat;
 import Cinema.SeatingLayout;
+import Customer.Booking;
+import Customer.Customer;
 import Movies.Movie;
 import Movies.Showtime;
-import utils.ProjectRootPathFinder;
+import Tickets.Ticket;
 
 public class BookingManager {
     // Attributes
@@ -17,10 +19,6 @@ public class BookingManager {
      * instance checks whether BookingManager has been instantiated before. Static variable is the same between objects of the same class.
      */
     public static BookingManager instance = null;
-
-    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Customer/customer.txt";
-
-
     
     public Scanner sc = new Scanner(System.in);
     /*
@@ -44,11 +42,14 @@ public class BookingManager {
 
     public void bookingMenu(){
         int choice = 0;
-        while(choice != 3){
+        Customer customer;
+        String email;
+        ArrayList<Booking> bookings = new ArrayList<Booking>();
+        
+        while(choice != 2){
             System.out.println("------- BOOKING MENU -------\n"
-                              +" 1. Book by title\n"
-                              +" 2. Book by ID\n"
-                              +" 3. Exit\n"
+                              +" 1. Book movie\n"
+                              +" 2. Exit\n"
                               +"----------------------------");
             System.out.println("Please enter your choice:");
 
@@ -63,12 +64,22 @@ public class BookingManager {
             choice = sc.nextInt();
             switch(choice){
                 case 1:
-                    
+                    bookings.add(this.bookMovie());
+                    System.out.println("Please enter your email:");
+                    while(!sc.hasNext()){
+                        System.out.println("Invalid input type. Please try again. ");
+                        sc.next(); //remove new line
+                    }
+                    email = sc.nextLine();
+                    customer = CustomerManager.getInstance().getCustomer(email);
+                    if(customer != null)
+                        TransactionManager.getInstance().transaction(customer);
+                    else{
+                        customer = CustomerManager.getInstance().createCustomer(email, bookings);
+                        TransactionManager.getInstance().transaction(customer);
+                    }
                     break;
                 case 2:
-                    
-                    break;
-                case 3:
                     System.out.println("Exiting...\n");
                     break;
                 default:
@@ -78,7 +89,7 @@ public class BookingManager {
         }
     }
 
-    private void bookByID(){
+    private Booking bookMovie(){
         ArrayList<Movie> movies = MovieManager.getInstance().read();
         int movieChoice;
         while(true){
@@ -146,7 +157,32 @@ public class BookingManager {
             if (exit == 1) break;
         }
 
+        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        for (int i = 0; i < seats.size(); i++){
+            Ticket t = new Ticket();
+            t.setSeat(seats.get(i));
+            tickets.add(t);
+        }
         // choose ticket type
+
+        tickets = TicketManager.getInstance().chooseTicketType(showtime, tickets);
+        for(Ticket t : tickets)
+            t.setMovieType(movie.getMovieType());
+
         // get ticket price
+        ArrayList<Ticket> baseTickets = TicketManager.getInstance().read();
+
+        for(Ticket t : tickets)
+            for(Ticket bt : baseTickets){
+                if(t.getTicketType().equals(bt.getTicketType()))
+                    t.setTicketPrice(bt.getTicketPrice());
+            }
+        
+        System.out.println("Ticket preview:");
+        for(Ticket t : tickets)
+            t.makeString();
+
+        Booking booking = new Booking(movie, showtime, tickets);
+        return booking;
     }
 }
