@@ -216,47 +216,76 @@ public class CinemaManager {
     }
 
     public void editCinemaId(String OldId, String newId, String cineplexName) {
-        Cinema cinema = searchCinema(OldId);
+        Cineplex cineplex = searchCineplexByName(cineplexName);
 
-        if (cinema == null) {
-            System.out.println("Cinema code does not exist.");
+        if (cineplex == null) {
+            System.out.println("Cineplex does not exist.");
             return;
         }
-            
-        deleteCinema(OldId);
-        cinema.setId(newId);
-        createCinema(cineplexName, cinema.getId(), cinema.getClassOfCinema(), cinema.getLayout());
+        
+        ArrayList <Cinema> cinemas = cineplex.getCinemas();
+        for (int i=0; i<cinemas.size(); i++) {
+            Cinema cinema = cinemas.get(i);
+            if (cinema.getId().equals(OldId)) {
+                cinemas.remove(i);
+                cinema.setId(newId);
+                cinemas.add(cinema);
+                break;
+            }
+        }
+        deleteCineplexByName(cineplexName);
+        createCineplex(cineplexName, cinemas);
     }
 
     public void editCinemaClass(String Id, String newClassOfCinema, String cineplexName) {
-        Cinema cinema = searchCinema(Id);
+        Cineplex cineplex = searchCineplexByName(cineplexName);
 
-        if (cinema == null) {
-            System.out.println("Cinema code does not exist.");
+        if (cineplex == null) {
+            System.out.println("Cineplex does not exist.");
             return;
         }
-
-        deleteCinema(Id);
-        cinema.setClassOfCinema(newClassOfCinema);
-        createCinema(cineplexName, Id, newClassOfCinema, cinema.getLayout());
+        
+        ArrayList <Cinema> cinemas = cineplex.getCinemas();
+        for (int i=0; i<cinemas.size(); i++) {
+            Cinema cinema = cinemas.get(i);
+            if (cinema.getId().equals(Id)) {
+                cinemas.remove(i);
+                cinema.setClassOfCinema(newClassOfCinema);;
+                cinemas.add(cinema);
+                break;
+            }
+        }
+        deleteCineplexByName(cineplexName);
+        createCineplex(cineplexName, cinemas);
     }
 
-    public void editCinemaLayout(int row, int column, String Id, String cinemplexName) {
+    public void editCinemaLayout(int row, int column, String Id, String cineplexName) {
         SeatingLayout layout = new SeatingLayout(row, column);
-        Cinema cinema = searchCinema(Id);
+        Cineplex cineplex = searchCineplexByName(cineplexName);
 
-        if (cinema == null) {
-            System.out.println("Cinema code does not exist.");
+        if (cineplex == null) {
+            System.out.println("Cineplex does not exist.");
             return;
         }
-
-        deleteCinema(Id);
-        cinema.setLayout(layout);
-        createCinema(cinemplexName, Id, cinema.getClassOfCinema(), cinema.getLayout());
+        
+        ArrayList <Cinema> cinemas = cineplex.getCinemas();
+        for (int i=0; i<cinemas.size(); i++) {
+            Cinema cinema = cinemas.get(i);
+            if (cinema.getId().equals(Id)) {
+                cinemas.remove(i);
+                cinema.setLayout(layout);
+                cinemas.add(cinema);
+                break;
+            }
+        }
+        deleteCineplexByName(cineplexName);
+        createCineplex(cineplexName, cinemas);
     }
 
     public void editCinema() {
         int choice = 0;
+        String cineplexName;
+        String id;
         while (choice != 4) {
             System.out.println("----- EDIT CINEMA -----\n"
                               +" 1. Edit Cinema ID\n"
@@ -272,25 +301,25 @@ public class CinemaManager {
             }
 
             choice = sc.nextInt();
-            sc.next();
-            System.out.println("Please enter the Cineplex name the Cinema is located in: ");
-            while (!sc.hasNext()) {
-                System.out.println("Invalid input type. Please try again!");
-                sc.next(); // remove newline
-            }
-            String cineplexName = sc.nextLine();
-            sc.next();
-
-            System.out.println("Please enter the current Cinema Code: ");
-            while (!sc.hasNext()) {
-                System.out.println("Invalid input type. Please try again!");
-                sc.next(); // remove newline
-            }
-            String id = sc.nextLine();
-            sc.next();
+            sc.nextLine(); 
 
             switch(choice){
                 case 1:
+                    System.out.println("Please enter the Cineplex name the Cinema is located in: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // remove newline
+                    }
+                    cineplexName = sc.nextLine();
+        
+        
+                    System.out.println("Please enter the current Cinema Code: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // remove newline
+                    }
+                    id = sc.nextLine();
+
                     System.out.println("Please enter the new Cinema Code: ");
                     while (!sc.hasNext()) {
                         System.out.println("Invalid input type. Please try again!");
@@ -298,9 +327,24 @@ public class CinemaManager {
                     }
                     String newId = sc.nextLine();
 
-                    this.editCinemaClass(id, newId, cineplexName);
+                    this.editCinemaId(id, newId, cineplexName);
                     break;
                 case 2:
+                    System.out.println("Please enter the Cineplex name the Cinema is located in: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // remove newline
+                    }
+                    cineplexName = sc.nextLine();
+        
+        
+                    System.out.println("Please enter the current Cinema Code: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // remove newline
+                    }
+                    id = sc.nextLine();
+
                     System.out.println("Please enter the new Cinema Class: ");
                     while (!sc.hasNext()) {
                         System.out.println("Invalid input type. Please try again!");
@@ -311,12 +355,30 @@ public class CinemaManager {
                     this.editCinemaClass(id, cinemaClass, cineplexName);
                     break;
                 case 3:
+                    System.out.println("Please enter the Cineplex name the Cinema is located in: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // remove newline
+                    }
+                    cineplexName = sc.nextLine();
+        
+        
+                    System.out.println("Please enter the current Cinema Code: ");
+                    while (!sc.hasNext()) {
+                        System.out.println("Invalid input type. Please try again!");
+                        sc.next(); // remove newline
+                    }
+
+                    id = sc.nextLine();
+
                     System.out.println("Please enter the number of rows: ");
                     while (!sc.hasNextInt()) {
                         System.out.println("Invalid input type. Please try again!");
                         sc.next(); // remove newline
                     }
+
                     int row = sc.nextInt();
+                    sc.nextLine();
         
                     System.out.println("Please enter the number of columns: ");
                     while (!sc.hasNextInt()) {
@@ -324,6 +386,7 @@ public class CinemaManager {
                         sc.next(); // remove newline
                     }
                     int column = sc.nextInt();
+                    sc.nextLine();
 
                     this.editCinemaLayout(row, column, id, cineplexName);
                 case 4:
