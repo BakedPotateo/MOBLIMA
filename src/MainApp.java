@@ -6,10 +6,13 @@ public class MainApp {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
         while(choice != 3){
-            System.out.println("Welcome to MOBLIMA!\n");
-
+            System.out.println("--- WELCOME TO MOBLIMA! ---\n"
+                              +" 1. Customer\n"
+                              +" 2. Staff\n"
+                              +" 3. Exit\n"
+                              +"---------------------------");
             System.out.println("Please enter your choice:");
-            System.out.println("1. Customer\n2. Staff\n3. Exit\n");
+            
 
             /*
              * Check if input is an integer

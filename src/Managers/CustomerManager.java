@@ -71,12 +71,14 @@ public class CustomerManager {
             sc.next(); //remove new line
         }
         int id = sc.nextInt();
+        sc.nextLine();
         System.out.println("Please enter your username:");
         while(!sc.hasNext()){
             System.out.println("Invalid input type. Please try again. ");
             sc.next(); //remove new line
         }
         String username = sc.nextLine();
+
         System.out.println("Please enter your review:");
         while(!sc.hasNext()){
             System.out.println("Invalid input type. Please try again. ");
@@ -126,7 +128,7 @@ public class CustomerManager {
             output.flush();
             output.close();
         } catch (IOException e) {}
-        
+
         return c;
     }
 }

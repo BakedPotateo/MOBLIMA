@@ -153,7 +153,7 @@ public class ShowtimeManager {
         return showtimes;
     }
 
-    private boolean showtimeIdExists(Movie movie, String showtimeID) {
+    public boolean showtimeIdExists(Movie movie, String showtimeID) {
         ArrayList<Showtime> showtimes = movie.getShowtimes();
         if(showtimes == null)
             return false;

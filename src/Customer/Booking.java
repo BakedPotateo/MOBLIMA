@@ -38,7 +38,6 @@ public class Booking implements Serializable {
         showtime.makeString();
         for(Ticket ticket : tickets){
             ticket.makeString();
-            System.out.println();
         }
     }
 }

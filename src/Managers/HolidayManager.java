@@ -162,8 +162,8 @@ public class HolidayManager {
         LocalDate date = dateTime.toLocalDate();
         ArrayList<Holiday> holidays = this.read();
         for(Holiday holiday : holidays){
-            LocalDate startDate = LocalDate.parse(holiday.getStartDate());
-            LocalDate endDate = LocalDate.parse(holiday.getEndDate());
+            LocalDate startDate = holiday.getStartDate();
+            LocalDate endDate = holiday.getEndDate();
             if(date.isAfter(startDate.minusDays(1)) && date.isBefore(endDate.plusDays(1))) return true;
         }
         return false;

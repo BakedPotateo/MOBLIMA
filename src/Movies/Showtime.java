@@ -66,6 +66,6 @@ public class Showtime implements Serializable{
     public void makeString(){
         System.out.println("Showtime ID: " + showtimeID);
         System.out.println("Date | Time: " + this.dateTime.format(DateTimeFormatter.ofPattern("EE, dd/MM/yyyy | HH:mm")));
-        System.out.println("Cinema:      " + cineplex + " | " + cinema.getId());
+        System.out.println("Cinema     : " + cineplex + " | " + cinema.getId());
     }
 }

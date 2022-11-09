@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import Movies.Movie;
 import Movies.Review;
+import Movies.Showtime;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -488,7 +489,7 @@ public class MovieManager {
                     m.setEndDate(this.editEndDate());
                     break;
                 case 10:
-                    m.addReview(this.editReviews());
+                    m.setReviews(this.editReviews(m));
                     break;
                 case 11:
                     m.setShowtimes(ShowtimeManager.getInstance().editShowtimeMenu(m));
@@ -625,7 +626,7 @@ public class MovieManager {
                     m.setEndDate(this.editEndDate());
                     break;
                 case 10:
-                    m.addReview(this.editReviews());
+                    m.setReviews(this.editReviews(m));
                     break;
                 case 11:
                     m.setShowtimes(ShowtimeManager.getInstance().editShowtimeMenu(m));
@@ -814,27 +815,82 @@ public class MovieManager {
         return newEndDate;
     }
 
-    private Review editReviews(){
-        System.out.println("Enter the username:");
-        while (!sc.hasNext()) {
-            System.out.println("Invalid input type. Please try again!");
-            sc.next(); // Remove newline character
+    private ArrayList<Review> editReviews(Movie m){
+        ArrayList<Review> reviews = m.getReviews();
+        for(int i = 0; i < reviews.size(); i++)
+            System.out.println((i+1)+ ".\n" + reviews.get(i).makeString());
+
+        System.out.println("Please choose a review to edit (0 to exit):");
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please enter an integer value.");
+            sc.next(); // remove newline
         }
-        String username = sc.nextLine();
-        System.out.println("Enter the number of stars:");
-        while (!sc.hasNextDouble()) {
-            System.out.println("Invalid input type. Please try again!");
-            sc.next(); // Remove newline character
+
+        int choice = sc.nextInt() - 1;
+        if(choice == -1) return reviews;
+
+        Review r = reviews.get(choice);
+        reviews.remove(choice);
+        choice = 0;
+
+        while(choice != 4){
+            System.out.println("-------- EDIT REVIEW -------\n"
+                              +" 1. Edit username\n"
+                              +" 2. Edit comments\n"
+                              +" 3. Edit number of stars\n"
+                              +" 4. Save\n"
+                              +"----------------------------");
+            System.out.println("Please enter your choice:");
+
+            /*
+            * Check if input is an integer
+            */
+            while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please enter an integer value.");
+            sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice){
+                case 1:
+                    System.out.println("Enter the new username:");
+                    while (!sc.hasNext()) {
+                    System.out.println("Invalid input type. Please try again!");
+                    sc.next(); // Remove newline character
+                    }
+                    String username = sc.nextLine();
+                    r.setUsername(username);
+                    break;
+                case 2:
+                    System.out.println("Enter the comments:");
+                    while (!sc.hasNext()) {
+                    System.out.println("Invalid input type. Please try again!");
+                    sc.next(); // Remove newline character
+                    }
+                    String comments = sc.nextLine();
+                    r.setComments(comments);
+                    break;
+                case 3:
+                    System.out.println("Enter the number of stars:");
+                    while (!sc.hasNextDouble()) {
+                    System.out.println("Invalid input type. Please try again!");
+                    sc.next(); // Remove newline character
+                    }
+                    Double numberofstars = sc.nextDouble();
+                    r.setNumberOfStars(numberofstars);
+                    break;
+                case 4:
+                    System.out.println("Saved successfully.");
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-4.");
+                    break;
+            }
         }
-        Double numberofstars = sc.nextDouble();
-        System.out.println("Enter the comments:");
-        while (!sc.hasNext()) {
-            System.out.println("Invalid input type. Please try again!");
-            sc.next(); // Remove newline character
-        }
-        String comments = sc.nextLine();
-        Review newReview = new Review(username, numberofstars, comments);
-        return newReview;
+        reviews.add(r);
+        return reviews;
     }
 
     public void showTop5(){
@@ -895,6 +951,254 @@ public class MovieManager {
                 System.out.println("Title: " + movie.getTitle() + "\nSales: " + this.getAverageStarRating(movie.getId()) +"\n");
             i++;
         }
+    }
+
+    public void viewMovieDetails(){
+        int choice = 0;
+        while(choice != 3){
+            System.out.println("------- MOVIE DETAILS -------\n"
+                              +" 1. Search by title\n"
+                              +" 2. Search by ID\n"
+                              +" 3. Exit\n"
+                              +"-----------------------------");
+            System.out.println("Please enter your choice:");
+
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            switch(choice){
+                case 1:
+                    this.detailsByTitle();
+                    break;
+                case 2:
+                    this.detailsById();
+                    break;
+                case 3:
+                    System.out.println("Exiting...\n");
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-3.\n");
+                    break;
+            }
+        }
+    }
+
+    private void detailsById() {
+        System.out.println("Please enter the movie ID:");
+        int id;
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please enter an integer value.");
+            sc.next(); // remove newline
+        }
+
+        id = sc.nextInt();
+
+        Movie m = this.searchById(id);
+
+        int choice = 0;
+        while(choice != 11){
+            System.out.println("-------- MOVIE DETAILS --------\n"
+                              +" 1.  Get Title\n"
+                              +" 2.  Get Type\n"
+                              +" 3.  Get Synopsis\n"
+                              +" 4.  Get Rating\n"
+                              +" 5.  Get Director\n"
+                              +" 6.  Get Cast\n"
+                              +" 7.  Get Duration\n"
+                              +" 8.  Get Showing Dates\n"
+                              +" 9.  Get Reviews\n"
+                              +" 10. Get Showtimes\n"
+                              +" 11. Exit\n"
+                              +"-------------------------------");
+
+            System.out.println("Please enter your choice:");
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice){
+                case 1:
+                    System.out.println("Title: " + m.getTitle());
+                    break;
+                case 2:
+                    System.out.println("Type: " + m.getMovieType());
+                    break;
+                case 3:
+                    System.out.println("Synopsis: " + m.getSynopsis());
+                    break;
+                case 4:
+                    System.out.println("Rating: " + m.getRating());
+                    break;
+                case 5:
+                    System.out.println("Director: " + m.getDirector());
+                    break;
+                case 6:
+                    ArrayList<String> cast = m.getCast();
+                    System.out.println("Cast:");
+                    for(String c : cast)
+                        System.out.println(c);
+                    break;
+                case 7:
+                    System.out.println("Duration: " + m.getDuration());
+                    break;
+                case 8:
+                    System.out.println("Release date: " + m.getReleaseDate());
+                    System.out.println("End date:     " + m.getEndDate());
+                    break;
+                case 9:
+                    ArrayList<Review> reviews = m.getReviews();
+                    System.out.println("Reviews:");
+                    for(Review r : reviews)
+                        System.out.println(r.makeString());
+                    break;
+                case 10:
+                    ArrayList<Showtime> showtimes = m.getShowtimes();
+                    System.out.println("Showtimes:");
+                    for(Showtime s : showtimes)
+                        s.makeString();
+                    break;
+                case 11:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-12.");
+                    break;
+            }
+        }
+        
+    }
+
+    private void detailsByTitle() {
+        ArrayList<Movie> movieList;
+        sc.nextLine();
+        while(true){
+            System.out.println("Please enter the movie title:");
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // remove newline
+            }
+            String title = sc.nextLine();
+            
+            movieList = this.searchByTitle(title);
+            if(movieList.size() != 0)
+                break;
+            else
+                continue;
+        }
+        Movie m;
+        // Check for multiple similar titles (Same title but different movie type)
+        if(movieList.size() > 1){
+            System.out.println("Multiple titles detected. Please choose which movie to edit:");
+            int i = 1;
+            for(Movie movie : movieList){
+                System.out.println(i + ". " + movie.getTitle());
+                i++;
+            }
+            System.out.println();
+
+            int movieChoice = 0;
+            while (true){
+                System.out.println("Please enter your choice:");
+                while (!sc.hasNextInt()) {
+                    System.out.println("Invalid input type. Please enter an integer value.");
+                    sc.next(); // remove newline
+                }
+    
+                movieChoice = sc.nextInt();
+                if (movieChoice <= i && movieChoice > 0)
+                    break;
+                else
+                    System.out.println("Please enter a number between 1-" + i);
+                sc.nextLine();
+            }
+            m = movieList.get(movieChoice - 1);
+        }
+        else{
+            m = movieList.get(0);
+        }
+        int choice = 0;
+        while(choice != 11){
+            System.out.println("-------- MOVIE DETAILS --------\n"
+                                +" 1.  Get Title\n"
+                                +" 2.  Get Type\n"
+                                +" 3.  Get Synopsis\n"
+                                +" 4.  Get Rating\n"
+                                +" 5.  Get Director\n"
+                                +" 6.  Get Cast\n"
+                                +" 7.  Get Duration\n"
+                                +" 8.  Get Showing Dates\n"
+                                +" 9.  Get Reviews\n"
+                                +" 10. Get Showtimes\n"
+                                +" 11. Exit\n"
+                                +"-------------------------------");
+
+            System.out.println("Please enter your choice:");
+            while (!sc.hasNextInt()) {
+                System.out.println("Invalid input type. Please enter an integer value.");
+                sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch(choice){
+                case 1:
+                    System.out.println("Title: " + m.getTitle());
+                    break;
+                case 2:
+                    System.out.println("Type: " + m.getMovieType());
+                    break;
+                case 3:
+                    System.out.println("Synopsis: " + m.getSynopsis());
+                    break;
+                case 4:
+                    System.out.println("Rating: " + m.getRating());
+                    break;
+                case 5:
+                    System.out.println("Director: " + m.getDirector());
+                    break;
+                case 6:
+                    ArrayList<String> cast = m.getCast();
+                    System.out.println("Cast:");
+                    for(String c : cast)
+                        System.out.println(c);
+                    break;
+                case 7:
+                    System.out.println("Duration: " + m.getDuration());
+                    break;
+                case 8:
+                    System.out.println("Release date: " + m.getReleaseDate());
+                    System.out.println("End date:     " + m.getEndDate());
+                    break;
+                case 9:
+                    ArrayList<Review> reviews = m.getReviews();
+                    System.out.println("Reviews:");
+                    for(Review r : reviews)
+                        System.out.println(r.makeString());
+                    break;
+                case 10:
+                    ArrayList<Showtime> showtimes = m.getShowtimes();
+                    System.out.println("Showtimes:");
+                    for(Showtime s : showtimes)
+                        s.makeString();
+                    break;
+                case 11:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-12.");
+                    break;
+            }
+        }
+
+
     }
 }
 

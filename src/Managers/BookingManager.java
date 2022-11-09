@@ -62,6 +62,8 @@ public class BookingManager {
             }
 
             choice = sc.nextInt();
+            sc.nextLine();
+
             switch(choice){
                 case 1:
                     bookings.add(this.bookMovie());
@@ -70,10 +72,12 @@ public class BookingManager {
                         System.out.println("Invalid input type. Please try again. ");
                         sc.next(); //remove new line
                     }
+                    sc.nextLine();
                     email = sc.nextLine();
                     customer = CustomerManager.getInstance().getCustomer(email);
-                    if(customer != null)
+                    if(customer != null){
                         TransactionManager.getInstance().transaction(customer);
+                    }
                     else{
                         customer = CustomerManager.getInstance().createCustomer(email, bookings);
                         TransactionManager.getInstance().transaction(customer);
@@ -104,7 +108,8 @@ public class BookingManager {
             }
     
             movieChoice = sc.nextInt() - 1;
-            
+            sc.nextLine();
+
             if(movieChoice < movies.size() && movieChoice >= 0) loop = false;
             if(movies.get(movieChoice).getShowingStatus().equals("END OF SHOWING")){
                 System.out.println(movies.get(movieChoice).getTitle() + " is no longer showing. Please choose another movie.");
@@ -112,7 +117,7 @@ public class BookingManager {
             } else loop = false;
         }
         
-        Movie movie = movies.get(movieChoice - 1);
+        Movie movie = movies.get(movieChoice);
 
         ArrayList<Showtime> showtimes = movie.getShowtimes();
         for(int i = 0; i < showtimes.size(); i++){
@@ -128,7 +133,7 @@ public class BookingManager {
                 sc.next(); // remove newline
             }
             showtimeChoice = sc.nextLine();
-            if(ShowtimeManager.getInstance().isValidShowtimeID(movie, showtimeChoice)) break;
+            if(ShowtimeManager.getInstance().showtimeIdExists(movie, showtimeChoice)) break;
         }
         
         Showtime showtime = new Showtime();
