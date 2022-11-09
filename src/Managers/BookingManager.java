@@ -12,7 +12,7 @@ public class BookingManager {
      */
     public static BookingManager instance = null;
 
-    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Cineplex/cineplexes.txt";
+    public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Customer/customer.txt";
 
 
     
@@ -21,8 +21,6 @@ public class BookingManager {
      * Empty class constructor
      */
     private BookingManager(){}
-
-
 
     // Public methods
 
@@ -38,7 +36,43 @@ public class BookingManager {
         return instance;
     }
 
-    public void bookSeat(){
+    public void bookingMenu(){
+        int choice = 0;
+        while(choice != 3){
+            System.out.println("------- BOOKING MENU -------\n"
+                              +" 1. Book by title\n"
+                              +" 2. Book by ID\n"
+                              +" 3. Exit\n"
+                              +"----------------------------");
+            System.out.println("Please enter your choice:");
+
+            /*
+             * Check if input is an integer
+             */
+            while (!sc.hasNextInt()) {
+            	System.out.println("Invalid input type. Please enter an integer value.");
+        		sc.next(); // remove newline
+            }
+
+            choice = sc.nextInt();
+            switch(choice){
+                case 1:
+                    
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    System.out.println("Exiting...\n");
+                    break;
+                default:
+                    System.out.println("Please enter an integer between 1-3.\n");
+                    break;
+            }
+        }
+    }
+
+    private void bookByID(){
 
     }
 }
