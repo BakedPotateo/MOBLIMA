@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import Holidays.Holiday;
+import Movies.Showtime;
 import utils.ProjectRootPathFinder;
 import utils.ValidDateChecker;
 
@@ -153,5 +155,18 @@ public class HolidayManager {
             output.flush();
             output.close();
         } catch (IOException e) {}
+    }
+
+    public boolean isPublicHoliday(Showtime showtime){
+        LocalDateTime dateTime = showtime.getDateTime();
+        LocalDate date = dateTime.toLocalDate();
+        ArrayList<Holiday> holidays = this.read();
+        for(Holiday holiday : holidays){
+            LocalDate startDate = LocalDate.parse(holiday.getStartDate());
+            LocalDate endDate = LocalDate.parse(holiday.getEndDate());
+            if(date.isAfter(startDate.minusDays(1)) && date.isBefore(endDate.plusDays(1))) return true;
+        }
+        return false;
+            
     }
 }

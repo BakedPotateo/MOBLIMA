@@ -5,8 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Cinema.Seat;
+import Movies.Showtime;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 
 import Tickets.Ticket;
 
@@ -20,16 +27,10 @@ public class TicketManager {
         this.createTicket("Senior Citizens (Mon - Fri Before 6pm)", "3D");
         this.createTicket("Students (Mon - Fri Before 6pm)", "2D");
         this.createTicket("Students (Mon - Fri Before 6pm)", "3D");
-        this.createTicket("Mon - Wed", "2D");
-        this.createTicket("Mon - Wed", "3D");
-        this.createTicket("Thu", "2D");
-        this.createTicket("Thu", "3D");
-        this.createTicket("Fri (Before 6pm)", "2D");
-        this.createTicket("Fri (Before 6pm)", "3D");
-        this.createTicket("Sat & Sun", "2D");
-        this.createTicket("Sat & Sun", "3D");
-        this.createTicket("Public holiday", "2D");
-        this.createTicket("Public holiday", "3D");
+        this.createTicket("Mon - Fri", "2D");
+        this.createTicket("Mon - Fri", "3D");
+        this.createTicket("Sat & Sun / PH", "2D");
+        this.createTicket("Sat & Sun / PH", "3D");
     }
 
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Tickets/tickets.txt";
@@ -37,15 +38,11 @@ public class TicketManager {
 
     private String[] ticketTypes = {"Senior Citizens (Mon - Fri Before 6pm)",
                                     "Students (Mon - Fri Before 6pm)",
-                                    "Mon - Wed",
-                                    "Thu",
-                                    "Fri (Before 6pm)",
-                                    "Fri (After 6pm)",
-                                    "Sat & Sun",
-                                    "Public holiday"};
+                                    "Mon - Fri",
+                                    "Sat & Sun / PH"};
 
-    private double[] ticketPrices =   {4.00, 7.00,  8.50,  9.50,  9.50, 11.00, 11.00, 12.00};
-    private double[] ticketPrices3D = {9.00, 9.00, 11.00, 11.00, 15.00, 15.00, 15.00, 16.00};
+    private double[] ticketPrices =   {4.00, 7.00,  8.50, 11.00};
+    private double[] ticketPrices3D = {9.00, 9.00, 11.00, 15.00};
 
     public static TicketManager getInstance() {
         if (instance == null) 
@@ -164,5 +161,30 @@ public class TicketManager {
             output.flush();
             output.close();
         } catch (IOException e) {}
+    }
+
+    public String chooseTicketType(Showtime showtime, ArrayList<Seat> seats){
+        String ticketType = "";
+        int choice;
+        if(!isWeekend(showtime.getDateTime()) && !HolidayManager.getInstance().isPublicHoliday(showtime)){
+            System.out.println("---------- TICKETS MENU ----------\n"
+                              +" 1. Ticket Type: Senior Citizens\n"
+                              +" 2. Ticket Type: Students\n"
+                              +" 3. Ticket Type: Mon - Fri\n"
+                              +" 4. Exit\n"      
+                              +"----------------------------------");
+
+            System.out.println("Please enter your choice:");
+        }
+        else{
+            
+        }
+        return ticketType;
+    }
+
+    public static boolean isWeekend(LocalDateTime ld)
+    {
+        DayOfWeek day = DayOfWeek.of(ld.get(ChronoField.DAY_OF_WEEK));
+        return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
     }
 }
