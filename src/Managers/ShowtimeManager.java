@@ -26,9 +26,9 @@ public class ShowtimeManager {
         return instance;
     }
 
-    public ArrayList<Showtime> editShowtimeMenu(int movieID){
+    public ArrayList<Showtime> editShowtimeMenu(Movie movie){
         int choice = 0;
-        ArrayList<Showtime> newShowtimes = MovieManager.getInstance().searchById(movieID).getShowtimes();
+        ArrayList<Showtime> newShowtimes = movie.getShowtimes();
         while(choice != 4){
             System.out.println("-------- EDIT SHOWTIMES --------\n"
                               +" 1. Add showtime\n"
@@ -52,10 +52,10 @@ public class ShowtimeManager {
 
             switch(choice){
                 case 1:
-                    newShowtimes = this.addShowtime(MovieManager.getInstance().searchById(movieID));
+                    newShowtimes = this.addShowtime(movie);
                     break;
                 case 2:
-                    newShowtimes = this.removeShowtime(MovieManager.getInstance().searchById(movieID));
+                    newShowtimes = this.removeShowtime(movie);
                     break;
                 case 3:
                     for(Showtime showtime : newShowtimes)
@@ -111,7 +111,7 @@ public class ShowtimeManager {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
         }
-        int cineplexChoice = sc.nextInt();
+        int cineplexChoice = sc.nextInt() - 1;
 
         ArrayList<Cinema> cinemas = cineplexes.get(cineplexChoice).getCinemas();
 
@@ -143,7 +143,7 @@ public class ShowtimeManager {
                 sc.next(); // Remove newline character
             }
             showtimeID = sc.nextLine();
-            if(isValidShowtimeID(movie, showtimeID)) break;
+            if(showtimeIdExists(movie, showtimeID)) break;
         }
 
         for(int i = 0; i < showtimes.size(); i++)
@@ -151,6 +151,18 @@ public class ShowtimeManager {
                 showtimes.remove(i);
         
         return showtimes;
+    }
+
+    private boolean showtimeIdExists(Movie movie, String showtimeID) {
+        ArrayList<Showtime> showtimes = movie.getShowtimes();
+        if(showtimes == null)
+            return false;
+        for(Showtime showtime : showtimes)
+            if(showtime.getShowtimeID().equals(showtimeID)){
+                return true;
+            }
+        System.out.println("ID does not exist.");
+        return true;
     }
 
     public boolean isValidShowtimeID(Movie movie, String newShowtimeID){

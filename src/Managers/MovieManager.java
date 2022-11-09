@@ -111,7 +111,7 @@ public class MovieManager {
             if (m.getId() == id)
                 return m;
         }
-        System.out.println("Movie ID entered does not exist.\n");
+        // System.out.println("Movie ID entered does not exist.\n");
         return null;
     }
 
@@ -491,7 +491,7 @@ public class MovieManager {
                     m.addReview(this.editReviews());
                     break;
                 case 11:
-                    ShowtimeManager.getInstance().editShowtimeMenu(m.getId());
+                    m.setShowtimes(ShowtimeManager.getInstance().editShowtimeMenu(m));
                     break;
                 case 12:
                     System.out.println(m.makeString());
@@ -628,7 +628,7 @@ public class MovieManager {
                     m.addReview(this.editReviews());
                     break;
                 case 11:
-                    m.setShowtimes(ShowtimeManager.getInstance().editShowtimeMenu(m.getId()));
+                    m.setShowtimes(ShowtimeManager.getInstance().editShowtimeMenu(m));
                     break;
                 case 12:
                     System.out.println(m.makeString());
@@ -799,7 +799,7 @@ public class MovieManager {
     private LocalDate editEndDate(){
         String newEndDateString;
         while(true){
-            System.out.println("Enter the new release date in the format yyyy-mm-dd:");
+            System.out.println("Enter the new end date in the format yyyy-mm-dd:");
             while (!sc.hasNext()) {
                 System.out.println("Invalid input type. Please try again!");
                 sc.next(); // Remove newline character

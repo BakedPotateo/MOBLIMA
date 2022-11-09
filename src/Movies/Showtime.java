@@ -1,11 +1,12 @@
 package Movies;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import Cinema.Cinema;
 
-public class Showtime {
+public class Showtime implements Serializable{
     private String showtimeID;
     private LocalDateTime dateTime;
     private int movieID;
@@ -13,7 +14,7 @@ public class Showtime {
     private String cineplex;
 
     public Showtime(){}
-    
+
     public Showtime(String showtimeID, LocalDateTime dateTime, int movieID, Cinema cinema, String cineplex){
         this.showtimeID = showtimeID;
         this.dateTime = dateTime;

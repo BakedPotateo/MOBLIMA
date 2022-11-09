@@ -1,12 +1,13 @@
 package Customer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Movies.Movie;
 import Movies.Showtime;
 import Tickets.Ticket;
 
-public class Booking {
+public class Booking implements Serializable {
     // Attributes
     private Movie movie;
     private Showtime showtime;
