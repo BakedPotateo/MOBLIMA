@@ -262,7 +262,7 @@ public class CinemaManager {
                               +" 1. Edit Cinema ID\n"
                               +" 2. Edit Cinema Class\n"
                               +" 3. Edit Cinema Layout\n"
-                              +" 4. Exit"
+                              +" 4. Exit\n"
                               +"----------------------");
                             
             System.out.println("Enter your choice: ");
@@ -272,13 +272,14 @@ public class CinemaManager {
             }
 
             choice = sc.nextInt();
-
+            sc.next();
             System.out.println("Please enter the Cineplex name the Cinema is located in: ");
             while (!sc.hasNext()) {
                 System.out.println("Invalid input type. Please try again!");
                 sc.next(); // remove newline
             }
             String cineplexName = sc.nextLine();
+            sc.next();
 
             System.out.println("Please enter the current Cinema Code: ");
             while (!sc.hasNext()) {
@@ -286,6 +287,7 @@ public class CinemaManager {
                 sc.next(); // remove newline
             }
             String id = sc.nextLine();
+            sc.next();
 
             switch(choice){
                 case 1:
@@ -315,7 +317,7 @@ public class CinemaManager {
                         sc.next(); // remove newline
                     }
                     int row = sc.nextInt();
-
+        
                     System.out.println("Please enter the number of columns: ");
                     while (!sc.hasNextInt()) {
                         System.out.println("Invalid input type. Please try again!");
