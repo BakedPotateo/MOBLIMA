@@ -5,7 +5,6 @@ public class MainApp {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         int choice = 0;
-
         while(choice != 3){
             System.out.println("Welcome to MOBLIMA!\n");
 
@@ -23,13 +22,9 @@ public class MainApp {
             choice = sc.nextInt();
             switch(choice){
                 case 1:
-                    // Customer app
-                    System.out.println("Customer app");
                     CustomerApp.getInstance().displayCustomerMenu();
                     break;
                 case 2:
-                    // Staff app
-                    System.out.println("Staff app");
                     StaffApp.getInstance().displayStaffLogin();
                     break;
                 case 3:

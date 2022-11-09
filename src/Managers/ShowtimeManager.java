@@ -124,7 +124,7 @@ public class ShowtimeManager {
             System.out.println("Invalid input type. Please try again!");
             sc.next(); // Remove newline character
         }
-        int cinemaChoice = sc.nextInt();
+        int cinemaChoice = sc.nextInt() - 1;
 
         Showtime newShowtime = new Showtime(showtimeID, dateTime, movie.getId(), cinemas.get(cinemaChoice), cineplexes.get(cineplexChoice).getName());
         showtimes.add(newShowtime);
