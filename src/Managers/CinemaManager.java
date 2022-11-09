@@ -54,7 +54,7 @@ public class CinemaManager {
         ArrayList<Cineplex> data = read();
         for (int i=0; i<data.size(); i++) {
             Cineplex tempCineplex = data.get(i);
-            if (tempCineplex.getName().equalsIgnoreCase(name))
+            if (tempCineplex.getName().equals(name))
                 return tempCineplex;
         }
         return null;
@@ -80,7 +80,17 @@ public class CinemaManager {
     }
 
     public void editCineplexName(String oldName, String newName) {
-        Cineplex cineplex = searchCineplexByName(oldName);
+        ArrayList<Cineplex> data = read();
+        Cineplex cineplex = null;
+        for (int i=0; i<data.size(); i++) {
+            cineplex = data.get(i);
+            if (cineplex.getName().equals(oldName))
+                break;
+        }
+        if (cineplex == null) {
+            System.out.println("Cineplex does not exist.");
+            return;
+        }
         cineplex.setName(newName);
         deleteCineplexByName(oldName);
         createCineplex(cineplex.getName(), cineplex.getCinemas());
@@ -102,6 +112,7 @@ public class CinemaManager {
             }
 
             choice = sc.nextInt();
+            sc.nextLine();
 
             switch(choice){
                 case 1: 
@@ -281,6 +292,7 @@ public class CinemaManager {
         deleteCineplexByName(cineplexName);
         createCineplex(cineplexName, cinemas);
     }
+
 
     public void editCinema() {
         int choice = 0;

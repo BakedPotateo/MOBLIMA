@@ -24,6 +24,6 @@ public class CinexplexTest {
         for (Cineplex cineplex : cineplexes) {
             System.out.println(cineplex.makeString());
         }
-        manager.editCinema();
+        manager.editCineplex();
     }
 }
