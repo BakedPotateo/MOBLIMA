@@ -52,6 +52,10 @@ public class SeatingLayout implements Serializable {
         layout[i][id % column].unassign();
     }
 
+    public Seat getSeat(int id){
+        int i = id/column;
+        return layout[i][id % column];
+    }
     public boolean checkSeatStatus(int id) {
         int i = id/column;
         return layout[i][id % column].getSeatStatus();
