@@ -113,17 +113,14 @@ public class SettingsManager {
 
     private void edit2DTickets(){
         int choice = 0;
-        while(choice != 9){
+        while(choice != 6){
             System.out.println("-------- 2D TICKETS MENU ---------\n"
                               +" 1. Ticket Type: Senior Citizens\n"
                               +" 2. Ticket Type: Students\n"
-                              +" 3. Ticket Type: Mon - Wed\n"
-                              +" 4. Ticket Type: Thu\n"
-                              +" 5. Ticket Type: Fri (Before 6pm)\n"
-                              +" 6. Ticket Type: Sat & Sun\n"
-                              +" 7. Ticket Type: Public holiday\n"
-                              +" 8. Show all 2D tickets\n"
-                              +" 9. Exit\n"         
+                              +" 3. Ticket Type: Mon - Fri\n"
+                              +" 4. Ticket Type: Sat & Sun / PH\n"
+                              +" 5. Show all 2D tickets\n"
+                              +" 6. Exit\n"         
                               +"----------------------------------");
 
             System.out.println("Please enter your choice:");
@@ -145,25 +142,16 @@ public class SettingsManager {
                     TicketManager.getInstance().editTicket("Students (Mon - Fri Before 6pm)", false);
                     break;
                 case 3:
-                    TicketManager.getInstance().editTicket("Mon - Wed", false);
+                    TicketManager.getInstance().editTicket("Mon - Fri", false);
                     break;
                 case 4:
-                    TicketManager.getInstance().editTicket("Thu", false);
+                    TicketManager.getInstance().editTicket("Sat & Sun / PH", false);
                     break;
                 case 5:
-                    TicketManager.getInstance().editTicket("Fri (Before 6pm)", false);
-                    break;
-                case 6:
-                    TicketManager.getInstance().editTicket("Sat & Sun", false);
-                    break;
-                case 7:
-                    TicketManager.getInstance().editTicket("Public holiday", false);
-                    break;
-                case 8:
                     ArrayList<Ticket> tickets2D = TicketManager.getInstance().get2DMovies();
                     for(Ticket ticket : tickets2D) ticket.makeString();
                     break;
-                case 9:
+                case 6:
                     System.out.println("Exiting...\n");
                     break;
                 default:
@@ -175,17 +163,14 @@ public class SettingsManager {
 
     private void edit3DTickets(){
         int choice = 0;
-        while(choice != 9){
+        while(choice != 6){
             System.out.println("-------- 3D TICKETS MENU ---------\n"
                               +" 1. Ticket Type: Senior Citizens\n"
                               +" 2. Ticket Type: Students\n"
-                              +" 3. Ticket Type: Mon - Wed\n"
-                              +" 4. Ticket Type: Thu\n"
-                              +" 5. Ticket Type: Fri (Before 6pm)\n"
-                              +" 6. Ticket Type: Sat & Sun\n"
-                              +" 7. Ticket Type: Public holiday\n"
-                              +" 8. Show all 3D tickets\n"
-                              +" 9. Exit\n"      
+                              +" 3. Ticket Type: Mon - Fri\n"
+                              +" 4. Ticket Type: Sat & Sun / PH\n"
+                              +" 5. Show all 3D tickets\n"
+                              +" 6. Exit\n"      
                               +"----------------------------------");
 
             System.out.println("Please enter your choice:");
@@ -207,25 +192,16 @@ public class SettingsManager {
                     TicketManager.getInstance().editTicket("Students (Mon - Fri Before 6pm)", true);
                     break;
                 case 3:
-                    TicketManager.getInstance().editTicket("Mon - Wed", true);
+                    TicketManager.getInstance().editTicket("Mon - Fri", true);
                     break;
                 case 4:
-                    TicketManager.getInstance().editTicket("Thu", true);
+                    TicketManager.getInstance().editTicket("Sat & Sun / PH", true);
                     break;
                 case 5:
-                    TicketManager.getInstance().editTicket("Fri (Before 6pm)", true);
-                    break;
-                case 6:
-                    TicketManager.getInstance().editTicket("Sat & Sun", true);
-                    break;
-                case 7:
-                    TicketManager.getInstance().editTicket("Public holiday", true);
-                    break;
-                case 8:
                     ArrayList<Ticket> tickets3D = TicketManager.getInstance().get3DMovies();
                     for(Ticket ticket : tickets3D) ticket.makeString();
                     break;
-                case 9:
+                case 6:
                     System.out.println("Exiting...\n");
                     break;
                 default:

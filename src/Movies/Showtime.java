@@ -12,6 +12,8 @@ public class Showtime {
     private Cinema cinema;
     private String cineplex;
 
+    public Showtime(){}
+    
     public Showtime(String showtimeID, LocalDateTime dateTime, int movieID, Cinema cinema, String cineplex){
         this.showtimeID = showtimeID;
         this.dateTime = dateTime;
@@ -63,6 +65,6 @@ public class Showtime {
     public void makeString(){
         System.out.println("Showtime ID: " + showtimeID);
         System.out.println("Date | Time: " + this.dateTime.format(DateTimeFormatter.ofPattern("EE, dd/MM/yyyy | HH:mm")));
-        System.out.println("Cineplex | Cinema: " + cineplex + " | " + cinema.getId());
+        System.out.println("Cinema:      " + cineplex + " | " + cinema.getId());
     }
 }
