@@ -24,14 +24,6 @@ public class CinexplexTest {
         for (Cineplex cineplex : cineplexes) {
             System.out.println(cineplex.makeString());
         }
-
-        Cinema gvG1 = manager.searchCinema("G1");
-        gvG1.getLayout().printLayout();
-        SeatingLayout gvG1Layout = gvG1.getLayout();
-        gvG1Layout.assignSeat(28);
-        gvG1Layout.assignSeat(32);
-        gvG1Layout.assignSeat(49);
-        gvG1Layout.unassignSeat(49);
-        gvG1Layout.printLayout();
+        manager.editCineplex();
     }
 }
