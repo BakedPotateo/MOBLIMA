@@ -2,6 +2,7 @@ package Customer;
 
 import java.util.Scanner;
 
+import Managers.BookingManager;
 import Managers.CustomerManager;
 import Managers.MovieManager;
 
@@ -41,7 +42,7 @@ public class CustomerApp {
 
         while(!exit){
             System.out.println("------------- MOBLIMA CUSTOMER APP ------------\n" +
-                               " 1. View current movies\n" +
+                               " 1. View avalilable movies\n" +
                                " 2. Search for a movie\n" +
                                " 3. View movie details\n" +
                                " 4. Book and purchase ticket\n" +
@@ -66,17 +67,27 @@ public class CustomerApp {
 
             switch(choice){
                 case 1:
-                    //MovieManager.getInstance().getAvailableMovies();
                     MovieManager.getInstance().viewMovies();
                     break;
                 case 2:
                     CustomerManager.getInstance().SearchMovie();
                     break;
                 case 3:
+                    MovieManager.getInstance().viewMovieDetails();
                     break;
                 case 4:
+                    BookingManager.getInstance().bookingMenu();
                     break;
                 case 5:
+                    System.out.println("Please enter your email: ");
+                    while(!sc.hasNext()){
+                        System.out.println("Invalid input type. Please try again. ");
+                        sc.next(); //remove new line
+                    }
+                    String email = sc.nextLine();
+                    Customer c = CustomerManager.getInstance().getCustomer(email);
+                    for(Booking booking : c.getBookings())
+                        booking.makeString();
                     break;
                 case 6:
                     MovieManager.getInstance().showTop5();

@@ -1,15 +1,15 @@
 package Cinema;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import Managers.CinemaManager;
 
 public class CinexplexTest {
     public static void main(String[] args) {
         CinemaManager manager = CinemaManager.getInstance();
-        ArrayList<Cinema> cinemas = new ArrayList<Cinema>(); 
-        SeatingLayout layout1 = new SeatingLayout(5, 10);
-        SeatingLayout layout2 = new SeatingLayout(3, 15);
-        SeatingLayout layout3 = new SeatingLayout(7, 8);
+        // ArrayList<Cinema> cinemas = new ArrayList<Cinema>(); 
+        // SeatingLayout layout1 = new SeatingLayout(5, 10);
+        // SeatingLayout layout2 = new SeatingLayout(3, 15);
+        // SeatingLayout layout3 = new SeatingLayout(7, 8);
         // Cinema cinema1 = new Cinema("H1", "Normal", layout1);
         // Cinema cinema2 = new Cinema("H2", "Normal", layout2);
         // Cinema cinema3 = new Cinema("H3", "IMAX", layout3);
