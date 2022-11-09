@@ -91,8 +91,9 @@ public class BookingManager {
 
     private Booking bookMovie(){
         ArrayList<Movie> movies = MovieManager.getInstance().read();
-        int movieChoice;
-        while(true){
+        int movieChoice = -1;
+        boolean loop = true;
+        while(loop){
             for(int i = 0; i < movies.size(); i++){
                 System.out.println((i+1) + ". " + movies.get(i).getTitle());
             }
@@ -102,8 +103,13 @@ public class BookingManager {
                 sc.next(); // remove newline
             }
     
-            movieChoice = sc.nextInt();
-            if(movieChoice <= movies.size()) break;
+            movieChoice = sc.nextInt() - 1;
+            
+            if(movieChoice < movies.size() && movieChoice >= 0) loop = false;
+            if(movies.get(movieChoice).getShowingStatus().equals("END OF SHOWING")){
+                System.out.println(movies.get(movieChoice).getTitle() + " is no longer showing. Please choose another movie.");
+                loop = true;
+            } else loop = false;
         }
         
         Movie movie = movies.get(movieChoice - 1);
