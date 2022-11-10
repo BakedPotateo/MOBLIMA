@@ -257,6 +257,7 @@ public class MovieManager {
                     this.viewMovies();
                     break;
                 case 2:
+                    // TODO add movie
                     break;
                 case 3:
                     int movieID;
@@ -1197,8 +1198,6 @@ public class MovieManager {
                     break;
             }
         }
-
-
     }
 }
 
