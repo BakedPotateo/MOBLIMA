@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import Movies.Movie;
@@ -97,6 +98,7 @@ public class MovieManager {
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));
             data.add(movie);
+            data.sort((m1, m2) -> Integer.compare(m1.getId(), m2.getId()));
             output.writeObject(data);
             output.flush();
             output.close();
@@ -933,11 +935,12 @@ public class MovieManager {
     private void topSales(){
         System.out.println("Top 5 movies by sales:");
         ArrayList<Movie> m = this.read();
-        m.sort((m1, m2) -> Integer.compare(m1.getSales(),m2.getSales()));
+        m.sort((m1, m2) -> Double.compare(m1.getSales(),m2.getSales()));
+        Collections.reverse(m);
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.println("Title: " + movie.getTitle() + "\nSales: " + movie.getSales() + "\n");
+                System.out.printf("Title: %s\nSales: $%5.2f\n", movie.getTitle(), movie.getSales());
             i++;
         }
     }
@@ -946,12 +949,25 @@ public class MovieManager {
         System.out.println("Top 5 movies by ratings:");
         ArrayList<Movie> m = this.read();
         m.sort((m1, m2) -> Double.compare(this.getAverageStarRating(m1.getId()),(this.getAverageStarRating(m2.getId()))));
+        Collections.reverse(m);
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.println("Title: " + movie.getTitle() + "\nSales: " + this.getAverageStarRating(movie.getId()) +"\n");
+                System.out.println("Title: " + movie.getTitle() + "\nRating: " + this.getAverageStarRating(movie.getId()) +"\n");
             i++;
         }
+    }
+
+    public void editSales(Movie m){
+        System.out.println("Enter new sales:");
+        while (!sc.hasNextDouble()) {
+            System.out.println("Invalid input type. Please enter an integer value.");
+            sc.next(); // remove newline
+        }
+        double sales = sc.nextDouble();
+        m.setSales(sales);
+        this.removeMovieById(m.getId());
+        this.createNewMovie(m);
     }
 
     public void viewMovieDetails(){
