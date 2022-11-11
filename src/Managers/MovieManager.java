@@ -253,13 +253,14 @@ public class MovieManager {
             }
 
             choice = sc.nextInt();
+            sc.nextLine();
 
             switch(choice){
                 case 1:
                     this.viewMovies();
                     break;
                 case 2:
-                    // TODO add movie
+                    this.addMovie();
                     break;
                 case 3:
                     int movieID;
@@ -374,7 +375,30 @@ public class MovieManager {
         }
     }
 
-    public void editMovie(){
+    private void addMovie(){
+        Movie newMovie = new Movie();
+        System.out.println("Please enther the movie ID:");
+        int id;
+        while (!sc.hasNextInt()) {
+            System.out.println("Invalid input type. Please try again!");
+            sc.next(); // Remove newline character
+        }
+        id = sc.nextInt();
+        sc.nextLine();
+        newMovie.setId(id);
+        newMovie.setTitle(this.editTitle());
+        newMovie.setMovieType(this.editType());
+        newMovie.setSynopsis(this.editSynopsis());
+        newMovie.setRating(this.editRating());
+        newMovie.setDirector(this.editDirector());
+        newMovie.setCast(this.editCast(newMovie));
+        newMovie.setDuration(this.editDuration());
+        newMovie.setReleaseDate(this.editReleaseDate());
+        newMovie.setEndDate(this.editEndDate());
+        
+        this.createNewMovie(newMovie);
+    }
+    private void editMovie(){
         int choice = 0;
         while(choice != 3){
             System.out.println("----- EDIT MOVIE -----\n"
@@ -710,65 +734,66 @@ public class MovieManager {
             System.out.println(c);
         
         System.out.println();
-        System.out.println("--------- EDIT CAST ---------\n"
-                          +"1.  Add cast member\n"
-                          +"2.  Delete cast member\n"
-                          +"3.  Save\n"
-                          +"----------------------------");
-        System.out.println("Please enter your choice:");
+        int choice = 0;
+        while(choice != 3){
+            System.out.println("--------- EDIT CAST ---------\n"
+                              +" 1. Add cast member\n"
+                              +" 2. Delete cast member\n"
+                              +" 3. Save\n"
+                              +"----------------------------");
+            System.out.println("Please enter your choice:");
 
-        /*
-        * Check if input is an integer
-        */
-        while (!sc.hasNextInt()) {
+            while (!sc.hasNextInt()) {
             System.out.println("Invalid input type. Please enter an integer value.");
             sc.next(); // remove newline
-        }
+            }
 
-        int choice = sc.nextInt();
-        sc.nextLine();
+            choice = sc.nextInt();
+            sc.nextLine();
 
-        switch(choice){
+            switch(choice){
             case 1:
-                System.out.println("Please enter the new cast member:");
+            System.out.println("Please enter the new cast member:");
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again!");
+                sc.next(); // Remove newline character
+            }
+            String newCastString = sc.nextLine();
+            Cast.add(newCastString);
+            movie.setCast(Cast);
+            break;
+            case 2:
+            boolean loop = true;
+            while(loop){
+                System.out.println("Please enter the cast member to delete:");
                 while (!sc.hasNext()) {
                     System.out.println("Invalid input type. Please try again!");
                     sc.next(); // Remove newline character
                 }
-                String newCastString = sc.nextLine();
-                Cast.add(newCastString);
-                movie.setCast(Cast);
-                break;
-            case 2:
-                boolean loop = true;
-                while(loop){
-                    System.out.println("Please enter the cast member to delete:");
-                    while (!sc.hasNext()) {
-                        System.out.println("Invalid input type. Please try again!");
-                        sc.next(); // Remove newline character
-                    }
-                    String castToDel = sc.nextLine();
-                    int i = 0;
-                    for(String cast : Cast){
-                        if(cast.equals(castToDel))
-                            break;
-                        else i++;
-                    }
-                    if (i < Cast.size()){
-                        Cast.remove(i);
-                        loop = false;
-                    }
-                    else
-                        System.out.println("Cast member not found.");
+                String castToDel = sc.nextLine();
+                int i = 0;
+                for(String cast : Cast){
+                    if(cast.equals(castToDel))
+                        break;
+                    else i++;
                 }
-                break;
+                if (i < Cast.size()){
+                    Cast.remove(i);
+                    loop = false;
+                }
+                else
+                    System.out.println("Cast member not found.");
+            }
+            break;
             case 3:
-                System.out.println("Saved successfully.");
-                break;
+            System.out.println("Saved successfully.");
+            break;
             default:
-                System.out.println("Please enter an integer between 1-3.");
-                break;
+            System.out.println("Please enter an integer between 1-3.");
+            break;
+            }
         }
+        
         return Cast;
     }
 
@@ -779,6 +804,7 @@ public class MovieManager {
             sc.next(); // Remove newline character
         }
         double newDuration = sc.nextDouble();
+        sc.nextLine();
         return newDuration;
     }
 

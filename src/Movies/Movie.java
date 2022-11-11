@@ -21,6 +21,12 @@ public class Movie implements Serializable{
     private double sales = 0;
     private ArrayList<Showtime> showtimes;
 
+    public Movie(){
+        this.reviews = new ArrayList<Review>();
+        this.cast = new ArrayList<String>();
+        this.showtimes = new ArrayList<Showtime>();
+    }
+
     public Movie(int id, String title, String movieType, String synopsis, 
                  String rating, String director, ArrayList<String> cast, 
                  double duration, LocalDate releaseDate, LocalDate endDate) {
