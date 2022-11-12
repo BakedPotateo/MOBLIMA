@@ -69,7 +69,7 @@ public class Ticket implements Serializable{
     }
 
     public void makeString() {
-        System.out.printf("Ticket Type: %-20s MovieType: %s     Ticket Price: $%5.2f\n", getTicketType(), getMovieType(), getTicketPrice());
+        System.out.printf("Ticket Type: %-30s MovieType: %s     Ticket Price: $%5.2f\n", getTicketType(), getMovieType(), getTicketPrice());
     }
 
     
