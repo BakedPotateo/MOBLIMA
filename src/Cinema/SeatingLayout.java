@@ -19,8 +19,19 @@ public class SeatingLayout implements Serializable {
     }
 
     public void printLayout() {
+        char rowNum = 'A';
+        for (int i=0; i<column; i++) {
+            if (i == 0) System.out.print("    ");
+            System.out.print((i+1) + " ");
+            if (i == column/2) System.out.print("\t");
+        }
+        System.out.println("\n");
         for (int i=0; i<row; i++) {
             for (int j=0; j<column; j++) {
+                if (j == 0){
+                    System.out.print(rowNum + "   ");
+                    rowNum++;
+                }
                 if (layout[i][j].getSeatStatus())
                     System.out.print("X ");
                 else System.out.print("O ");

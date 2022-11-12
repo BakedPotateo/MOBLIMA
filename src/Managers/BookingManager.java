@@ -72,7 +72,6 @@ public class BookingManager {
                         System.out.println("Invalid input type. Please try again. ");
                         sc.next(); //remove new line
                     }
-                    sc.nextLine();
                     email = sc.nextLine();
                     customer = CustomerManager.getInstance().getCustomer(email);
                     if(customer != null){
@@ -145,18 +144,24 @@ public class BookingManager {
         Cinema cinema = showtime.getCinema();
         SeatingLayout layout = cinema.getLayout();
 
-        int seatChoice;
+        String seatChoice;
         ArrayList<Seat> seats = new ArrayList<Seat>();
         while(true){
             layout.printLayout();
-            System.out.println("Please choose a seat:");
-            while (!sc.hasNextInt()) {
-                System.out.println("Invalid input type. Please enter an integer value.");
+            System.out.println("Please choose a seat (e.g. A1):");
+            while (!sc.hasNext()) {
+                System.out.println("Invalid input type. Please try again");
                 sc.next(); // remove newline
             }
-            seatChoice = sc.nextInt();
-            layout.assignSeat(seatChoice);
-            seats.add(layout.getSeat(seatChoice));
+            seatChoice = sc.nextLine();
+            char row = Character.toUpperCase(seatChoice.charAt(0));
+            char col = seatChoice.charAt(1);
+            int colInt = (int) col - 49;
+            int rowChoice = Integer.valueOf(row) - 65;
+            int rowSize = layout.getRow();
+            int seatChoiceInt = colInt + rowChoice*rowSize;
+            layout.assignSeat(seatChoiceInt);
+            seats.add(layout.getSeat(seatChoiceInt));
             System.out.println("Exit? (1 = exit, 2 = book another seat)");
             int exit;
             while (!sc.hasNextInt()) {
@@ -165,6 +170,7 @@ public class BookingManager {
             }
 
             exit = sc.nextInt();
+            sc.nextLine();
             if (exit == 1) break;
         }
 

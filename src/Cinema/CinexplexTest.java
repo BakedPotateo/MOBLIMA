@@ -16,15 +16,19 @@ public class CinexplexTest {
         cinemas.add(cinema1);
         cinemas.add(cinema2);
         cinemas.add(cinema3);
-        manager.createCineplex("Shaws Theatre", cinemas);
-        manager.createCineplex("Golden Village", cinemas);
-        manager.createCineplex("EagleWings", cinemas);
+        // manager.createCineplex("Shaws Theatre", cinemas);
+        // manager.createCineplex("Golden Village", cinemas);
+        // manager.createCineplex("EagleWings", cinemas);
         // manager.createCinema("Golden Village", "G1", "Gold Class", layout3);
         // manager.createCinema("Shaws Theatre", "S1", "IMAX", layout3);
-        // ArrayList<Cineplex> cineplexes = manager.read();
-        // for (Cineplex cineplex : cineplexes) {
-        //     System.out.println(cineplex.makeString());
-        // }
-        manager.viewCineplexes();
+        ArrayList<Cineplex> cineplexes = manager.read();
+        for (Cineplex cineplex : cineplexes) {
+            System.out.println(cineplex.makeString());
+        }
+        
+        for (Cinema cinema : cinemas){
+            cinema.getLayout().printLayout();
+            System.out.println("\n");
+        } 
     }
 }
