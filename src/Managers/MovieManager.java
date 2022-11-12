@@ -966,7 +966,7 @@ public class MovieManager {
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.printf("Title: %s\nSales: $%5.2f\n", movie.getTitle(), movie.getSales());
+                System.out.printf("Title: %s\nSales: $%6.0f\n\n", movie.getTitle(), movie.getSales());
             i++;
         }
     }
@@ -979,7 +979,7 @@ public class MovieManager {
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.println("Title: " + movie.getTitle() + "\nRating: " + this.getAverageStarRating(movie.getId()) +"\n");
+                System.out.printf("Title: %s\nRating: %5.2f\n\n", movie.getTitle(), this.getAverageStarRating(movie.getId()));
             i++;
         }
     }
@@ -991,6 +991,12 @@ public class MovieManager {
             sc.next(); // remove newline
         }
         double sales = sc.nextDouble();
+        m.setSales(sales);
+        this.removeMovieById(m.getId());
+        this.createNewMovie(m);
+    }
+
+    public void setInitialSales(Movie m, double sales){
         m.setSales(sales);
         this.removeMovieById(m.getId());
         this.createNewMovie(m);

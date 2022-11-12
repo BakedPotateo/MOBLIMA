@@ -1,8 +1,14 @@
+import java.io.File;
 import java.util.*;
 import Staff.StaffApp;
+import utils.Initialiser;
+import utils.ProjectRootPathFinder;
 import Customer.CustomerApp;
 public class MainApp {
     public static void main(String[] args) throws Exception {
+        File file = new File(ProjectRootPathFinder.findProjectRootPath() + "/Database/Cineplex/cineplexes.txt");
+        if (file.length() == 0)
+            Initialiser.getInstance();
         Scanner sc = new Scanner(System.in);
         int choice = 0;
         while(choice != 3){
