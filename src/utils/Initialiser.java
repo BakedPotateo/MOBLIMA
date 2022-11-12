@@ -62,7 +62,7 @@ public class Initialiser {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
         LocalDate today = LocalDate.now();
         Random random = new Random();
-        LocalDate someOtherDay = today.plusDays(random.nextInt(30));
+        LocalDate someOtherDay = LocalDate.parse("2023-01-01");
         LocalDate somePastDay = today.minusDays(random.nextInt(30));
         ArrayList<String> cast = new ArrayList<String>();
         cast.add("Tom Hollandaise");
