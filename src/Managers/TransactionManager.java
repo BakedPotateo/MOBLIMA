@@ -47,7 +47,8 @@ public class TransactionManager {
         System.out.printf("Total ticket price: $%5.2f\n", totalPrice);
         System.out.println("Transaction successful! An email with your ticket details has been sent to the email account " + customer.getEmail() +".");
 
-        m.setSales(totalPrice);
+        double currentSales = m.getSales();
+        m.setSales(totalPrice + currentSales);
         MovieManager.getInstance().removeMovieById(m.getId());
         MovieManager.getInstance().createNewMovie(m);
     }

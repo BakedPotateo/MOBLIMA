@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import Customer.Booking;
 import Customer.Customer;
+import Movies.Movie;
 import utils.ProjectRootPathFinder;
 
 public class CustomerManager {
@@ -61,7 +62,8 @@ public class CustomerManager {
             sc.next(); //remove new line
         }
         title = sc.nextLine();
-        MovieManager.getInstance().searchByTitle(title);
+        ArrayList<Movie> movies = MovieManager.getInstance().searchByTitle(title);
+        if(movies.size() != 0) System.out.println(movies.get(0).makeString());
     }
     
     public void addReview(){

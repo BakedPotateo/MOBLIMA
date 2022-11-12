@@ -59,6 +59,7 @@ public class Initialiser {
 
         ArrayList<Movie> movieList = new ArrayList<Movie>();
         ArrayList<Showtime> showtimes = new ArrayList<Showtime>();
+        Movie m;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
         LocalDate today = LocalDate.now();
         Random random = new Random();
@@ -74,7 +75,12 @@ public class Initialiser {
         showtimes.add(new Showtime("S1", LocalDateTime.parse("2022-11-25 12:00", formatter), 1, cinemas.get(0) , "Shaws Theatre"));
         showtimes.add(new Showtime("S2", LocalDateTime.parse("2022-11-31 15:45", formatter), 1, cinemas.get(2) , "Golden Village"));
         showtimes.add(new Showtime("S3", LocalDateTime.parse("2022-12-25 09:30", formatter), 1, cinemas.get(1) , "EagleWings"));
+        m =  MovieManager.getInstance().searchById(1);
+        m.setShowtimes(showtimes);
+        MovieManager.getInstance().removeMovieById(m.getId());
+        MovieManager.getInstance().createNewMovie(m);
 
+        showtimes.clear();
 
         someOtherDay = someOtherDay.plusDays(random.nextInt(30));
         cast.clear();
@@ -89,6 +95,12 @@ public class Initialiser {
         showtimes.add(new Showtime("S1", LocalDateTime.parse("2022-12-15 15:00", formatter), 2, cinemas.get(0) , "Golden Village"));
         showtimes.add(new Showtime("S2", LocalDateTime.parse("2022-11-26 11:00", formatter), 2, cinemas.get(1) , "Golden Village"));
         showtimes.add(new Showtime("S3", LocalDateTime.parse("2022-12-22 14:30", formatter), 2, cinemas.get(2) , "EagleWings"));
+        m =  MovieManager.getInstance().searchById(2);
+        m.setShowtimes(showtimes);
+        MovieManager.getInstance().removeMovieById(m.getId());
+        MovieManager.getInstance().createNewMovie(m);
+
+        showtimes.clear();
 
         someOtherDay = someOtherDay.plusDays(random.nextInt(30));
         cast.clear();
@@ -102,6 +114,12 @@ public class Initialiser {
         showtimes.add(new Showtime("S1", LocalDateTime.parse("2022-12-17 11:15", formatter), 3, cinemas.get(1) , "Shaws Theatre"));
         showtimes.add(new Showtime("S2", LocalDateTime.parse("2022-11-26 11:45", formatter), 3, cinemas.get(1) , "Shaws Theatre"));
         showtimes.add(new Showtime("S3", LocalDateTime.parse("2023-01-01 16:30", formatter), 3, cinemas.get(0) , "EagleWings"));
+        m =  MovieManager.getInstance().searchById(3);
+        m.setShowtimes(showtimes);
+        MovieManager.getInstance().removeMovieById(m.getId());
+        MovieManager.getInstance().createNewMovie(m);
+
+        showtimes.clear();
 
         cast.clear();
         cast.add("Chris Maple");
@@ -113,6 +131,8 @@ public class Initialiser {
         MovieManager.getInstance().addReviewMovieUsingId(4, "Samantha Ng", 3.5, "Reminds me of when i visited Paris :')");
         // end of showing, not showtimes available
 
+        someOtherDay = someOtherDay.plusDays(random.nextInt(30));
+        cast.clear();
         cast.add("Kevin Heart");
         cast.add("Jennifer Lorenzo");
         MovieManager.getInstance().createNewMovie(5, "Dynamic Programming for Dummies", "Comedy", "THe adventures of 2 best friends learning OODP.", "R21", "Clement Liang Tian", cast, 1, today, someOtherDay);
@@ -123,6 +143,12 @@ public class Initialiser {
         showtimes.add(new Showtime("S1", LocalDateTime.parse("2022-12-31 16:00", formatter), 5, cinemas.get(2) , "EagleWings"));
         showtimes.add(new Showtime("S2", LocalDateTime.parse("2023-01-08 17:50", formatter), 5, cinemas.get(1) , "Golden Village"));
         showtimes.add(new Showtime("S3", LocalDateTime.parse("2023-01-16 14:45", formatter), 5, cinemas.get(2) , "EagleWings"));
+    m =  MovieManager.getInstance().searchById(5);
+        m.setShowtimes(showtimes);
+        MovieManager.getInstance().removeMovieById(m.getId());
+        MovieManager.getInstance().createNewMovie(m);
+
+        showtimes.clear();
 
         movieList = MovieManager.getInstance().read();
         for (Movie movie : movieList) {
