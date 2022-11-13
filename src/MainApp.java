@@ -8,6 +8,11 @@ import Customer.CustomerApp;
  * Driver App
  */
 public class MainApp {
+    
+    /** 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         File file = new File(ProjectRootPathFinder.findProjectRootPath() + "/Database/Cineplex/cineplexes.txt");
         if (file.length() == 0)

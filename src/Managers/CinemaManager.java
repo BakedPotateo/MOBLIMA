@@ -57,6 +57,13 @@ public class CinemaManager {
         return new ArrayList<Cineplex>();
     }
 
+    
+    /** 
+     * Methos to create cinieplexes
+     * @param name    Cineplex name
+     * @param cinemas Cinemas to be added to cineplex
+     * Data written directly to database
+     */
     public void createCineplex(String name, ArrayList<Cinema> cinemas) {
         Cineplex cineplex = new Cineplex(name, cinemas);
         ArrayList<Cineplex> data = new ArrayList<Cineplex>();
@@ -72,6 +79,12 @@ public class CinemaManager {
         } catch (IOException e) {}
     }
 
+    
+    /** 
+     * Method to search cineplex by name
+     * @param name Name of cineplex to search for
+     * @return Cineplex
+     */
     public Cineplex searchCineplexByName(String name) {
         ArrayList<Cineplex> data = read();
         for (int i=0; i<data.size(); i++) {
@@ -82,6 +95,11 @@ public class CinemaManager {
         return null;
     }
 
+    
+    /** 
+     * Method to delete cineplex by name
+     * @param name Cineplex to search for
+     */
     public void deleteCineplexByName(String name) {
         ArrayList<Cineplex> data = read();
 
@@ -101,6 +119,12 @@ public class CinemaManager {
         } catch (IOException e) {}
     }
 
+    
+    /** 
+     * Method to edit cineplex name
+     * @param oldName old cineplex name
+     * @param newName new cineplex name
+     */
     public void editCineplexName(String oldName, String newName) {
         ArrayList<Cineplex> data = read();
         Cineplex cineplex = null;
@@ -118,6 +142,9 @@ public class CinemaManager {
         createCineplex(cineplex.getName(), cineplex.getCinemas());
     }
 
+    /**
+     * Menu for editing cineplexes
+     */
     public void editCineplex() {
         int choice = 0;
         while (choice != 2) {
@@ -164,6 +191,9 @@ public class CinemaManager {
         }
     }
 
+    /**
+     * Menu for viewing cineplexes
+     */
     public void viewCineplexes() {
         int choice = 0;
         while(choice != 3){
@@ -203,6 +233,14 @@ public class CinemaManager {
     }
 
 
+    
+    /** 
+     * Method to create a cinema
+     * @param cineplexName  Cineplex for cinema to be added to
+     * @param id            Cinema ID
+     * @param classOfCinema Cinema class (e.g. Gold Class)
+     * @param layout        Cinema seating layout
+     */
     public void createCinema(String cineplexName, String id, String classOfCinema, SeatingLayout layout) {
         Cinema cinema = new Cinema(id, classOfCinema, layout);
         ArrayList<Cineplex> data = read();
@@ -220,6 +258,11 @@ public class CinemaManager {
         }
     }
 
+    
+    /** 
+     * Methos to get all cinemas
+     * @return ArrayList<Cinema>
+     */
     public ArrayList<Cinema> readCinemas() {
         ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
         ArrayList<Cineplex> cineplexes = read();
@@ -232,6 +275,12 @@ public class CinemaManager {
         return cinemas;
     }
 
+    
+    /** 
+     * Method to return all cinmas in a specific cineplex
+     * @param name Cineplex to get cinemas from
+     * @return ArrayList<Cinema>
+     */
     public ArrayList<Cinema> getCinemasByCineplex(String name) {
         ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
         ArrayList<Cineplex> cineplexes = read();
@@ -249,6 +298,12 @@ public class CinemaManager {
         return cinemas;
     }
 
+    
+    /** 
+     * Method to search for cinema by its ID
+     * @param code Cinema ID to search for
+     * @return Cinema
+     */
     public Cinema searchCinema(String code) {
         ArrayList<Cineplex> data = read();
         for (int i=0; i<data.size(); i++) {
@@ -264,6 +319,11 @@ public class CinemaManager {
         return null;
     }
  
+    
+    /** 
+     * Method to delete cinema
+     * @param code Cinema to delete
+     */
     public void deleteCinema(String code) {
         ArrayList<Cineplex> data = read();
         for (int i=0; i<data.size(); i++) {
@@ -286,6 +346,13 @@ public class CinemaManager {
         }
     }
 
+    
+    /** 
+     * Method to edit cinema ID
+     * @param OldId Old ID
+     * @param newId New ID
+     * @param cineplexName Cinplex to get cinema to edit
+     */
     public void editCinemaId(String OldId, String newId, String cineplexName) {
         Cinema cinema = searchCinema(OldId);
 
@@ -299,6 +366,13 @@ public class CinemaManager {
         createCinema(cineplexName, cinema.getId(), cinema.getClassOfCinema(), cinema.getLayout());
     }
 
+    
+    /** 
+     * Method to edit cinema class
+     * @param Id ID of cinema to edit
+     * @param newClassOfCinema new class
+     * @param cineplexName Cineplex to get cinema from
+     */
     public void editCinemaClass(String Id, String newClassOfCinema, String cineplexName) {
         Cinema cinema = searchCinema(Id);
 
@@ -312,6 +386,14 @@ public class CinemaManager {
         createCinema(cineplexName, Id, newClassOfCinema, cinema.getLayout());
     }
 
+    
+    /** 
+     * Method to edit cinema layout
+     * @param row    number of rows of seats
+     * @param column number of columns of seats
+     * @param Id     cinema ID
+     * @param cinemplexName Cineplex to get cinema from
+     */
     public void editCinemaLayout(int row, int column, String Id, String cinemplexName) {
         SeatingLayout layout = new SeatingLayout(row, column);
         Cinema cinema = searchCinema(Id);
@@ -326,7 +408,9 @@ public class CinemaManager {
         createCinema(cinemplexName, Id, cinema.getClassOfCinema(), cinema.getLayout());
     }
 
-
+    /**
+     * Edit cinema menu
+     */
     public void editCinema() {
         int choice = 0;
         while (choice != 4) {
@@ -406,6 +490,9 @@ public class CinemaManager {
         } 
     }
 
+    /**
+     * Menu to view cinemas
+     */
     public void viewCinemas() {
         int choice = 0;
         ArrayList<Cinema> cinemas = new ArrayList<Cinema>();
