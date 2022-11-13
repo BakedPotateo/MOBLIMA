@@ -7,25 +7,25 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-/*
- * Staff manager to handle staff login issues
+/**
+ * Manager class to handle staff login issues
  */
 public class StaffManager {
     // Attributes
 
-    /*
+    /**
      * instance checks whether StaffManager has been instantiated before. Static variable is the same between objects of the same class.
      */
     public static StaffManager instance = null;
 
-    /*
+    /**
      * Empty class constructor
      */
     private StaffManager(){}
 
     // Public methods
 
-    /*
+    /**
      * getInstance checks if StaffManager has been instantiated before. 
      * If no previous instance was created, it creates a new one, 
      * else it will use the original instance.
@@ -37,7 +37,12 @@ public class StaffManager {
         return instance;
     }
 
-
+    /**
+     * Method to check if login credentials are correct
+     * @param username  inputted username
+     * @param password  inputted password
+     * @return true if username and password are correct, false if either is wrong
+     */
     public boolean login(String username, String password){
         try{
             String filepath = ProjectRootPathFinder.findProjectRootPath() + "/Database/Staff/StaffAccounts.csv";

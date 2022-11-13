@@ -9,14 +9,32 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import Cinema.*;
 import utils.ProjectRootPathFinder;
-
+/**
+ * Manager class to manage creation of cinemas
+ */
 public class CinemaManager {
+
+    /**
+     * instance checks whether CInemaManager has been instantiated before. Static variable is the same between objects of the same class.
+     */
     public static CinemaManager instance = null;
     private Scanner sc = new Scanner(System.in);
+
+    /**
+     * Empty class constructor
+     */
     private CinemaManager(){}
-    
+
+    /**
+     * The file name of the database file that this manager will access
+     */
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Cineplex/cineplexes.txt";
 
+    /**
+     * getInstance checks if CinemaManager has been instantiated before. 
+     * If no previous instance was created, it creates a new one, 
+     * else it will use the original instance.
+     */
     public static CinemaManager getInstance()
     {
         if (instance == null)
@@ -24,6 +42,10 @@ public class CinemaManager {
         return instance;
     }
 
+    /**
+     * Function to read database for cineplexes
+     * @return  ArrayList of cineplexes
+     */
     @SuppressWarnings("unchecked")
     public ArrayList<Cineplex> read() {
         try {

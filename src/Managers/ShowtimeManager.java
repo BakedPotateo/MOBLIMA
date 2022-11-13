@@ -10,15 +10,31 @@ import Cinema.Cineplex;
 import Movies.Movie;
 import Movies.Showtime;
 import utils.ProjectRootPathFinder;
-
+/**
+ * Manager class to create and manage showtimes
+ */
 public class ShowtimeManager {
+    /**
+     * instance checks whether ShowtimeManager has been instantiated before. Static variable is the same between objects of the same class.
+     */
     private static ShowtimeManager instance = null;
 
+    /**
+     * Empty class constructor
+     */
     public ShowtimeManager(){}
 
+    /**
+     * The file name of the database file that this manager will access
+     */
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Movies/movies.txt";
     private Scanner sc = new Scanner(System.in);
 
+    /**
+     * getInstance checks if ShowtimeManager has been instantiated before. 
+     * If no previous instance was created, it creates a new one, 
+     * else it will use the original instance.
+     */
     public static ShowtimeManager getInstance()
     {
         if (instance == null)
@@ -26,6 +42,11 @@ public class ShowtimeManager {
         return instance;
     }
 
+    /**
+     * Method to display showtime editing menu
+     * @param movie  movie to be edited
+     * @return new ArrayList of showtimes for movie. Returns original if no changes were made
+     */
     public ArrayList<Showtime> editShowtimeMenu(Movie movie){
         int choice = 0;
         ArrayList<Showtime> newShowtimes = movie.getShowtimes();
@@ -69,6 +90,11 @@ public class ShowtimeManager {
         return newShowtimes;
     }
 
+    /**
+     * Method to create a new showtime for a movie
+     * @param movie  Movie to be edited
+     * @return ArrayList of showtimes with existing showtimes and new showtime
+     */
     public ArrayList<Showtime> addShowtime(Movie movie){
         ArrayList<Showtime> showtimes = new ArrayList<Showtime>();
         if (movie.getShowtimes() != null)
@@ -131,6 +157,11 @@ public class ShowtimeManager {
         return showtimes;
     }
 
+    /**
+     * Method to delete showtime for a movie
+     * @param movie  Movie to be edited
+     * @return ArrayList of showtimes with edited showtimes
+     */
     public ArrayList<Showtime> removeShowtime(Movie movie){
         ArrayList<Showtime> showtimes = new ArrayList<Showtime>();
         if (movie.getShowtimes() != null)
@@ -153,6 +184,12 @@ public class ShowtimeManager {
         return showtimes;
     }
 
+    /**
+     * Checks if showtime exists for a specific movie when booking movie
+     * @param movie        Movie to be checked
+     * @param showtimeID  Showtime ID to be checked for
+     * @return true if newShowtimeID exists for selected movie, else false
+     */
     public boolean showtimeIdExists(Movie movie, String showtimeID) {
         ArrayList<Showtime> showtimes = movie.getShowtimes();
         if(showtimes == null)
@@ -165,6 +202,12 @@ public class ShowtimeManager {
         return true;
     }
 
+    /**
+     * Checks if showtime exists for a specific movie when creating showtime
+     * @param movie          Movie to be checked
+     * @param newShowtimeID  Showtime ID to be checked for
+     * @return true if newShowtimeID exists for selected movie, else false
+     */
     public boolean isValidShowtimeID(Movie movie, String newShowtimeID){
         ArrayList<Showtime> showtimes = movie.getShowtimes();
         if(showtimes == null)
