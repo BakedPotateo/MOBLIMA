@@ -979,7 +979,7 @@ public class MovieManager {
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.printf("Title: %s\nRating: %5.2f\n\n", movie.getTitle(), this.getAverageStarRating(movie.getId()));
+                System.out.printf("Title: %s\nRating: %5.1f\n\n", movie.getTitle(), this.getAverageStarRating(movie.getId()));
             i++;
         }
     }
