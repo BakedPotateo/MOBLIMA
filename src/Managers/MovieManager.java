@@ -124,7 +124,7 @@ public class MovieManager {
         ArrayList<Movie> availableMovies = new ArrayList<Movie>();
 
         for (int i=0; i<data.size(); i++) {
-            if (data.get(i).getShowingStatus() == "PREVIEW" || data.get(i).getShowingStatus() == "NOW SHOWING")
+            if (data.get(i).getShowingStatus() != "END OF SHOWING")
                 availableMovies.add(data.get(i));
         }
 

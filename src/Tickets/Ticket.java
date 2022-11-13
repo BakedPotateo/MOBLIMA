@@ -22,23 +22,6 @@ public class Ticket implements Serializable{
         this.ticketPrice = ticketPrice;
     }    
 
-    // Methods
-    // public double getPrice() {
-    //     if (this.movieType.equals("3D")) {
-    //         for (int i=0; i<ticketTypes.length; i++) 
-    //             if (this.ticketType.equals(ticketTypes[i]))
-    //                 return ticketPrices3D[i];
-    //     }
-
-    //     else
-    //         for (int i=0; i<ticketTypes.length; i++) {
-    //             if (this.ticketType.equals(ticketTypes[i]))
-    //                 return ticketPrices[i];
-    //         }
-        
-    //     return -1;
-    // }
-
     public Seat getSeat() {
         return seat;
     }

@@ -47,7 +47,7 @@ public class Initialiser {
         SeatingLayout layout3 = new SeatingLayout(7, 8);
         Cinema cinema1 = new Cinema("E1", "Normal", layout1);
         Cinema cinema2 = new Cinema("E2", "Normal", layout2);
-        Cinema cinema3 = new Cinema("E3", "Normal", layout3);
+        Cinema cinema3 = new Cinema("E3", "Gold Class", layout3);
         cinemas.add(cinema1);
         cinemas.add(cinema2);
         cinemas.add(cinema3);
@@ -135,11 +135,8 @@ public class Initialiser {
         cast.clear();
         cast.add("Kevin Heart");
         cast.add("Jennifer Lorenzo");
-        MovieManager.getInstance().createNewMovie(5, "Dynamic Programming for Dummies", "Comedy", "THe adventures of 2 best friends learning OODP.", "R21", "Clement Liang Tian", cast, 1, today, someOtherDay);
+        MovieManager.getInstance().createNewMovie(5, "Dynamic Programming for Dummies", "Comedy", "The adventures of 2 best friends learning OODP.", "R21", "Clement Liang Tian", cast, 1, someOtherDay.minusDays(30), someOtherDay);
 
-        MovieManager.getInstance().addReviewMovieUsingId(5, "Jeffrey Smith", 5, "Great movie!");
-        MovieManager.getInstance().addReviewMovieUsingId(5, "Nicole Lee", 5, "ROFL");
-        MovieManager.getInstance().addReviewMovieUsingId(5, "Bobby Mohd", 5, "Reminds of of when I *laughing emoji* :')");
         showtimes.add(new Showtime("S1", LocalDateTime.parse("2022-12-31 16:00", formatter), 5, cinemas.get(2) , "EagleWings"));
         showtimes.add(new Showtime("S2", LocalDateTime.parse("2023-01-08 17:50", formatter), 5, cinemas.get(1) , "Golden Village"));
         showtimes.add(new Showtime("S3", LocalDateTime.parse("2023-01-16 14:45", formatter), 5, cinemas.get(2) , "EagleWings"));

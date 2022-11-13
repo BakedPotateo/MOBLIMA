@@ -95,12 +95,13 @@ public class BookingManager {
     }
 
     private Booking bookMovie(){
-        ArrayList<Movie> movies = MovieManager.getInstance().read();
+        ArrayList<Movie> movies = MovieManager.getInstance().getAvailableMovies();
         int movieChoice = -1;
         boolean loop = true;
         while(loop){
             for(int i = 0; i < movies.size(); i++){
-                System.out.println((i+1) + ". " + movies.get(i).getTitle());
+                // System.out.println((i+1) + ". " + movies.get(i).getTitle());
+                System.out.printf("%d. %s (%s)\n", (i+1), movies.get(i).getTitle(), movies.get(i).getShowingStatus());
             }
             System.out.println("Please enter your movie choice:");
             while (!sc.hasNextInt()) {
@@ -122,8 +123,8 @@ public class BookingManager {
 
         ArrayList<Showtime> showtimes = movie.getShowtimes();
         for(int i = 0; i < showtimes.size(); i++){
-            System.out.println((i+1) + ":");
             showtimes.get(i).makeString();
+            System.out.println();
         }
 
         String showtimeChoice;
@@ -192,11 +193,14 @@ public class BookingManager {
         // get ticket price
         ArrayList<Ticket> baseTickets = TicketManager.getInstance().read();
 
-        for(Ticket t : tickets)
+        for(Ticket t : tickets){
             for(Ticket bt : baseTickets){
                 if(t.getTicketType().equals(bt.getTicketType()))
                     t.setTicketPrice(bt.getTicketPrice());
             }
+            if(cinema.getClassOfCinema().equals("Gold Class"))
+                    t.setTicketPrice(t.getTicketPrice() + 5);
+        }
         
         System.out.println("Ticket preview:");
         for(Ticket t : tickets)
