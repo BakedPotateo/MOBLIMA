@@ -11,21 +11,23 @@ import Managers.CinemaManager;
 import Managers.MovieManager;
 import Movies.Movie;
 import Movies.Showtime;
-
+/**
+ * Initialiser utility to help initialise base data in case database files are empty.
+ */
 public class Initialiser {
-    /*
+    /**
      * instance checks whether Initialiser has been instantiated before. Static variable is the same between objects of the same class.
      */
     public static Initialiser instance = null;
 
-    /*
+    /**
      * Empty class constructor
      */
     private Initialiser(){this.Initialise();}
     
     // Public methods
 
-    /*
+    /**
      * getInstance checks if Initialiser has been instantiated before. 
      * If no previous instance was created, it creates a new one, 
      * else it will use the original instance.
@@ -37,6 +39,9 @@ public class Initialiser {
         return instance;
     }
 
+    /**
+     * Initialise data
+     */
     private void Initialise(){
         // Initialise cineplexes
 
