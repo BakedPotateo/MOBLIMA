@@ -11,19 +11,19 @@ public class CustomerApp {
 
     // Attributes
 
-    /*
+    /**
      * instance checks whether CustomerApp has been instantiated before, Static variable is the same between objects of the same class.
      */
     public static CustomerApp instance = null;
 
-    /*
+    /**
      * Empty class constructor
      */
     private CustomerApp() {}
 
     //public methods
 
-    /*
+    /**
      * getInstance checks if CustomerApp has been instantiated before.
      * If no previous instance was created, it creates a new one,
      * else it will use the original instance.
@@ -35,7 +35,9 @@ public class CustomerApp {
         return instance;
     }
     
-    // Customer main app to access the Moblima System
+    /**
+     * 
+     */
     public void displayCustomerMenu(){
         int choice;
         boolean exit = false;
