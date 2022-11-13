@@ -13,24 +13,25 @@ import Customer.Customer;
 import Movies.Movie;
 import Movies.Showtime;
 import Tickets.Ticket;
-
+/**
+ * MAnager class to manage creation of bookings
+ */
 public class BookingManager {
     // Attributes
-
-    /*
+    /**
      * instance checks whether BookingManager has been instantiated before. Static variable is the same between objects of the same class.
      */
     public static BookingManager instance = null;
     
     public Scanner sc = new Scanner(System.in);
-    /*
+    /**
      * Empty class constructor
      */
     private BookingManager(){}
 
     // Public methods
 
-    /*
+    /**
      * getInstance checks if BookingManager has been instantiated before. 
      * If no previous instance was created, it creates a new one, 
      * else it will use the original instance.
@@ -42,6 +43,9 @@ public class BookingManager {
         return instance;
     }
 
+    /**
+     * Function to display booking menu
+     */
     public void bookingMenu(){
         int choice = 0;
         Customer customer;
@@ -94,6 +98,10 @@ public class BookingManager {
         }
     }
 
+    /**
+     * Function to get inputs to create new booking object
+     * @return  new booking
+     */
     private Booking bookMovie(){
         ArrayList<Movie> movies = MovieManager.getInstance().getAvailableMovies();
         int movieChoice = -1;
@@ -212,6 +220,12 @@ public class BookingManager {
         return booking;
     }
 
+    /**
+     * Function to generate transaction ID
+     * Generation is based on the cinema being booked and the date and time of booking
+     * @param cinemaID
+     * @return
+     */
     private String generateTransactionID(String cinemaID){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmm");  
         LocalDateTime now = LocalDateTime.now();

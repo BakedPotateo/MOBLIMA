@@ -1,7 +1,9 @@
 package Cinema;
 
 import java.io.Serializable;
-
+/**
+ * Cinema class 
+ */
 public class Cinema implements Serializable{
     private String id;
     private String classOfCinema;
