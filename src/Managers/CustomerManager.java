@@ -12,7 +12,9 @@ import Customer.Booking;
 import Customer.Customer;
 import Movies.Movie;
 import utils.ProjectRootPathFinder;
-
+/**
+ * Manager class to handle customer related actions, such as creating a new customer
+ */
 public class CustomerManager {
     // Attributes
 
@@ -21,6 +23,9 @@ public class CustomerManager {
      */
     public static CustomerManager instance = null;
 
+    /**
+     * The file name of the database file that this manager will access
+     */
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Customer/customer.txt";
 
     public Scanner sc = new Scanner(System.in);
@@ -43,6 +48,10 @@ public class CustomerManager {
         return instance;
     }
 
+    /**
+     * Function to read database for customers
+     * @return  ArrayList of customers
+     */
     @SuppressWarnings("unchecked")
     public ArrayList<Customer> read() {
         try {
@@ -54,6 +63,9 @@ public class CustomerManager {
         return new ArrayList<Customer>();
     }
 
+    /**
+     * Function for customer to search for a movie by title
+     */
     public void SearchMovie(){
         System.out.println("Please enter the movie title:");
         String title;
@@ -66,6 +78,9 @@ public class CustomerManager {
         if(movies.size() != 0) System.out.println(movies.get(0).makeString());
     }
     
+    /**
+     * Function for customer to add a review to a movie
+     */
     public void addReview(){
         System.out.println("Please enter the movie ID:");
         while(!sc.hasNextInt()){
@@ -98,6 +113,11 @@ public class CustomerManager {
         System.out.println("Review added!\n");
     }
 
+    /**
+     * Get customer object by email
+     * @param email  email input string
+     * @return  Customer object with associated email
+     */
     public Customer getCustomer(String email){
         ArrayList<Customer> customers = this.read();
         for(Customer c : customers){
@@ -106,6 +126,12 @@ public class CustomerManager {
         return null;
     }
 
+    /**
+     * Create a new customer
+     * @param email    Email of customer to be created
+     * @param bookings Bookings of customer to be created
+     * @return  new Customer
+     */
     public Customer createCustomer(String email, ArrayList<Booking> bookings){
         System.out.println("Please enter your first name:");
         while(!sc.hasNext()){

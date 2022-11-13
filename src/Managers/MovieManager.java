@@ -17,27 +17,31 @@ import java.io.ObjectOutputStream;
 
 import utils.ProjectRootPathFinder;
 import utils.ValidDateChecker;
-
+/**
+ * Manager class to manage movie related actions, such as creation, deletion editing and searching of movies.
+ */
 public class MovieManager {
-
     // Attributes
 
     private Scanner sc = new Scanner(System.in);
-    /*
+    /**
      * instance checks whether MovieManager has been instantiated before. Static variable is the same between objects of the same class.
      */
     public static MovieManager instance = null;
 
-    /*
+    /**
      * Empty class constructor
      */
     private MovieManager(){}
 
+    /**
+     * The file name of the database file that this manager will access
+     */
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Movies/movies.txt";
     
     // Public methods
 
-    /*
+    /**
      * getInstance checks if MovieManager has been instantiated before. 
      * If no previous instance was created, it creates a new one, 
      * else it will use the original instance.
@@ -60,6 +64,20 @@ public class MovieManager {
         return new ArrayList<Movie>();
     }
 
+    /**
+     * Method to create a new movie from inputted values
+     * @param id          ID of movie
+     * @param title       Title of movie
+     * @param movieType   Movie type (e.g. Horror, Comedy)
+     * @param synopsis    Synopsis of movie
+     * @param rating      Movie rating (e.g. PG13, NC16)
+     * @param director    Movie director
+     * @param cast        ArrayList<String> of cast members
+     * @param duration    Movie duration
+     * @param releaseDate Movie release date
+     * @param endDate     Movie end date
+     * New movie is directly written to the movie database
+     */
     public void createNewMovie(int id, String title, String movieType, String synopsis, String rating, String director, ArrayList<String> cast, double duration, LocalDate releaseDate, LocalDate endDate){
         Movie movie = new Movie(id, title, movieType, synopsis, rating, director, cast, duration, releaseDate, endDate);
         ArrayList<Movie> data = new ArrayList<Movie>();
@@ -82,6 +100,11 @@ public class MovieManager {
         } catch (IOException e) {}
     }
 
+    /**
+     * Method to create a new movie directly from a movie object
+     * @param movie
+     * New movie is directly written to the movie database 
+     */
     public void createNewMovie(Movie movie){
         int id = movie.getId();
         ArrayList<Movie> data = new ArrayList<Movie>();
@@ -105,6 +128,13 @@ public class MovieManager {
         } catch (IOException e) {}
     }
 
+    /**
+     * Method reads movie database to search for movie by its ID
+     * @param id
+     * @return
+     * returns movie IF the ID exists
+     * else return null
+     */
     public Movie searchById(int id) {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
@@ -118,6 +148,10 @@ public class MovieManager {
         return null;
     }
 
+    /**
+     * Method to get available movies based on showing status
+     * @return returns an ArryList of available movies
+     */
     public ArrayList<Movie> getAvailableMovies() {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
@@ -131,6 +165,10 @@ public class MovieManager {
         return availableMovies;
     }
 
+    /**
+     * Removes movie from database by ID
+     * @param id
+     */
     public void removeMovieById(int id) {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
@@ -151,6 +189,11 @@ public class MovieManager {
         } catch (IOException e) {}
     } 
 
+    /**
+     * Searches for movies based on rating
+     * @param rating
+     * @return ArrayList of movies with the associated rating
+     */
     public ArrayList<Movie> searchByRating(String rating) {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
@@ -166,6 +209,11 @@ public class MovieManager {
         return ratingList;
     }
 
+    /**
+     * Searches for movies based on inputted title
+     * @param title
+     * @return ArrayList of movies with the same title
+     */
     public ArrayList<Movie> searchByTitle(String title) {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
@@ -181,6 +229,13 @@ public class MovieManager {
         return titleList;
     }
 
+    /**
+     * Add a review to a movie using its ID
+     * @param id         Movie ID
+     * @param username   Username of reviewer
+     * @param noOfStars  Number of stars for review
+     * @param comments   Movie comments
+     */
     public void addReviewMovieUsingId(int id, String username, double noOfStars, String comments) {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
@@ -198,7 +253,11 @@ public class MovieManager {
         } catch (IOException e) {}
         removeMovieById(id);
     }
-
+    /**
+     * Method to get average star rating from reviews of a movie
+     * @param id  Movie ID
+     * @return  Average stars for movie
+     */
     public double getAverageStarRating(int id) {
         double averageStarRating = 0;
         double size = 0;
@@ -215,6 +274,11 @@ public class MovieManager {
         return averageStarRating;
     }
 
+    /**
+     * Searches for movies by type
+     * @param movieType  type of movie (e.g. horror)
+     * @return  ArrayList of movies with associated type
+     */
     public ArrayList<Movie> searchByMovieType(String movieType) {
         ArrayList<Movie> data = new ArrayList<Movie>();
         data = read();
@@ -231,6 +295,10 @@ public class MovieManager {
 
     }
 
+    /**
+     * Displays movie menu for staff
+     * Staff can choose to view, add, delete or edit movies
+     */
     public void MovieMenuStaff(){
         int choice = 0;
         while(choice != 5){
@@ -243,10 +311,6 @@ public class MovieManager {
                               +"-----------------------------");
 
             System.out.println("Please enter your choice:");
-
-            /*
-             * Check if input is an integer
-             */
             while (!sc.hasNextInt()) {
             	System.out.println("Invalid input type. Please enter an integer value.");
         		sc.next(); // remove newline
@@ -286,6 +350,9 @@ public class MovieManager {
 
     }
 
+    /**
+     * Menu to view movies using different parameters
+     */
     public void viewMovies(){
         int choice = 0;
         ArrayList<Movie> movieList = new ArrayList<Movie>();
@@ -375,6 +442,9 @@ public class MovieManager {
         }
     }
 
+    /**
+     * Method to add a movie
+     */
     private void addMovie(){
         Movie newMovie = new Movie();
         System.out.println("Please enther the movie ID:");
@@ -398,6 +468,10 @@ public class MovieManager {
         
         this.createNewMovie(newMovie);
     }
+
+    /**
+     * Menu to edit movies. Staff can edit by title or ID
+     */
     private void editMovie(){
         int choice = 0;
         while(choice != 3){
@@ -436,6 +510,9 @@ public class MovieManager {
         }
     }
 
+    /**
+     * Edit movie details by ID
+     */
     private void editByID() {
         Movie m = null;
         int ID;
@@ -536,6 +613,9 @@ public class MovieManager {
         this.createNewMovie(m);
     }
 
+    /**
+     * Edit movie details by title
+     */
     private void editByTitle() {
         ArrayList<Movie> movieList;
         sc.nextLine();
@@ -673,10 +753,11 @@ public class MovieManager {
         this.createNewMovie(m);
     }
 
-    /*
-     * Functions to edit movies
+    
+    /**
+     * Edit movie titrle
+     * @return  New title string
      */
-
     private String editTitle(){
         System.out.println("Please enter the new title:");
         while (!sc.hasNext()) {
@@ -687,6 +768,10 @@ public class MovieManager {
         return newTitle;
     }
 
+    /**
+     * Edit movie type
+     * @return  New type string
+     */
     private String editType(){
         System.out.println("Please enter the new type:");
         while (!sc.hasNext()) {
@@ -697,6 +782,10 @@ public class MovieManager {
         return newType;
     }
 
+    /**
+     * Edit movie sysnopsis
+     * @return  New synopsis string
+     */
     private String editSynopsis(){
         System.out.println("Please enter the new synopsis:");
         while (!sc.hasNext()) {
@@ -707,6 +796,10 @@ public class MovieManager {
         return newSynopsis;
     }
 
+    /**
+     * Edit movie rating
+     * @return  New rating string
+     */
     private String editRating(){
         System.out.println("Please enter the new rating:");
         while (!sc.hasNext()) {
@@ -717,6 +810,10 @@ public class MovieManager {
         return newRating;
     }
 
+    /**
+     * Edit movie director
+     * @return  New director string
+     */
     private String editDirector(){
         System.out.println("Please enter the new director:");
         while (!sc.hasNext()) {
@@ -727,6 +824,11 @@ public class MovieManager {
         return newDirector;
     }
 
+    /**
+     * Edit cast members of movie
+     * @param movie  Movie to edit
+     * @return  ArrayList of new cast members
+     */
     private ArrayList<String> editCast(Movie movie){
         ArrayList<String> Cast = movie.getCast();
         System.out.println("Current cast members:");
@@ -797,6 +899,10 @@ public class MovieManager {
         return Cast;
     }
 
+    /**
+     * Edit movie duration
+     * @return  new duration double
+     */
     private Double editDuration(){
         System.out.println("Please enter the new duration:");
         while (!sc.hasNextDouble()) {
@@ -808,6 +914,10 @@ public class MovieManager {
         return newDuration;
     }
 
+    /**
+     * Edit movie release date
+     * @return  new LocalDate release date
+     */
     private LocalDate editReleaseDate(){
         String newReleaseDateString;
         while(true){
@@ -826,6 +936,10 @@ public class MovieManager {
         return newReleaseDate;
     }
 
+    /**
+     * Edit movie end date
+     * @return  new LocalDate end date
+     */
     private LocalDate editEndDate(){
         String newEndDateString;
         while(true){
@@ -844,6 +958,12 @@ public class MovieManager {
         return newEndDate;
     }
 
+    /**
+     * Menu to edit movie reviews
+     * Staff can edit the username, comments and number of stars of a review
+     * @param m  Movie to be edited
+     * @return  new ArrayList of reviews
+     */
     private ArrayList<Review> editReviews(Movie m){
         ArrayList<Review> reviews = m.getReviews();
         for(int i = 0; i < reviews.size(); i++)
@@ -922,6 +1042,10 @@ public class MovieManager {
         return reviews;
     }
 
+    /**
+     * Menu to show top 5 movies
+     * User can choose to shoe top 5 by sales or ratings
+     */
     public void showTop5(){
         int choice = 0;
         while(choice != 3){
@@ -958,6 +1082,9 @@ public class MovieManager {
         }
     }
 
+    /**
+     * Method to print top 5 movies by sales
+     */
     private void topSales(){
         System.out.println("Top 5 movies by sales:");
         ArrayList<Movie> m = this.read();
@@ -971,6 +1098,9 @@ public class MovieManager {
         }
     }
 
+    /**
+     * Method to print top 5 movies by ratings
+     */
     private void topRatings(){
         System.out.println("Top 5 movies by ratings:");
         ArrayList<Movie> m = this.read();
@@ -979,11 +1109,16 @@ public class MovieManager {
         int i = 0;
         for(Movie movie : m){
             if (i < 5)
-                System.out.printf("Title: %s\nRating: %5.1f\n\n", movie.getTitle(), this.getAverageStarRating(movie.getId()));
+                System.out.printf("Title: %s\nRating: %5.2f\n\n", movie.getTitle(), this.getAverageStarRating(movie.getId()));
             i++;
         }
     }
 
+    /**
+     * Method to edit the sales of a movie
+     * @param m  Movie to be edited
+     * Data written directly to database
+     */
     public void editSales(Movie m){
         System.out.println("Enter new sales:");
         while (!sc.hasNextDouble()) {
@@ -996,12 +1131,21 @@ public class MovieManager {
         this.createNewMovie(m);
     }
 
+    /**
+     * Set initial sales of movie (only used for initialisation)
+     * @param m
+     * @param sales
+     */
     public void setInitialSales(Movie m, double sales){
         m.setSales(sales);
         this.removeMovieById(m.getId());
         this.createNewMovie(m);
     }
 
+    /**
+     * Menu to show movie details
+     * Users can search for movies by title or ID
+     */
     public void viewMovieDetails(){
         int choice = 0;
         while(choice != 3){
@@ -1035,6 +1179,9 @@ public class MovieManager {
         }
     }
 
+    /**
+     * Get details of movie by ID
+     */
     private void detailsById() {
         System.out.println("Please enter the movie ID:");
         int id;
@@ -1124,6 +1271,9 @@ public class MovieManager {
         
     }
 
+    /**
+     * Get movie details by title
+     */
     private void detailsByTitle() {
         ArrayList<Movie> movieList;
         sc.nextLine();

@@ -4,24 +4,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Tickets.Ticket;
-
+/**
+ * Manager class for staff to handle system settings changes
+ */
 public class SettingsManager {
     // Attributes
 
     private Scanner sc = new Scanner(System.in);
-    /*
-     * instance checks whether MovieManager has been instantiated before. Static variable is the same between objects of the same class.
+    /**
+     * instance checks whether SettingsManager has been instantiated before. Static variable is the same between objects of the same class.
      */
     public static SettingsManager instance = null;
 
-    /*
+    /**
      * Empty class constructor
      */
     private SettingsManager(){}
 
     // Public methods
 
-    /*
+    /**
      * getInstance checks if SettingsManager has been instantiated before. 
      * If no previous instance was created, it creates a new one, 
      * else it will use the original instance.
@@ -33,6 +35,10 @@ public class SettingsManager {
         return instance;
     }
 
+    /**
+     * Method to display settings menu
+     * Staff can choose to configure ticket prices or holidays
+     */
     public void displaySettingsMenu(){
         int choice = 0;
         while(choice != 3){
@@ -70,6 +76,11 @@ public class SettingsManager {
         }
     }
 
+    /**
+     * Method to display ticket editing menu
+     * Staff can choose to edit 2D or 3D ticket prices
+     * Staff can also view all ticket prices here
+     */
     public void editTicketsMenu(){
         int choice = 0;
         while(choice != 4){
@@ -111,6 +122,10 @@ public class SettingsManager {
         }
     }
 
+    /**
+     * Method to edit 2D tickets
+     * Edits written directly to database
+     */
     private void edit2DTickets(){
         int choice = 0;
         while(choice != 6){
@@ -161,6 +176,10 @@ public class SettingsManager {
         }
     }
 
+    /**
+     * Method to edit 3D tickets
+     * Edits written directly to database
+     */
     private void edit3DTickets(){
         int choice = 0;
         while(choice != 6){
@@ -211,6 +230,11 @@ public class SettingsManager {
         }
     }
 
+    /**
+     * Method to display holiday editing menu
+     * Staff can choose to add or delete a holiday
+     * Staff can also view all holidays
+     */
     public void editHolidaysMenu(){
         int choice = 0;
         while(choice != 4){

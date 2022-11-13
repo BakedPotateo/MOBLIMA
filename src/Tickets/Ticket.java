@@ -2,7 +2,7 @@ package Tickets;
 
 import java.io.Serializable;
 import Cinema.Seat;
-/*
+/**
  * Ticket class holds all the information about different types of tickets
  */
 

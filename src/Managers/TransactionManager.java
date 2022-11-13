@@ -8,16 +8,19 @@ import Movies.Movie;
 import Tickets.Ticket;
 
 public class TransactionManager {
+    /**
+     * instance checks whether TransactionManager has been instantiated before. Static variable is the same between objects of the same class.
+     */
     public static TransactionManager instance = null;
 
-    /*
+    /**
      * Empty class constructor
      */
     private TransactionManager(){}
     
     // Public methods
 
-    /*
+    /**
      * getInstance checks if TransactionManager has been instantiated before. 
      * If no previous instance was created, it creates a new one, 
      * else it will use the original instance.
@@ -29,6 +32,12 @@ public class TransactionManager {
         return instance;
     }
 
+    /**
+     * Method to create transaction for a customer
+     * @param customer Customer to create transaction for
+     * For the purposes of this project, all transactions are assumed to be successful
+     * Transactions also add to total sales of movie
+     */
     public void transaction(Customer customer){
         ArrayList<Booking> bookings = customer.getBookings();
 

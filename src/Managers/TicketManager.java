@@ -18,9 +18,18 @@ import Tickets.Ticket;
 
 import utils.ProjectRootPathFinder;
 
-
+/**
+ * manager class to handle ticket actions
+ */
 public class TicketManager {
+    /**
+     * instance checks whether TicketManager has been instantiated before. Static variable is the same between objects of the same class.
+     */
     public static TicketManager instance = null;
+
+    /**
+     * Class constructor creates base ticket prices
+     */
     private TicketManager(){
         this.createTicket("Senior Citizens", "2D");
         this.createTicket("Senior Citizens", "3D");
@@ -32,6 +41,9 @@ public class TicketManager {
         this.createTicket("Weekends & Public holidays", "3D");
     }
 
+    /**
+     * The file name of the database file that this manager will access
+     */
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Tickets/tickets.txt";
     Scanner sc = new Scanner(System.in);
 
@@ -43,6 +55,11 @@ public class TicketManager {
     private double[] ticketPrices =   {4.00, 7.00,  8.50, 11.00};
     private double[] ticketPrices3D = {9.00, 9.00, 11.00, 15.00};
 
+    /**
+     * getInstance checks if TicketManager has been instantiated before. 
+     * If no previous instance was created, it creates a new one, 
+     * else it will use the original instance.
+     */
     public static TicketManager getInstance() {
         if (instance == null) 
             instance = new TicketManager(); 
@@ -60,6 +77,11 @@ public class TicketManager {
         return new ArrayList<Ticket>();
     }
 
+    /**
+     * Method to create a new ticket type
+     * @param ticketType  Name of ticket type
+     * @param movieType   Type of movie
+     */
     public void createTicket(String ticketType, String movieType) {
         double ticketPrice = 0;
         if(!movieType.equals("3D")){ // 2D movie
@@ -92,8 +114,13 @@ public class TicketManager {
         } catch (IOException e) {}
     }
 
-    // ticketExists checks if ticket already exists, used to make sure duplicate ticket types are not created
-    
+    /**
+     * Checks if ticket type already exists
+     * @param tickets       Existing ticket list
+     * @param newTicketType New ticket to be added
+     * @param newMovieType  Type of movie (3D / not 3D)
+     * @return true if ticket type already exists, else false
+     */
     private boolean ticketExists(ArrayList<Ticket> tickets, String newTicketType, String newMovieType){
         for(Ticket ticket : tickets){
             if(ticket.getTicketType().equals(newTicketType) && ticket.getMovieType().equals(newMovieType)) 
@@ -102,6 +129,10 @@ public class TicketManager {
         return false;
     }
     
+    /**
+     * Method to return all base 2D tickets
+     * @return ArrayList of 2D tickets
+     */
     public ArrayList<Ticket> get2DMovies() {
         ArrayList<Ticket> tickets = read();
         ArrayList<Ticket> tickets2D = new ArrayList<Ticket>();
@@ -113,6 +144,10 @@ public class TicketManager {
         return tickets2D;
     }
 
+    /**
+     * Method to return all base 3D tickets
+     * @return ArrayList of 3D tickets
+     */
     public ArrayList<Ticket> get3DMovies() {
         ArrayList<Ticket> tickets = read();
         ArrayList<Ticket> tickets3D = new ArrayList<Ticket>();
@@ -124,6 +159,9 @@ public class TicketManager {
         return tickets3D;
     }
 
+    /**
+     * Method to print all tickets and their prices
+     */
     public void printAllTickets(){
         ArrayList<Ticket> tickets2D = this.get2DMovies();
         System.out.println();
@@ -137,6 +175,13 @@ public class TicketManager {
             ticket.makeString();
         }
     }
+
+    /**
+     * Method to edit ticket price
+     * @param ticketTypeChoice  Ticket type chosen
+     * @param three_D           Boolean to check if ticket type is 3D or not
+     * Data written directly to databse
+     */
     public void editTicket(String ticketTypeChoice, boolean three_D){
         String movieType = (three_D) ? "3D" : "2D";
         System.out.println("Enter the new price:");
@@ -162,6 +207,13 @@ public class TicketManager {
         } catch (IOException e) {}
     }
 
+    /**
+     * Method to choose ticket types for each ticket in an ArrayList of tickets
+     * ArrayList is created when customer is booking seats
+     * @param showtime  Showtime to get date
+     * @param tickets   ArrayList of tickets without ticket types set
+     * @return ArrayList of tickets with types set
+     */
     public ArrayList<Ticket> chooseTicketType(Showtime showtime, ArrayList<Ticket> tickets){
         int choice;
         if(!isWeekend(showtime.getDateTime()) && !HolidayManager.getInstance().isPublicHoliday(showtime)){
@@ -210,8 +262,12 @@ public class TicketManager {
         return tickets;
     }
 
-    public static boolean isWeekend(LocalDateTime ld)
-    {
+    /**
+     * Method to check if date inputted is a weekend
+     * @param ld inputted date
+     * @return true if date inputted is a weekend, else false
+     */
+    public static boolean isWeekend(LocalDateTime ld){
         DayOfWeek day = DayOfWeek.of(ld.get(ChronoField.DAY_OF_WEEK));
         return day == DayOfWeek.SUNDAY || day == DayOfWeek.SATURDAY;
     }

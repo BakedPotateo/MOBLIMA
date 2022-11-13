@@ -15,12 +15,24 @@ import Holidays.Holiday;
 import Movies.Showtime;
 import utils.ProjectRootPathFinder;
 import utils.ValidDateChecker;
-
+/**
+ * Manager class to manage holidays
+ */
 public class HolidayManager {
+    /**
+     * instance checks whether HolidayManager has been instantiated before. Static variable is the same between objects of the same class.
+     */
     public static HolidayManager instance = null;
+
+    /**
+     * The file name of the database file that this manager will access
+     */
     public final static String FILE = ProjectRootPathFinder.findProjectRootPath() + "/Database/Settings/holidays.txt";
     public Scanner sc = new Scanner(System.in);
 
+    /**
+     * Class constructor creates base data for holidays
+     */
     private HolidayManager(){
         this.createHoliday(LocalDate.parse("2022-12-25"), LocalDate.parse("2022-12-25"), "Christmas Day (2022)");
         this.createHoliday(LocalDate.parse("2023-01-01"), LocalDate.parse("2023-01-01"), "New Year's Day");
@@ -37,12 +49,21 @@ public class HolidayManager {
         this.createHoliday(LocalDate.parse("2023-12-25"), LocalDate.parse("2023-12-25"), "Christmas Day (2023)");
     }
 
+    /*
+     * getInstance checks if HolidayManager has been instantiated before. 
+     * If no previous instance was created, it creates a new one, 
+     * else it will use the original instance.
+     */
     public static HolidayManager getInstance() {
         if (instance == null) 
             instance = new HolidayManager(); 
         return instance;
     }
 
+    /**
+     * Function to read database for holidays
+     * @return  ArrayList of holidays
+     */
     @SuppressWarnings("unchecked")
     public ArrayList<Holiday> read() {
         try {
@@ -54,6 +75,13 @@ public class HolidayManager {
         return new ArrayList<Holiday>();
     }
 
+    /**
+     * Method to create a new holiday
+     * @param startDate    Start date of holiday
+     * @param endDate      End date of holiday
+     * @param holidayName  Name of holiday
+     * New holiday is written directly to database
+     */
     public void createHoliday(LocalDate startDate, LocalDate endDate, String holidayName) {
         Holiday newHoliday = new Holiday(startDate, endDate, holidayName);
         ArrayList<Holiday> holidays = new ArrayList<Holiday>();
@@ -69,8 +97,12 @@ public class HolidayManager {
         } catch (IOException e) {}
     }
 
-    // holidayExists checks if holiday already exists, used to make sure duplicate holidays are not created
-    
+    /**
+     * Method to check if holiday already exists to avoid duplicates
+     * @param holidays        Existing holiday
+     * @param newHolidayName  New holiday
+     * @return true if holiday already exists, else false
+     */
     private boolean holidayExists(ArrayList<Holiday> holidays, String newHolidayName){
         for(Holiday holiday : holidays){
             if(holiday.getHolidayName().equals(newHolidayName) && holiday.getHolidayName().equals(newHolidayName)) 
@@ -79,6 +111,9 @@ public class HolidayManager {
         return false;
     }
 
+    /**
+     * Method to print all holidays, including their name, start and end date
+     */
     public void printHolidays(){
         ArrayList<Holiday> holidays = read();
         for(Holiday holiday : holidays){
@@ -87,6 +122,10 @@ public class HolidayManager {
         }
     }
 
+    /**
+     * Method to add a holiday
+     * Data written directly to database
+     */
     public void addHoliday(){
         System.out.println("Enter name of holiday to add: ");
         while (!sc.hasNext()) {
@@ -129,6 +168,9 @@ public class HolidayManager {
         } catch (IOException e) {}
     }
 
+    /**
+     * Method to delete a holiday
+     */
     public void deleteHoliday(){
         System.out.println("Enter name of holiday to delete: ");
         while (!sc.hasNext()) {
@@ -157,6 +199,11 @@ public class HolidayManager {
         } catch (IOException e) {}
     }
 
+    /**
+     * Checks if a Showtime is on a public holiday
+     * @param showtime  Showtime to be checked
+     * @return true if showtime is on public holiday, else false
+     */
     public boolean isPublicHoliday(Showtime showtime){
         LocalDateTime dateTime = showtime.getDateTime();
         LocalDate date = dateTime.toLocalDate();
