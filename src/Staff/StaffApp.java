@@ -34,6 +34,9 @@ public class StaffApp {
         return instance;
     }
 
+    /**
+     * Displays login menu for staff
+     */
     public void displayStaffLogin(){
         int choice;
         boolean LoggedIn = false;
@@ -47,9 +50,6 @@ public class StaffApp {
 
             System.out.println("Please enter your choice:");
 
-            /*
-             * Check if input is an integer
-             */
             while (!sc.hasNextInt()) {
             	System.out.println("Invalid input type. Please enter an integer value.");
         		sc.next(); // remove newline
@@ -96,8 +96,10 @@ public class StaffApp {
         }
     }
 
-    // Private methods
-
+    /**
+     * Display logged in menu for staff
+     * Form here staff can see the top 5 movies, configure movies or configure system settings
+     */
     private void displayStaffLoggedIn(){
         int choice = 0;
         while(choice != 4){

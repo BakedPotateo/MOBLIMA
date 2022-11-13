@@ -36,7 +36,7 @@ public class CustomerApp {
     }
     
     /**
-     * 
+     * Displays customer menu
      */
     public void displayCustomerMenu(){
         int choice;
