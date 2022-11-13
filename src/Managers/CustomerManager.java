@@ -121,7 +121,15 @@ public class CustomerManager {
         }
         String lastName = sc.nextLine();
 
-        Customer c = new Customer(email, firstName, lastName, bookings);
+        System.out.println("Please enter your mobile number:");
+        while(!sc.hasNextInt()){
+            System.out.println("Invalid input type. Please try again. ");
+            sc.next(); //remove new line
+        }
+        int mobileNumber = sc.nextInt();
+        sc.nextLine();
+        
+        Customer c = new Customer(email, mobileNumber, firstName, lastName, bookings);
         ArrayList<Customer> data = this.read();
         try {
             ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(FILE));

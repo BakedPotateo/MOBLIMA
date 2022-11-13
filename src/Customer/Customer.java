@@ -6,12 +6,14 @@ import java.util.ArrayList;
 public class Customer implements Serializable{
     // Attributes
     private String email;
+    private int mobileNumber;
     private String firstName;
     private String lastName;
     private ArrayList<Booking> bookings;
 
-    public Customer(String email, String firstName, String lastName, ArrayList<Booking> bookings){
+    public Customer(String email, int mobileNumber, String firstName, String lastName, ArrayList<Booking> bookings){
         this.email = email;
+        this.mobileNumber = mobileNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.bookings = bookings;
@@ -52,6 +54,7 @@ public class Customer implements Serializable{
     public void makeString(){
         System.out.println("Name:  " + this.firstName + " " + this.lastName);
         System.out.println("Email: " + this.email);
+        System.out.println("Mobile number: " + this.mobileNumber);
         System.out.println("Bookings: ");
         for(Booking booking : bookings)
             booking.makeString();

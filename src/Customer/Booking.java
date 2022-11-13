@@ -12,13 +12,15 @@ public class Booking implements Serializable {
     private Movie movie;
     private Showtime showtime;
     private ArrayList<Ticket> tickets;
+    private String transactionID;
 
     public Booking(){}
 
-    public Booking(Movie movie, Showtime showtime, ArrayList<Ticket> tickets){
+    public Booking(Movie movie, Showtime showtime, ArrayList<Ticket> tickets, String transactionID){
         this.movie = movie;
         this.showtime = showtime;
         this.tickets = tickets;
+        this.transactionID = transactionID;
     }
 
     public Movie getMovie(){
@@ -33,7 +35,12 @@ public class Booking implements Serializable {
         return this.tickets;
     }
 
+    public String getTransactionID(){
+        return this.transactionID;
+    }
+
     public void makeString(){
+        System.out.println("Booking reference: " + this.getTransactionID());
         System.out.println("Movie title: " + movie.getTitle());
         showtime.makeString();
         for(Ticket ticket : tickets){

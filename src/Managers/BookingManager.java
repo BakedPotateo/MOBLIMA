@@ -1,5 +1,7 @@
 package Managers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -199,7 +201,16 @@ public class BookingManager {
         for(Ticket t : tickets)
             t.makeString();
 
-        Booking booking = new Booking(movie, showtime, tickets);
+        String transactionID = this.generateTransactionID(cinema.getId());
+
+        Booking booking = new Booking(movie, showtime, tickets, transactionID);
         return booking;
+    }
+
+    private String generateTransactionID(String cinemaID){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmm");  
+        LocalDateTime now = LocalDateTime.now();
+        return cinemaID + now.format(dtf);
+
     }
 }
