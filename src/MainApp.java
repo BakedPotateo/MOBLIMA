@@ -4,6 +4,9 @@ import Staff.StaffApp;
 import utils.Initialiser;
 import utils.ProjectRootPathFinder;
 import Customer.CustomerApp;
+/**
+ * Driver App
+ */
 public class MainApp {
     public static void main(String[] args) throws Exception {
         File file = new File(ProjectRootPathFinder.findProjectRootPath() + "/Database/Cineplex/cineplexes.txt");
