@@ -3,7 +3,8 @@ package Cinema;
 import java.io.Serializable;
 
 public class Seat implements Serializable {
-    private int seatId;    
+    private int seatId; 
+    private String seatName;   
     private boolean occupied = false;
 
     public Seat(int seatId) {
@@ -21,6 +22,14 @@ public class Seat implements Serializable {
 
     public void setSeatId(int seatId) {
         this.seatId = seatId;
+    }
+
+    public String getSeatName() {
+        return seatName;
+    } 
+
+    public void setSeatName(String seatName) {
+        this.seatName = seatName;
     }
 
     public boolean getSeatStatus() {

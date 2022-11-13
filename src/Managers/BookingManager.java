@@ -164,6 +164,7 @@ public class BookingManager {
             int seatChoiceInt = colInt + rowChoice*rowSize;
             layout.assignSeat(seatChoiceInt);
             seats.add(layout.getSeat(seatChoiceInt));
+            seats.get(seats.size()-1).setSeatName(seatChoice.toUpperCase());
             System.out.println("Exit? (1 = exit, 2 = book another seat)");
             int exit;
             while (!sc.hasNextInt()) {
